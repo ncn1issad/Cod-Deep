@@ -10,7 +10,7 @@ public class Lift {
 
     public PIDController controller;
 
-    enum LiftPosition{
+    public enum LiftPosition{
         DOWN(0),
         HALF(70),
         UP(110);

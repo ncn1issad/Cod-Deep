@@ -40,7 +40,7 @@ public class RobotHardware {
 
     public RobotHardware(OpMode opmode) {myOpMode = opmode;}
 
-    void init(){
+    public void init(){
         FrontLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "FrontLeftMotor");
         FrontRight = myOpMode.hardwareMap.get(DcMotorEx.class, "FrontRightMotor");
         BackLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "BackLeftMotor");

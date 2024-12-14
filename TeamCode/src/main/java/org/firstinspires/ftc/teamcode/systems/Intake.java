@@ -8,7 +8,7 @@ public class Intake {
     Servo IntakeRotation;
     CRServo IntakeMotor;
 
-    enum RotationPosition{
+    public enum RotationPosition{
         PARALLEL(0.57),
         PERPENDICULAR(0.87),
         REVERSE(0.27);
