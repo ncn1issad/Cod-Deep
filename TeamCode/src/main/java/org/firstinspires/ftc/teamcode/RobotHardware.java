@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -72,7 +74,7 @@ public class RobotHardware {
         intake = new Intake(IntakeRotation, IntakeMotor);
     }
 
-    public void movement(Gamepad gamepad) {
+    public void movement(@NonNull Gamepad gamepad) {
         double y = -gamepad.left_stick_y;
         double x = gamepad.left_stick_x * 1.1;
         double rx = gamepad.right_stick_x;

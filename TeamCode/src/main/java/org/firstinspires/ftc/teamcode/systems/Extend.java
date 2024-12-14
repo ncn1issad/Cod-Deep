@@ -10,4 +10,9 @@ public class Extend {
         this.ExtendLeft = ExtendLeft;
         this.ExtendRight = ExtendRight;
     }
+
+    public void setPower (double power) {
+        ExtendLeft.setPower(power);
+        ExtendRight.setPower(power);
+    }
 }
