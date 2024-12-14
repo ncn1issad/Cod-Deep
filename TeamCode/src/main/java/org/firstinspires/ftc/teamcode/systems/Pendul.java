@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.systems;
 
-import androidx.annotation.NonNull;
-
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Pendul {
     Servo PendulLeft;
     Servo PendulRight;
 
-    enum PendulPosition{
+    public static final double PENDUL_MULTIPLIER = 0.001;
+
+    public enum PendulPosition{
         DOWN(0.275),
         BASKET(0.7),
         BAR(0.85),
@@ -25,20 +25,20 @@ public class Pendul {
         }
     }
 
-    public PendulPosition target;
+    public double target;
 
     public Pendul(Servo PendulLeft, Servo PendulRight){
         this.PendulLeft = PendulLeft;
         this.PendulRight = PendulRight;
-        target = PendulPosition.DOWN;
+        target = PendulPosition.DOWN.getValue();
     }
 
-    public double getPosition(double position){
+    public double getPosition(){
         return (PendulLeft.getPosition() + PendulRight.getPosition()) / 2;
     }
 
-    public void setPosition(@NonNull PendulPosition position){
-        PendulLeft.setPosition(position.getValue());
-        PendulRight.setPosition(position.getValue());
+    public void update(){
+        PendulLeft.setPosition(target);
+        PendulRight.setPosition(target);
     }
 }
