@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.RobotHardware;
@@ -15,7 +16,8 @@ import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
 
 import java.util.function.Supplier;
 
-public class TeleOp extends OpMode {
+@TeleOp(name = "TeleOp", group = "A")
+public class Teleop extends OpMode {
     RobotHardware robot = new RobotHardware(this);
 
     FtcDashboard dashboard;
