@@ -2,26 +2,34 @@ package org.firstinspires.ftc.teamcode.systems;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
+
 public class Pendul {
     Servo PendulLeft;
     Servo PendulRight;
 
     public static final double PENDUL_MULTIPLIER = 0.001;
 
-    public enum PendulPosition{
-        DOWN(0.275),
-        BASKET(0.7),
-        BAR(0.85),
-        SLAM(0.6);
+    public enum PendulPosition {
+        DOWN(() -> PendulPositions.DOWN),
+        BASKET(() -> PendulPositions.BASKET),
+        BAR(() -> PendulPositions.BAR),
+        SLAM(() -> PendulPositions.SLAM);
 
-        private final double value;
+        private final ValueSupplier supplier;
 
-        PendulPosition(double v) {
-            this.value = v;
+        PendulPosition(ValueSupplier supplier) {
+            this.supplier = supplier;
         }
 
         public double getValue() {
-            return value;
+            return supplier.get();
+        }
+
+        // Functional interface to supply values dynamically
+        @FunctionalInterface
+        private interface ValueSupplier {
+            double get();
         }
     }
 
@@ -30,7 +38,7 @@ public class Pendul {
     public Pendul(Servo PendulLeft, Servo PendulRight){
         this.PendulLeft = PendulLeft;
         this.PendulRight = PendulRight;
-        target = PendulPosition.DOWN.getValue();
+        target = PendulPositions.DOWN;
     }
 
     public double getPosition(){
