@@ -15,4 +15,8 @@ public class Extend {
         ExtendLeft.setPower(power);
         ExtendRight.setPower(power);
     }
+
+    public double getPower () {
+        return (ExtendLeft.getPower() + ExtendRight.getPower()) / 2;
+    }
 }

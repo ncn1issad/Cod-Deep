@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -78,9 +79,9 @@ public class TeleOp extends OpMode {
     @Override
     public void loop() {
 // Update the position of systems
-        lift.update();
-        intake.update();
-        pendul.update();
+        lift.update(dashboard);
+        intake.update(dashboard);
+        pendul.update(dashboard);
 // Movement of the robot
         robot.movement(Move);
 
@@ -108,5 +109,10 @@ public class TeleOp extends OpMode {
         }
 
         pendul.target -= Action.left_stick_y * Pendul.PENDUL_MULTIPLIER;
+
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("Extend power", extend.getPower());
+
+        dashboard.sendTelemetryPacket(packet);
     }
 }

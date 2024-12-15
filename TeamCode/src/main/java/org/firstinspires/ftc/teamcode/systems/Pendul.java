@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
@@ -22,8 +26,13 @@ public class Pendul {
         return (PendulLeft.getPosition() + PendulRight.getPosition()) / 2;
     }
 
-    public void update(){
+    public void update(@NonNull FtcDashboard dashboard){
         PendulLeft.setPosition(target);
         PendulRight.setPosition(target);
+
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("Pendul current position", getPosition());
+        packet.put("Pendul target position", target);
+        dashboard.sendTelemetryPacket(packet);
     }
 }

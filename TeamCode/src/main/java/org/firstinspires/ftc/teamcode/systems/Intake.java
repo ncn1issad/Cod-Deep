@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -17,8 +21,14 @@ public class Intake {
         target = IntakePositions.PARALLEL;
     }
 
-    public void update() {
+    public void update(@NonNull FtcDashboard dashboard) {
         IntakeRotation.setPosition(target);
+
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("Intake rotation current position", IntakeRotation.getPosition());
+        packet.put("Intake rotation target position", target);
+        packet.put("Intake motor power", IntakeMotor.getPower());
+        dashboard.sendTelemetryPacket(packet);
     }
 
     public void runIntake (boolean gamepadButtonIn, boolean gamepadButtonOut){

@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.systems.PIDCoefficients.LiftPID;
@@ -31,8 +35,14 @@ public class Lift {
         return LiftRight.getCurrentPosition();
     }
 
-    public void update() {
+    public void update(@NonNull FtcDashboard dashboard) {
         double power = controller.update(target, getCurrentPosition());
         setPower(power);
+
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("Lift current position", getCurrentPosition());
+        packet.put("Lift target position", target);
+        packet.put("Lift power", LiftLeft.getPower());
+        dashboard.sendTelemetryPacket(packet);
     }
 }
