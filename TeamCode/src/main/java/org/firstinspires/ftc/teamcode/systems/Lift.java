@@ -2,37 +2,24 @@ package org.firstinspires.ftc.teamcode.systems;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.systems.PIDCoefficients.LiftPID;
+import org.firstinspires.ftc.teamcode.systems.Positions.LiftPositions;
 import org.firstinspires.ftc.teamcode.utilities.PIDController;
 
 public class Lift {
     DcMotorEx LiftLeft;
     DcMotorEx LiftRight;
 
-    public PIDController controller;
+    private final PIDController controller;
+    private LiftPID PIDCoefficients;
 
-    public enum LiftPosition{
-        DOWN(0),
-        HALF(70),
-        UP(110);
-
-        private final int value;
-
-        LiftPosition(int i) {
-            this.value = i;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    LiftPosition target;
+    int target;
 
     public Lift(DcMotorEx LiftLeft, DcMotorEx LiftRight){
         this.LiftLeft = LiftLeft;
         this.LiftRight = LiftRight;
-        target = LiftPosition.DOWN;
-        controller = new PIDController(0.01, 0.0, 0.0);
+        target = LiftPositions.DOWN;
+        this.controller = new PIDController(PIDCoefficients.Kp, PIDCoefficients.Ki, PIDCoefficients.Kd);
     }
 
     public void setPower (double power){
@@ -45,7 +32,7 @@ public class Lift {
     }
 
     public void update() {
-        double power = controller.update(target.getValue(), getCurrentPosition());
+        double power = controller.update(target, getCurrentPosition());
         setPower(power);
     }
 }

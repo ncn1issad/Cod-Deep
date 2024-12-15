@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -8,11 +9,15 @@ import org.firstinspires.ftc.teamcode.systems.Extend;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Lift;
 import org.firstinspires.ftc.teamcode.systems.Pendul;
+import org.firstinspires.ftc.teamcode.systems.Positions.IntakePositions;
+import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
 
 import java.util.function.Supplier;
 
 public class TeleOp extends OpMode {
     RobotHardware robot = new RobotHardware(this);
+
+    FtcDashboard dashboard;
 
     final Lift lift = robot.lift;
     final Intake intake = robot.intake;
@@ -66,6 +71,8 @@ public class TeleOp extends OpMode {
 
         Move = Gamepads.MOVE.getGamepad();
         Action = Gamepads.ACTION.getGamepad();
+
+        dashboard = FtcDashboard.getInstance();
     }
 
     @Override
@@ -81,23 +88,23 @@ public class TeleOp extends OpMode {
         extend.setPower(Action.left_trigger - Action.right_trigger);
 
         if (Buttons.PARALLEL_BASKET.getButton()) {
-            pendul.target = Pendul.PendulPosition.BASKET.getValue();
-            intake.target = Intake.RotationPosition.PARALLEL;
+            pendul.target = PendulPositions.BASKET;
+            intake.target = IntakePositions.PARALLEL;
         } else if (Buttons.PERPENDICULAR_BARS.getButton()) {
-            pendul.target = Pendul.PendulPosition.BAR.getValue();
-            intake.target = Intake.RotationPosition.PERPENDICULAR;
+            pendul.target = PendulPositions.BAR;
+            intake.target = IntakePositions.PERPENDICULAR;
         } else if (Buttons.PARALLEL_DOWN.getButton()) {
-            pendul.target = Pendul.PendulPosition.DOWN.getValue();
-            intake.target = Intake.RotationPosition.PARALLEL;
+            pendul.target = PendulPositions.DOWN;
+            intake.target = IntakePositions.PARALLEL;
         } else if (Buttons.PERPENDICULAR_SLAM.getButton()) {
-            pendul.target = Pendul.PendulPosition.SLAM.getValue();
-            intake.target = Intake.RotationPosition.PERPENDICULAR;
+            pendul.target = PendulPositions.SLAM;
+            intake.target = IntakePositions.PERPENDICULAR;
         } else if (Buttons.REVERSE_BARS.getButton()) {
-            pendul.target = Pendul.PendulPosition.BAR.getValue();
-            intake.target = Intake.RotationPosition.REVERSE;
+            pendul.target = PendulPositions.BAR;
+            intake.target = IntakePositions.REVERSE;
         } else if (Buttons.REVERSE_SLAM.getButton()) {
-            pendul.target = Pendul.PendulPosition.SLAM.getValue();
-            intake.target = Intake.RotationPosition.REVERSE;
+            pendul.target = PendulPositions.SLAM;
+            intake.target = IntakePositions.REVERSE;
         }
 
         pendul.target -= Action.left_stick_y * Pendul.PENDUL_MULTIPLIER;

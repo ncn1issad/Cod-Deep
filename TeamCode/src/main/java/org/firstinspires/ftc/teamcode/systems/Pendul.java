@@ -2,35 +2,20 @@ package org.firstinspires.ftc.teamcode.systems;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
+
 public class Pendul {
     Servo PendulLeft;
     Servo PendulRight;
 
     public static final double PENDUL_MULTIPLIER = 0.001;
 
-    public enum PendulPosition{
-        DOWN(0.275),
-        BASKET(0.7),
-        BAR(0.85),
-        SLAM(0.6);
-
-        private final double value;
-
-        PendulPosition(double v) {
-            this.value = v;
-        }
-
-        public double getValue() {
-            return value;
-        }
-    }
-
     public double target;
 
     public Pendul(Servo PendulLeft, Servo PendulRight){
         this.PendulLeft = PendulLeft;
         this.PendulRight = PendulRight;
-        target = PendulPosition.DOWN.getValue();
+        target = PendulPositions.DOWN;
     }
 
     public double getPosition(){
