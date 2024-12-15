@@ -41,22 +41,22 @@ public class RobotHardware {
     public RobotHardware(OpMode opmode) {myOpMode = opmode;}
 
     public void init(){
-        FrontLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "FrontLeftMotor");
-        FrontRight = myOpMode.hardwareMap.get(DcMotorEx.class, "FrontRightMotor");
-        BackLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "BackLeftMotor");
-        BackRight = myOpMode.hardwareMap.get(DcMotorEx.class, "BackRightMotor");
+        FrontLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.FLMotor);
+        FrontRight = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.FRMotor);
+        BackLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.BLMotor);
+        BackRight = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.BRMotor);
 
-        LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, "LiftLeftMotor");
-        LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, "LiftRightMotor");
+        LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.LLMotor);
+        LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
 
-        ExtendLeft = myOpMode.hardwareMap.get(CRServo.class, "ExtendLeftServo");
-        ExtendRight = myOpMode. hardwareMap.get(CRServo.class, "ExtendRightServo");
+        ExtendLeft = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.ELCRServo);
+        ExtendRight = myOpMode. hardwareMap.get(CRServo.class, DeviceNames.ERCRServo);
 
-        PendulLeft = myOpMode.hardwareMap.get(Servo.class, "PendulLeftServo");
-        PendulRight = myOpMode.hardwareMap.get(Servo.class, "PendulRightServo");
+        PendulLeft = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PLServo);
+        PendulRight = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PRServo);
 
-        IntakeRotation = myOpMode.hardwareMap.get(Servo.class, "IntakeServo");
-        IntakeMotor =myOpMode.hardwareMap.get(CRServo.class, "IntakeMotor");
+        IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IRServo);
+        IntakeMotor =myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IMCRServo);
 
         for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
             motor.setDirection(DcMotorEx.Direction.REVERSE);
