@@ -114,5 +114,6 @@ public class TeleOp extends OpMode {
         packet.put("Extend power", extend.getPower());
 
         dashboard.sendTelemetryPacket(packet);
+        dashboard.updateConfig();
     }
 }
