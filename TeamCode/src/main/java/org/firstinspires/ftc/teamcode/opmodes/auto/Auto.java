@@ -3,42 +3,34 @@ package org.firstinspires.ftc.teamcode.opmodes.auto;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.ProfileParams;
-import com.acmerobotics.roadrunner.TrajectoryBuilderParams;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.ActionRunnerAsync;
+import org.firstinspires.ftc.teamcode.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 
 public class Auto extends OpMode {
     RobotHardware robot = new RobotHardware(this);
     Pose2d startPose = new Pose2d(new Vector2d(0.0, 0.0), Math.toRadians(0.0));
     MecanumDrive drive = new MecanumDrive(robot.myOpMode.hardwareMap, startPose);
-
-    TrajectoryBuilderParams buildParams = new TrajectoryBuilderParams(1e-6, new ProfileParams(0.25,0.1,1e-2));
+    ActionRunnerAsync runner = new ActionRunnerAsync();
+    Trajectories trajectories = new Trajectories(drive);
 
     enum TrajectoryState {
         CLIP_SPECIMEN,
         _1_GET_SAMPLE,
-        _1_PLACE_SAMPLE,
+        PLACE_SAMPLE,
         _2_GET_SAMPLE,
-        _2_PLACE_SAMPLE,
         _3_GET_SAMPLE,
-        _3_PLACE_SAMPLE,
         PARK
     }
 
     // Define ClipSpecimen as a TimeTrajectory
-    Action ClipSpecimen = drive.actionBuilder(startPose)
-            .splineTo(new Vector2d(36, 72), Math.toRadians(0.0))
-            .build();
+    Action ClipSpecimen = trajectories.ClipSpecimen.apply(startPose);
 
     // Define subsequent actions
-    Action _1GetSample = drive.actionBuilder(new Pose2d(new Vector2d(36, 72), Math.toRadians(0.0)))
-            .splineTo(new Vector2d(5, 10), Math.toRadians(270))
-            .build();
+    Action _1GetSample = trajectories.GetSample1Bascket.apply(new Pose2d(new Vector2d(36, 72), Math.toRadians(0.0)));
 
     private TrajectoryState currentState = TrajectoryState.CLIP_SPECIMEN;
 
@@ -52,14 +44,18 @@ public class Auto extends OpMode {
     public void loop() {
         switch (currentState) {
             case CLIP_SPECIMEN:
-                    Actions.runBlocking(ClipSpecimen);
+                if (!runner.isBusy) {
+                    runner.runActionAsync(ClipSpecimen);
                     currentState = TrajectoryState._1_GET_SAMPLE;
                     break;
+                }
             case _1_GET_SAMPLE:
-                Actions.runBlocking(_1GetSample);
-                currentState = TrajectoryState._1_PLACE_SAMPLE;
-                break;
-            // Handle other cases
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_1GetSample);
+                    currentState = TrajectoryState.PLACE_SAMPLE;
+                    break;
+                }
+                // Handle other cases
             default:
                 break;
         }
