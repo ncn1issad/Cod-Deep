@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drive.ActionRunnerAsync;
+import org.firstinspires.ftc.teamcode.drive.CustomAction;
 import org.firstinspires.ftc.teamcode.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 
@@ -20,17 +21,22 @@ public class Auto extends OpMode {
     enum TrajectoryState {
         CLIP_SPECIMEN,
         _1_GET_SAMPLE,
-        PLACE_SAMPLE,
+        _1_PLACE_SAMPLE,
         _2_GET_SAMPLE,
+        _2_PLACE_SAMPLE,
         _3_GET_SAMPLE,
+        _3_PLACE_SAMPLE,
         PARK
     }
 
-    // Define ClipSpecimen as a TimeTrajectory
-    Action ClipSpecimen = trajectories.ClipSpecimen.apply(startPose);
-
-    // Define subsequent actions
-    Action _1GetSample = trajectories.GetSample1Bascket.apply(new Pose2d(new Vector2d(36, 72), Math.toRadians(0.0)));
+    CustomAction ClipSpecimen = trajectories.ClipSpecimen.apply(startPose);
+    CustomAction _1GetSample = trajectories.GetSample1Basket.apply(ClipSpecimen.getPose());
+    CustomAction _1PlaceSample = trajectories.PlaceSampleBasket.apply(_1GetSample.getPose());
+    CustomAction _2GetSample = trajectories.GetSample2Basket.apply(_1PlaceSample.getPose());
+    CustomAction _2PlaceSample = trajectories.PlaceSampleBasket.apply(_2GetSample.getPose());
+    CustomAction _3GetSample = trajectories.GetSample3Basket.apply(_2PlaceSample.getPose());
+    CustomAction _3PlaceSample = trajectories.PlaceSampleBasket.apply(_3GetSample.getPose());
+    CustomAction Park = trajectories.ParkBasket.apply(_3PlaceSample.getPose());
 
     private TrajectoryState currentState = TrajectoryState.CLIP_SPECIMEN;
 
@@ -45,19 +51,51 @@ public class Auto extends OpMode {
         switch (currentState) {
             case CLIP_SPECIMEN:
                 if (!runner.isBusy) {
-                    runner.runActionAsync(ClipSpecimen);
+                    runner.runActionAsync(ClipSpecimen.getAction());
                     currentState = TrajectoryState._1_GET_SAMPLE;
                     break;
                 }
             case _1_GET_SAMPLE:
                 if (!runner.isBusy) {
-                    runner.runActionAsync(_1GetSample);
-                    currentState = TrajectoryState.PLACE_SAMPLE;
+                    runner.runActionAsync(_1GetSample.getAction());
+                    currentState = TrajectoryState._1_PLACE_SAMPLE;
                     break;
                 }
-                // Handle other cases
-            default:
-                break;
+            case _1_PLACE_SAMPLE:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_1PlaceSample.getAction());
+                    currentState = TrajectoryState._2_GET_SAMPLE;
+                    break;
+                }
+            case _2_GET_SAMPLE:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_2GetSample.getAction());
+                    currentState = TrajectoryState._2_PLACE_SAMPLE;
+                    break;
+                }
+            case _2_PLACE_SAMPLE:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_2PlaceSample.getAction());
+                    currentState = TrajectoryState._3_GET_SAMPLE;
+                    break;
+                }
+            case _3_GET_SAMPLE:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_3GetSample.getAction());
+                    currentState = TrajectoryState._3_PLACE_SAMPLE;
+                    break;
+                }
+            case _3_PLACE_SAMPLE:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(_3PlaceSample.getAction());
+                    currentState = TrajectoryState.PARK;
+                    break;
+                }
+            case PARK:
+                if (!runner.isBusy) {
+                    runner.runActionAsync(Park.getAction());
+                    break;
+                }
         }
     }
 }
