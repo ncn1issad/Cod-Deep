@@ -13,6 +13,7 @@ public class Motor {
         Intake.setPower(power);
     }
 
+    /** @noinspection unused*/
     public double getPower () {
         return Intake.getPower();
     }

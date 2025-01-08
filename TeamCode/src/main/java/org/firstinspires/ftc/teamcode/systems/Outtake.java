@@ -14,11 +14,15 @@ public class Outtake {
     Servo Rotation;
     Servo Pendul;
 
-    public double target = 0;
-
     public Pendul pendul;
     public Claw claw;
     public Rotation rotation;
+
+    public enum OuttakePositions {
+        TRANSFER,
+        BASKET,
+        OUTTAKE
+    }
 
     public Outtake(Servo Claw, Servo Rotation, Servo Pendul) {
         this.Pendul = Pendul;
@@ -34,5 +38,22 @@ public class Outtake {
         pendul.update(dashboard);
         claw.update(dashboard);
         rotation.update(dashboard);
+    }
+
+    public void setPosition(@NonNull OuttakePositions value) {
+        switch (value) {
+            case TRANSFER:
+                pendul.target = Positions.Outtake.Pendul.transfer;
+                rotation.target = Positions.Outtake.Rotation.transfer;
+                break;
+            case BASKET:
+                pendul.target = Positions.Outtake.Pendul.basket;
+                rotation.target = Positions.Outtake.Rotation.basket;
+                break;
+            case OUTTAKE:
+                pendul.target = Positions.Outtake.Pendul.outtake;
+                rotation.target = Positions.Outtake.Rotation.outtake;
+                break;
+        }
     }
 }

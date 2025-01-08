@@ -10,8 +10,8 @@ public class DeviceNames {
     public static String BRMotor = "BackRightMotor";
     public static String LLMotor = "LiftLeftMotor";
     public static String LRMotor = "LiftRightMotor";
-    public static String ELCRServo = "ExtendLeftServo";
-    public static String PLServo = "PendulLeftServo";
+    public static String ExtendServo = "ExtendServo";
+    public static String PendulServo = "PendulServo";
     public static String IPServo = "IntakePendulServo";
     public static String IRServo = "IntakeRotationServo";
     public static String IMCRServo = "IntakeMotor";

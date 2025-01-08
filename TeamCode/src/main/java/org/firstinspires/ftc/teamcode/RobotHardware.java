@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.systems.Outtake;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Extend;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Lift;
 
@@ -25,12 +24,11 @@ public class RobotHardware {
     public DcMotorEx LiftLeft;
     public DcMotorEx LiftRight;
 
-    public CRServo Extend;
-
     public Servo Pendul;
 
     public Servo IntakePendul;
     public Servo IntakeRotation;
+    public Servo Extend;
     public CRServo IntakeMotor;
 
     public Servo Claw;
@@ -51,9 +49,9 @@ public class RobotHardware {
         LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.LLMotor);
         LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
 
-        Extend = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.ELCRServo);
+        Extend = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ExtendServo);
 
-        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PLServo);
+        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PendulServo);
 
         IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IPServo);
         IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IRServo);
@@ -62,18 +60,19 @@ public class RobotHardware {
         Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
         ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawRotationServo);
 
-        for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
+        for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft, LiftLeft, LiftRight}) {
             motor.setDirection(DcMotorEx.Direction.REVERSE);
         }
-        for (CRServo servo : new CRServo[]{Extend}) {
+        for (CRServo servo : new CRServo[] {IntakeMotor}) {
             servo.setDirection(CRServo.Direction.REVERSE);
         }
-        for (Servo servo : new Servo[] {Pendul}) {
+
+        for (Servo servo : new Servo[] {Extend}) {
             servo.setDirection(Servo.Direction.REVERSE);
         }
 
         lift = new Lift(LiftLeft, LiftRight);
-        intake = new Intake(IntakeRotation, IntakeMotor, Extend);
+        intake = new Intake(IntakeRotation, IntakeMotor, Extend, IntakePendul);
         outtake = new Outtake(Claw, ClawRotation, Pendul);
     }
 
@@ -81,6 +80,7 @@ public class RobotHardware {
         outtake.update(dashboard);
         intake.update(dashboard);
         lift.update(dashboard);
+        dashboard.updateConfig();
     }
 
     public void movement(@NonNull Gamepad gamepad) {
