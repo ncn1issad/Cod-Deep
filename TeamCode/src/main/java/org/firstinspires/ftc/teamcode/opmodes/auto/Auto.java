@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RobotHardware;
 
 public class Auto extends OpMode {
     RobotHardware robot = new RobotHardware(this);
-    Pose2d startPose = new Pose2d(new Vector2d(0.0, 0.0), Math.toRadians(0.0));
+    Pose2d startPose = new Pose2d(new Vector2d(61.5, 52), Math.toRadians(180));
     MecanumDrive drive = new MecanumDrive(robot.myOpMode.hardwareMap, startPose);
     ActionRunnerAsync runner = new ActionRunnerAsync();
     Trajectories trajectories = new Trajectories(drive);

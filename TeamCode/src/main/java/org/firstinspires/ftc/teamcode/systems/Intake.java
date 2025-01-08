@@ -3,40 +3,42 @@ package org.firstinspires.ftc.teamcode.systems;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.Positions.IntakePositions;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Extend;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Rotation;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Motor;
 
 public class Intake {
     Servo IntakeRotation;
     CRServo IntakeMotor;
+    CRServo ExtendMotor;
 
-    public double target;
+    public Rotation rotation;
+    public Motor motor;
+    public Extend extend;
 
-    public Intake(Servo IntakeRotation, CRServo IntakeMotor){
+    public Intake(Servo IntakeRotation, CRServo IntakeMotor, CRServo ExtendMotor){
         this.IntakeRotation = IntakeRotation;
         this.IntakeMotor = IntakeMotor;
-        target = IntakePositions.PARALLEL;
+        this.ExtendMotor = ExtendMotor;
+
+        rotation = new Rotation(IntakeRotation);
+        motor = new Motor(IntakeMotor);
+        extend = new Extend(ExtendMotor);
     }
 
     public void update(@NonNull FtcDashboard dashboard) {
-        IntakeRotation.setPosition(target);
-
-        TelemetryPacket packet = new TelemetryPacket();
-        packet.put("Intake rotation current position", IntakeRotation.getPosition());
-        packet.put("Intake rotation target position", target);
-        packet.put("Intake motor power", IntakeMotor.getPower());
-        dashboard.sendTelemetryPacket(packet);
+        rotation.update(dashboard);
     }
 
     public void runIntake (boolean gamepadButtonIn, boolean gamepadButtonOut){
         if (gamepadButtonIn)
-            IntakeMotor.setPower(0.6);
+            motor.setPower(0.6);
         else if (gamepadButtonOut)
-            IntakeMotor.setPower(-1.0);
+            motor.setPower(-1.0);
         else
-            IntakeMotor.setPower(0.0);
+            motor.setPower(0.0);
     }
 }

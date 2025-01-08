@@ -7,10 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.RobotHardware;
-import org.firstinspires.ftc.teamcode.systems.Extend;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Extend;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Lift;
-import org.firstinspires.ftc.teamcode.systems.Pendul;
+import org.firstinspires.ftc.teamcode.systems.Outtake;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Outtake.Pendul;
 import org.firstinspires.ftc.teamcode.systems.Positions.IntakePositions;
 import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
 
@@ -24,8 +25,7 @@ public class Teleop extends OpMode {
 
     final Lift lift = robot.lift;
     final Intake intake = robot.intake;
-    final Pendul pendul = robot.pendul;
-    final Extend extend = robot.extend;
+    final Outtake outtake = robot.outtake;
 
     enum Gamepads {
         MOVE,
@@ -81,39 +81,37 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 // Update the position of systems
-        lift.update(dashboard);
-        intake.update(dashboard);
-        pendul.update(dashboard);
+        robot.update(dashboard);
 // Movement of the robot
         robot.movement(Move);
 
         intake.runIntake(Buttons.INTAKE_IN.getButton(), Buttons.INTAKE_OUT.getButton());
-        extend.setPower(Action.left_trigger - Action.right_trigger);
+        intake.extend.setPower(Action.left_trigger - Action.right_trigger);
 
         if (Buttons.PARALLEL_BASKET.getButton()) {
-            pendul.target = PendulPositions.BASKET;
-            intake.target = IntakePositions.PARALLEL;
+            outtake.pendul.target = PendulPositions.BASKET;
+            intake.rotation.target = IntakePositions.PARALLEL;
         } else if (Buttons.PERPENDICULAR_BARS.getButton()) {
-            pendul.target = PendulPositions.BAR;
-            intake.target = IntakePositions.PERPENDICULAR;
+            outtake.pendul.target = PendulPositions.BAR;
+            intake.rotation.target = IntakePositions.PERPENDICULAR;
         } else if (Buttons.PARALLEL_DOWN.getButton()) {
-            pendul.target = PendulPositions.DOWN;
-            intake.target = IntakePositions.PARALLEL;
+            outtake.pendul.target = PendulPositions.DOWN;
+            intake.rotation.target = IntakePositions.PARALLEL;
         } else if (Buttons.PERPENDICULAR_SLAM.getButton()) {
-            pendul.target = PendulPositions.SLAM;
-            intake.target = IntakePositions.PERPENDICULAR;
+            outtake.pendul.target = PendulPositions.SLAM;
+            intake.rotation.target = IntakePositions.PERPENDICULAR;
         } else if (Buttons.REVERSE_BARS.getButton()) {
-            pendul.target = PendulPositions.BAR;
-            intake.target = IntakePositions.REVERSE;
+            outtake.pendul.target = PendulPositions.BAR;
+            intake.rotation.target = IntakePositions.REVERSE;
         } else if (Buttons.REVERSE_SLAM.getButton()) {
-            pendul.target = PendulPositions.SLAM;
-            intake.target = IntakePositions.REVERSE;
+            outtake.pendul.target = PendulPositions.SLAM;
+            intake.rotation.target = IntakePositions.REVERSE;
         }
 
-        pendul.target -= Action.left_stick_y * Pendul.PENDUL_MULTIPLIER;
+        outtake.pendul.target -= Action.left_stick_y * Pendul.PENDUL_MULTIPLIER;
 
         TelemetryPacket packet = new TelemetryPacket();
-        packet.put("Extend power", extend.getPower());
+        packet.put("Extend power", intake.extend.getPower());
 
         dashboard.sendTelemetryPacket(packet);
         dashboard.updateConfig();

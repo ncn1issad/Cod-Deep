@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.systems;
+package org.firstinspires.ftc.teamcode.systems.SubSystems.Outtake;
 
 import androidx.annotation.NonNull;
 
@@ -9,26 +9,23 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.systems.Positions.PendulPositions;
 
 public class Pendul {
-    Servo PendulLeft;
-    Servo PendulRight;
+    Servo Pendul;
 
     public static final double PENDUL_MULTIPLIER = 0.001;
 
     public double target;
 
-    public Pendul(Servo PendulLeft, Servo PendulRight){
-        this.PendulLeft = PendulLeft;
-        this.PendulRight = PendulRight;
+    public Pendul(Servo Pendul){
+        this.Pendul = Pendul;
         target = PendulPositions.DOWN;
     }
 
     public double getPosition(){
-        return (PendulLeft.getPosition() + PendulRight.getPosition()) / 2;
+        return Pendul.getPosition();
     }
 
     public void update(@NonNull FtcDashboard dashboard){
-        PendulLeft.setPosition(target);
-        PendulRight.setPosition(target);
+        Pendul.setPosition(target);
 
         TelemetryPacket packet = new TelemetryPacket();
         packet.put("Pendul current position", getPosition());

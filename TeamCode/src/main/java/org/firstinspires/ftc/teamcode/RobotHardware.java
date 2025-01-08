@@ -2,16 +2,17 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.Extend;
+import org.firstinspires.ftc.teamcode.systems.Outtake;
+import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Extend;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Lift;
-import org.firstinspires.ftc.teamcode.systems.Pendul;
 
 public class RobotHardware {
     public OpMode myOpMode;
@@ -24,19 +25,20 @@ public class RobotHardware {
     public DcMotorEx LiftLeft;
     public DcMotorEx LiftRight;
 
-    public CRServo ExtendLeft;
-    public CRServo ExtendRight;
+    public CRServo Extend;
 
-    public Servo PendulLeft;
-    public Servo PendulRight;
+    public Servo Pendul;
 
+    public Servo IntakePendul;
     public Servo IntakeRotation;
     public CRServo IntakeMotor;
 
+    public Servo Claw;
+    public Servo ClawRotation;
+
     public Lift lift;
-    public Extend extend;
-    public Pendul pendul;
     public Intake intake;
+    public Outtake outtake;
 
     public RobotHardware(OpMode opmode) {myOpMode = opmode;}
 
@@ -49,29 +51,36 @@ public class RobotHardware {
         LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.LLMotor);
         LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
 
-        ExtendLeft = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.ELCRServo);
-        ExtendRight = myOpMode. hardwareMap.get(CRServo.class, DeviceNames.ERCRServo);
+        Extend = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.ELCRServo);
 
-        PendulLeft = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PLServo);
-        PendulRight = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PRServo);
+        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PLServo);
 
+        IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IPServo);
         IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IRServo);
-        IntakeMotor =myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IMCRServo);
+        IntakeMotor = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IMCRServo);
+
+        Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
+        ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawRotationServo);
 
         for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
             motor.setDirection(DcMotorEx.Direction.REVERSE);
         }
-        for (CRServo servo : new CRServo[]{ExtendLeft}) {
+        for (CRServo servo : new CRServo[]{Extend}) {
             servo.setDirection(CRServo.Direction.REVERSE);
         }
-        for (Servo servo : new Servo[] {PendulLeft}) {
+        for (Servo servo : new Servo[] {Pendul}) {
             servo.setDirection(Servo.Direction.REVERSE);
         }
 
         lift = new Lift(LiftLeft, LiftRight);
-        extend = new Extend(ExtendLeft, ExtendRight);
-        pendul = new Pendul(PendulLeft, PendulRight);
-        intake = new Intake(IntakeRotation, IntakeMotor);
+        intake = new Intake(IntakeRotation, IntakeMotor, Extend);
+        outtake = new Outtake(Claw, ClawRotation, Pendul);
+    }
+
+    public void update(@NonNull FtcDashboard dashboard) {
+        outtake.update(dashboard);
+        intake.update(dashboard);
+        lift.update(dashboard);
     }
 
     public void movement(@NonNull Gamepad gamepad) {
