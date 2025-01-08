@@ -6,24 +6,24 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Extend;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Pendul;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Rotation;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Intake.Motor;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Extend;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Pendul;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Rotation;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Motor;
 import org.firstinspires.ftc.teamcode.utilities.ServoSmoothing;
 
 public class Intake {
-    Servo IntakeRotation;
-    Servo IntakePendul;
-    Servo ExtendMotor;
-    CRServo IntakeMotor;
+    final Servo IntakeRotation;
+    final Servo IntakePendul;
+    final Servo ExtendMotor;
+    final CRServo IntakeMotor;
 
-    public Rotation rotation;
-    public Motor motor;
-    public Extend extend;
-    public Pendul pendul;
+    public final Rotation rotation;
+    public final Motor motor;
+    public final Extend extend;
+    public final Pendul pendul;
 
-    public ServoSmoothing smoothing = new ServoSmoothing();
+    public final ServoSmoothing smoothing = new ServoSmoothing();
 
     public enum Positions {
         INTAKE,
@@ -49,6 +49,7 @@ public class Intake {
         rotation.update(dashboard);
         extend.update(dashboard);
         pendul.update(dashboard);
+        motor.update(dashboard);
     }
 
     public void runIntake (boolean gamepadButtonIn, boolean gamepadButtonOut){
@@ -75,7 +76,7 @@ public class Intake {
             case TRANSFER:
                 pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Pendul.up;
                 rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Rotation.perpendicular;
-                extend.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.extend;
+                extend.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Extend.transfer;
                 position = Positions.TRANSFER;
                 break;
         }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.systems.SubSystems.Intake;
+package org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake;
 
 import androidx.annotation.NonNull;
 
@@ -6,14 +6,16 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.systems.Positions;
+
 public class Rotation {
-    Servo Rotation;
+    final Servo Rotation;
 
     public double target;
 
     public Rotation(Servo Claw) {
         this.Rotation = Claw;
-        target = 0;
+        target = Positions.Outtake.Rotation.init;
     }
 
     public double getPosition() {
@@ -24,8 +26,8 @@ public class Rotation {
         Rotation.setPosition(target);
 
         TelemetryPacket packet = new TelemetryPacket();
-        packet.put("Pendul current position", getPosition());
-        packet.put("Pendul target position", target);
+        packet.put("Outtake Rotation current position", getPosition());
+        packet.put("Outtake Rotation target position", target);
         dashboard.sendTelemetryPacket(packet);
     }
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.systems.SubSystems.Intake;
+package org.firstinspires.ftc.teamcode.systems.Subsystems.Intake;
 
 import androidx.annotation.NonNull;
 
@@ -6,14 +6,16 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.systems.Positions;
+
 public class Extend {
-    Servo Extend;
+    final Servo Extend;
 
     public double target;
 
     public Extend(Servo Extend){
         this.Extend = Extend;
-        target = 0;
+        target = Positions.Intake.Extend.init;
     }
 
     public double getPosition() {

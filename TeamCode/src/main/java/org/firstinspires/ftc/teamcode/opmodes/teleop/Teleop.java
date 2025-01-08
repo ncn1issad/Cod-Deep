@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp(name = "TeleOp", group = "A")
 public class Teleop extends OpMode {
-    RobotHardware robot = new RobotHardware(this);
+    final RobotHardware robot = new RobotHardware(this);
 
-    Intake intake = robot.intake;
-    Outtake outtake = robot.outtake;
+    final Intake intake = robot.intake;
+    final Outtake outtake = robot.outtake;
 
     FtcDashboard dashboard;
 
@@ -34,6 +34,8 @@ public class Teleop extends OpMode {
         Action = gamepad2;
 
         dashboard = FtcDashboard.getInstance();
+
+        robot.update(dashboard);
     }
 
     private boolean pendulIsActioned = false;
@@ -51,8 +53,10 @@ public class Teleop extends OpMode {
         // Lift functions
         robot.lift.setPower(Move.left_trigger - Move.right_trigger);
         // Claw functions
-        if (Move.right_bumper || Action.right_bumper) outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.closed;
-        if (Move.left_bumper || Action.left_bumper) outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.open;
+        if (Move.right_bumper || Action.right_bumper)
+            outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.closed;
+        if (Move.left_bumper || Action.left_bumper)
+            outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.open;
         // Intake functions
         if (intake.extend.target > 0.3)
             intake.setPosition(Intake.Positions.INTAKE);

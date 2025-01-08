@@ -7,9 +7,10 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class Lift {
-    DcMotorEx Left;
-    DcMotorEx Right;
+    final DcMotorEx Left;
+    final DcMotorEx Right;
 
+    // TODO: Add positions and PID
     public Lift(DcMotorEx Left, DcMotorEx Right){
         this.Left = Left;
         this.Right = Right;

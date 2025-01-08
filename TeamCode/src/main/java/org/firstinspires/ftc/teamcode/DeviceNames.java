@@ -4,17 +4,17 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class DeviceNames {
-    public static String FLMotor = "FrontLeftMotor";
-    public static String FRMotor = "FrontRightMotor";
-    public static String BLMotor = "BackLeftMotor";
-    public static String BRMotor = "BackRightMotor";
-    public static String LLMotor = "LiftLeftMotor";
-    public static String LRMotor = "LiftRightMotor";
-    public static String ExtendServo = "ExtendServo";
-    public static String PendulServo = "PendulServo";
-    public static String IPServo = "IntakePendulServo";
-    public static String IRServo = "IntakeRotationServo";
-    public static String IMCRServo = "IntakeMotor";
-    public static String ClawServo = "ClawServo";
-    public static String ClawRotationServo = "ClawRotationServo";
+    public static final String FLMotor = "FrontLeftMotor";
+    public static final String FRMotor = "FrontRightMotor";
+    public static final String BLMotor = "BackLeftMotor";
+    public static final String BRMotor = "BackRightMotor";
+    public static final String LLMotor = "LiftLeftMotor";
+    public static final String LRMotor = "LiftRightMotor";
+    public static final String ExtendServo = "ExtendServo";
+    public static final String PendulServo = "PendulServo";
+    public static final String IPServo = "IntakePendulServo";
+    public static final String IRServo = "IntakeRotationServo";
+    public static final String IMCRServo = "IntakeMotor";
+    public static final String ClawServo = "ClawServo";
+    public static final String ClawRotationServo = "ClawRotationServo";
 }

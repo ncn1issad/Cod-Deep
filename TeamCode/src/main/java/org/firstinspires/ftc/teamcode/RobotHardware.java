@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Lift;
 
 public class RobotHardware {
-    public OpMode myOpMode;
+    public final OpMode myOpMode;
 
     public DcMotorEx FrontLeft;
     public DcMotorEx FrontRight;

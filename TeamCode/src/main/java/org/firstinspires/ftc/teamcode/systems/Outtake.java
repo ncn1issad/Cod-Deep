@@ -5,18 +5,18 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Outtake.Claw;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Outtake.Pendul;
-import org.firstinspires.ftc.teamcode.systems.SubSystems.Outtake.Rotation;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Claw;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Pendul;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Rotation;
 
 public class Outtake {
-    Servo Claw;
-    Servo Rotation;
-    Servo Pendul;
+    final Servo Claw;
+    final Servo Rotation;
+    final Servo Pendul;
 
-    public Pendul pendul;
-    public Claw claw;
-    public Rotation rotation;
+    public final Pendul pendul;
+    public final Claw claw;
+    public final Rotation rotation;
 
     public enum Positions {
         TRANSFER,
