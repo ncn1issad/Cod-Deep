@@ -18,11 +18,13 @@ public class Outtake {
     public Claw claw;
     public Rotation rotation;
 
-    public enum OuttakePositions {
+    public enum Positions {
         TRANSFER,
         BASKET,
         OUTTAKE
     }
+    /** @noinspection unused*/
+    public Positions position = Positions.TRANSFER;
 
     public Outtake(Servo Claw, Servo Rotation, Servo Pendul) {
         this.Pendul = Pendul;
@@ -40,19 +42,19 @@ public class Outtake {
         rotation.update(dashboard);
     }
 
-    public void setPosition(@NonNull OuttakePositions value) {
+    public void setPosition(@NonNull Positions value) {
         switch (value) {
             case TRANSFER:
-                pendul.target = Positions.Outtake.Pendul.transfer;
-                rotation.target = Positions.Outtake.Rotation.transfer;
+                pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Pendul.transfer;
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Rotation.transfer;
                 break;
             case BASKET:
-                pendul.target = Positions.Outtake.Pendul.basket;
-                rotation.target = Positions.Outtake.Rotation.basket;
+                pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Pendul.basket;
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Rotation.basket;
                 break;
             case OUTTAKE:
-                pendul.target = Positions.Outtake.Pendul.outtake;
-                rotation.target = Positions.Outtake.Rotation.outtake;
+                pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Pendul.outtake;
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Rotation.outtake;
                 break;
         }
     }

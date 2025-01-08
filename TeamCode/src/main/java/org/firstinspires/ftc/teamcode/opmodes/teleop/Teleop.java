@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
-import org.firstinspires.ftc.teamcode.systems.Positions;
+
+import java.util.concurrent.TimeUnit;
 
 @TeleOp(name = "TeleOp", group = "A")
 public class Teleop extends OpMode {
@@ -25,10 +26,6 @@ public class Teleop extends OpMode {
     private static Gamepad Move;
     private static Gamepad Action;
 
-    private boolean inTransfer() {
-        return robot.intake.pendul.getPosition() == Positions.Intake.Pendul.up;
-    }
-
     @Override
     public void init() {
         robot.init();
@@ -40,7 +37,6 @@ public class Teleop extends OpMode {
     }
 
     private boolean pendulIsActioned = false;
-    private boolean intakeIsUp = false;
 
     @Override
     public void loop() {
@@ -55,8 +51,25 @@ public class Teleop extends OpMode {
         // Lift functions
         robot.lift.setPower(Move.left_trigger - Move.right_trigger);
         // Claw functions
-        if (Move.right_bumper || Action.right_bumper) outtake.claw.target = Positions.Outtake.Claw.closed;
-        else if (Move.left_bumper || Action.left_bumper) outtake.claw.target = Positions.Outtake.Claw.open;
-
+        if (Move.right_bumper || Action.right_bumper) outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.closed;
+        if (Move.left_bumper || Action.left_bumper) outtake.claw.target = org.firstinspires.ftc.teamcode.systems.Positions.Outtake.Claw.open;
+        // Intake functions
+        if (intake.extend.target > 0.3)
+            intake.setPosition(Intake.Positions.INTAKE);
+        else intake.setPosition(Intake.Positions.ENTRANCE);
+        // Transfer timing logic
+        if (Action.dpad_right && !pendulIsActioned) {
+            intake.setPosition(Intake.Positions.TRANSFER);
+            outtake.setPosition(Outtake.Positions.BASKET);
+            pendulIsActioned = true;
+            timer.reset();
+        }
+        if (pendulIsActioned && timer.time(TimeUnit.MILLISECONDS) >= 500) {
+            outtake.setPosition(Outtake.Positions.TRANSFER);
+            pendulIsActioned = false;
+        }
+        // Outtake functions
+        if(Action.dpad_up) outtake.setPosition(Outtake.Positions.OUTTAKE);
+        else if (Action.dpad_left) outtake.setPosition(Outtake.Positions.BASKET);
     }
 }

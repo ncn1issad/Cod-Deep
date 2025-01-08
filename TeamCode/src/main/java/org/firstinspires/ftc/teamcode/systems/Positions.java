@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class Positions {
+    // TODO: init positions
     public static class Intake {
         public static class Rotation {
             public static double parallel = 0.345;

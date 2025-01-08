@@ -25,11 +25,13 @@ public class Intake {
 
     public ServoSmoothing smoothing = new ServoSmoothing();
 
-    public enum IntakePosition {
+    public enum Positions {
         INTAKE,
         ENTRANCE,
         TRANSFER
     }
+
+    public Positions position = Positions.TRANSFER;
 
     public Intake(Servo IntakeRotation, CRServo IntakeMotor, Servo ExtendMotor, Servo IntakePendul){
         this.IntakeRotation = IntakeRotation;
@@ -58,20 +60,23 @@ public class Intake {
             motor.setPower(0.0);
     }
 
-    public void setPosition(@NonNull IntakePosition value) {
+    public void setPosition(@NonNull Positions value) {
         switch (value) {
             case INTAKE:
-                pendul.target = smoothing.Smoothing(pendul.getPosition(), Positions.Intake.Pendul.down);
-                rotation.target = Positions.Intake.Rotation.parallel;
+                pendul.target = smoothing.Smoothing(pendul.getPosition(), org.firstinspires.ftc.teamcode.systems.Positions.Intake.Pendul.down);
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Rotation.parallel;
+                position = Positions.INTAKE;
                 break;
             case ENTRANCE:
-                pendul.target = Positions.Intake.Pendul.entrance;
-                rotation.target = Positions.Intake.Rotation.parallel;
+                pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Pendul.entrance;
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Rotation.parallel;
+                position = Positions.ENTRANCE;
                 break;
             case TRANSFER:
-                pendul.target = Positions.Intake.Pendul.up;
-                rotation.target = Positions.Intake.Rotation.perpendicular;
-                extend.target = Positions.Intake.extend;
+                pendul.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Pendul.up;
+                rotation.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.Rotation.perpendicular;
+                extend.target = org.firstinspires.ftc.teamcode.systems.Positions.Intake.extend;
+                position = Positions.TRANSFER;
                 break;
         }
     }
