@@ -16,10 +16,10 @@ import org.firstinspires.ftc.teamcode.systems.Lift;
 public class RobotHardware {
     public final OpMode myOpMode;
 
-    public DcMotorEx FrontLeft;
-    public DcMotorEx FrontRight;
-    public DcMotorEx BackLeft;
-    public DcMotorEx BackRight;
+    public static DcMotorEx FrontLeft;
+    public static DcMotorEx FrontRight;
+    public static DcMotorEx BackLeft;
+    public static DcMotorEx BackRight;
 
     public DcMotorEx LiftLeft;
     public DcMotorEx LiftRight;

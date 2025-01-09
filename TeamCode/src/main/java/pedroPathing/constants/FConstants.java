@@ -6,19 +6,22 @@ import com.pedropathing.util.CustomFilteredPIDFCoefficients;
 import com.pedropathing.util.CustomPIDFCoefficients;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.DeviceNames;
+import org.firstinspires.ftc.teamcode.RobotHardware;
+
 public class FConstants {
     static {
         FollowerConstants.localizers = Localizers.THREE_WHEEL;
 
-        FollowerConstants.leftFrontMotorName = "leftFront";
-        FollowerConstants.leftRearMotorName = "leftRear";
-        FollowerConstants.rightFrontMotorName = "rightFront";
-        FollowerConstants.rightRearMotorName = "rightRear";
+        FollowerConstants.leftFrontMotorName = DeviceNames.FLMotor;
+        FollowerConstants.leftRearMotorName = DeviceNames.BLMotor;
+        FollowerConstants.rightFrontMotorName = DeviceNames.FRMotor;
+        FollowerConstants.rightRearMotorName = DeviceNames.BRMotor;
 
-        FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
-        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;
-        FollowerConstants.rightFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
-        FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.FORWARD;
+        FollowerConstants.leftFrontMotorDirection = RobotHardware.FrontLeft.getDirection();
+        FollowerConstants.leftRearMotorDirection = RobotHardware.BackLeft.getDirection();
+        FollowerConstants.rightFrontMotorDirection = RobotHardware.FrontRight.getDirection();
+        FollowerConstants.rightRearMotorDirection = RobotHardware.BackRight.getDirection();
 
         FollowerConstants.mass = 13;
 
