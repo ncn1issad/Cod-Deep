@@ -24,6 +24,17 @@ public class Positions {
             public static double init = 0.258;
         }
     }
+    //TODO: Add positions to Teleop
+    /** @noinspection unused*/
+    public static class Lift {
+        public static double down = 0;
+        public static double up = 2;
+        public static double smash = 1;
+        public static double basket = 3;
+        public static double clear = 0.5;
+
+        public static double init = 0;
+    }
     public static class Outtake {
         public static class Rotation {
             public static double transfer = 0.9;

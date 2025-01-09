@@ -49,7 +49,7 @@ public class Teleop extends OpMode {
         // Intake Motor functions
         robot.intake.runIntake(Move.cross, Move.square);
         // Extend functions
-        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger);
+        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger) * robot.intake.extend.ManualMultiplier;
         // Lift functions
         robot.lift.setPower(Move.left_trigger - Move.right_trigger);
         // Claw functions

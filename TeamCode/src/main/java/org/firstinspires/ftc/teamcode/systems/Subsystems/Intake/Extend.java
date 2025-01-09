@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.systems.Positions;
 public class Extend {
     final Servo Extend;
 
+    public double ManualMultiplier = 0.001;
+
     public double target;
 
     public Extend(Servo Extend){
