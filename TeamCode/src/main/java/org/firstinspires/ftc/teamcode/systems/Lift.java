@@ -15,6 +15,8 @@ public class Lift {
 
     public double target;
 
+    public double ManualMultiplier = 0.1;
+
     PIDController controller;
 
     @Config
@@ -42,14 +44,16 @@ public class Lift {
         return (Right.getPower() + Left.getPower()) / 2;
     }
 
-    public int getPosition() {
+    public double getPosition() {
         return Left.getCurrentPosition();
     }
 
     public void update(@NonNull FtcDashboard dashboard) {
-        // setPower(controller.update(target, getPosition()));
+        setPower(controller.update(target, getPosition()));
 
         TelemetryPacket packet = new TelemetryPacket();
+        packet.put("Lift target", target);
+        packet.put("Lift position", getPosition());
         packet.put("Lift power", getPower());
         dashboard.sendTelemetryPacket(packet);
     }
