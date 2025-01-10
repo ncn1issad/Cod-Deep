@@ -15,7 +15,7 @@ public class Rotation {
 
     public Rotation(Servo Claw) {
         this.Rotation = Claw;
-        target = Positions.Intake.Rotation.init;
+        target = Positions.intakeRotationInit;
     }
 
     public double getPosition() {

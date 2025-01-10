@@ -4,57 +4,43 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class Positions {
-    public static class Intake {
-        public static class Rotation {
-            public static double parallel = 0.345;
-            public static double perpendicular = 0.6466;
+    // Intake Rotation
+    public static double intakeRotationParallel = 0.345;
+    public static double intakeRotationPerpendicular = 0.6466;
+    public static double intakeRotationInit = intakeRotationParallel;
 
-            public static double init = parallel;
-        }
-        public static class Pendul {
-            public static double down = 0.43;
-            public static double entrance = 0.50;
-            public static double up = 0.84;
+    // Intake Pendul
+    public static double intakePendulDown = 0.43;
+    public static double intakePendulEntrance = 0.50;
+    public static double intakePendulUp = 0.84;
+    public static double intakePendulInit = 0.9;
 
-            public static double init = 0.9;
-        }
-        public static class Extend {
-            public static double transfer = 0.32;
+    // Intake Extend
+    public static double intakeExtendTransfer = 0.32;
+    public static double intakeExtendInit = 0.258;
 
-            public static double init = 0.258;
-        }
-    }
-    //TODO: Add positions to Teleop
-    /** @noinspection unused*/
-    public static class Lift {
-        public static double down = 0;
-        public static double up = 2;
-        public static double smash = 1;
-        public static double basket = 3;
-        public static double clear = 0.5;
+    // Lift
+    public static double liftDown = 0;
+    public static double liftUp = 2;
+    public static double liftSmash = 1;
+    public static double liftBasket = 3;
+    public static double liftClear = 0.5;
+    public static double liftInit = 0;
 
-        public static double init = 0;
-    }
-    public static class Outtake {
-        public static class Rotation {
-            public static double transfer = 0.9;
-            public static double outtake = 0.4;
-            public static double basket = 0.3;
+    // Outtake Rotation
+    public static double outtakeRotationTransfer = 0.5;
+    public static double outtakeRotationOuttake = 0.177;
+    public static double outtakeRotationBasket = 0.3;
+    public static double outtakeRotationInit = outtakeRotationTransfer;
 
-            public static double init = transfer;
-        }
-        public static class Claw {
-            public static double open = 0.4;
-            public static double closed = 0.95;
+    // Outtake Claw
+    public static double outtakeClawOpen = 0.4;
+    public static double outtakeClawClosed = 0.69;
+    public static double outtakeClawInit = outtakeClawClosed;
 
-            public static double init = closed;
-        }
-        public static class Pendul {
-            public static double transfer = 0.93;
-            public static double basket = 0.49;
-            public static double outtake = 0.2;
-
-            public static double init = 0.69;
-        }
-    }
+    // Outtake Pendul
+    public static double outtakePendulTransfer = 0.93;
+    public static double outtakePendulBasket = 0.49;
+    public static double outtakePendulOuttake = 0.2;
+    public static double outtakePendulInit = 0.69;
 }

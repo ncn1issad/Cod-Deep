@@ -15,7 +15,7 @@ public class Claw {
 
     public Claw(Servo Claw) {
         this.Claw = Claw;
-        target = Positions.Outtake.Claw.init;
+        target = Positions.outtakeClawInit;
     }
 
     public double getPosition() {

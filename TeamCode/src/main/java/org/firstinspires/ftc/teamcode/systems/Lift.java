@@ -30,7 +30,7 @@ public class Lift {
         this.Left = Left;
         this.Right = Right;
 
-        target = Positions.Lift.init;
+        target = Positions.liftInit;
 
         controller = new PIDController(PIDCoefficients.Kp, PIDCoefficients.Ki, PIDCoefficients.Kd);
     }

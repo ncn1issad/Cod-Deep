@@ -15,7 +15,7 @@ public class Pendul {
 
     public Pendul(Servo Pendul){
         this.Pendul = Pendul;
-        target = Positions.Intake.Pendul.init;
+        target = Positions.intakePendulInit;
     }
 
     public double getPosition(){
