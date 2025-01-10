@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.systems;
 
 import com.acmerobotics.dashboard.config.Config;
 
+/** @noinspection some fields may be unused*/
 @Config
 public class Positions {
     // Intake Rotation

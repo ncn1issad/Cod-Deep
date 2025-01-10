@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
 import org.firstinspires.ftc.teamcode.systems.Positions;
+import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Extend;
 //import org.firstinspires.ftc.teamcode.systems.IntakePositions;
 
 import java.util.concurrent.TimeUnit;
@@ -57,7 +58,7 @@ public class Teleop extends OpMode {
         // Intake Motor functions
         robot.intake.runIntake(Move.cross, Move.square);
         // Extend functions
-        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger) * robot.intake.extend.ManualMultiplier;
+        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger) * Extend.ManualMultiplier;
         // Lift functions
         robot.lift.setPower(Move.left_trigger - Move.right_trigger);
         // Claw functions
@@ -66,7 +67,8 @@ public class Teleop extends OpMode {
         if (Move.left_bumper || Action.left_bumper)
             outtake.claw.target = Positions.outtakeClawOpen;
         // Intake functions
-        if (intake.extend.target > 0.3)
+        if(Action.dpad_down) intake.setPosition(Intake.IntakePositions.ENTRANCE);
+        if (intake.extend.target > 0.3 && intake.position != Intake.IntakePositions.TRANSFER)
             intake.setPosition(Intake.IntakePositions.INTAKE);
         else intake.setPosition(Intake.IntakePositions.ENTRANCE);
         // Transfer timing logic

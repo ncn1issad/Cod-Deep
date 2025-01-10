@@ -15,6 +15,7 @@ public class Lift {
 
     public double target;
 
+    /** @noinspection unused*/
     public double ManualMultiplier = 0.1;
 
     PIDController controller;
