@@ -18,7 +18,7 @@ public class PendulTest extends OpMode {
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
-        pendul = new SingleServo(servo, Positions.outtakePendulInit, "Outtake pendul");
+        pendul = new SingleServo(servo, Positions.outtakePendulInit, "OuttakeTest pendul");
         dashboard = FtcDashboard.getInstance();
     }
 

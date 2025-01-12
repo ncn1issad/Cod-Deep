@@ -28,18 +28,18 @@ public class Positions {
     public static double liftClear = 0.5;
     public static double liftInit = 0;
 
-    // Outtake Rotation
+    // OuttakeTest Rotation
     public static double outtakeRotationTransfer = 0.67;
     public static double outtakeRotationOuttake = 0.177;
     public static double outtakeRotationBasket = 0.3;
     public static double outtakeRotationInit = outtakeRotationTransfer;
 
-    // Outtake Claw
+    // OuttakeTest Claw
     public static double outtakeClawOpen = 0.4;
     public static double outtakeClawClosed = 0.69;
     public static double outtakeClawInit = outtakeClawClosed;
 
-    // Outtake Pendul
+    // OuttakeTest Pendul
     public static double outtakePendulTransfer = 0.7;
     public static double outtakePendulBasket = 0.49;
     public static double outtakePendulOuttake = 0.2;

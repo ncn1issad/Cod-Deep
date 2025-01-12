@@ -50,13 +50,11 @@ public class RobotHardware {
         LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
 
         Extend = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeExtend);
-
-        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
-
         IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakePendul);
         IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeRotation);
         IntakeMotor = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IntakeMotor);
 
+        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
         Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
         ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakeRotation);
 

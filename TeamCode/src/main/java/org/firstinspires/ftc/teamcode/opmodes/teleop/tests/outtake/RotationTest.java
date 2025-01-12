@@ -18,7 +18,7 @@ public class RotationTest extends OpMode {
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, DeviceNames.OuttakeRotation);
-        rotation = new SingleServo(servo, Positions.outtakeRotationInit, "Outtake rotation");
+        rotation = new SingleServo(servo, Positions.outtakeRotationInit, "OuttakeTest rotation");
         dashboard = FtcDashboard.getInstance();
     }
 

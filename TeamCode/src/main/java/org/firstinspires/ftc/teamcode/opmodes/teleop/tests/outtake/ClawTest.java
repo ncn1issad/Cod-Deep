@@ -18,7 +18,7 @@ public class ClawTest extends OpMode {
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, DeviceNames.ClawServo);
-        claw = new SingleServo(servo, Positions.outtakeClawInit, "Outtake claw");
+        claw = new SingleServo(servo, Positions.outtakeClawInit, "OuttakeTest claw");
         dashboard = FtcDashboard.getInstance();
     }
 

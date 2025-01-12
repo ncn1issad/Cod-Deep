@@ -18,6 +18,7 @@ public class ExtendTest extends OpMode {
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, DeviceNames.IntakeExtend);
+        servo.setDirection(Servo.Direction.REVERSE);
         extend = new SingleServo(servo, Positions.intakeExtendInit, "Intake extend");
         dashboard = FtcDashboard.getInstance();
     }

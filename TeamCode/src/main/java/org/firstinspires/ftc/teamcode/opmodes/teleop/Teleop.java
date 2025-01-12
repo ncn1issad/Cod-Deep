@@ -85,7 +85,7 @@ public class Teleop extends OpMode {
             //robot.lift.target = IntakePositions.Lift.down;
             pendulIsActioned = false;
         }
-        // Outtake functions
+        // OuttakeTest functions
         if(Action.dpad_up) outtake.setPosition(Outtake.OuttakePositions.OUTTAKE);
         else if (Action.dpad_left) outtake.setPosition(Outtake.OuttakePositions.BASKET);
 //        // Lift functions
@@ -100,13 +100,13 @@ public class Teleop extends OpMode {
 //            liftSmashTimer.reset();
 //        }
 //        if (liftIsActioned && liftSmashTimer.time(TimeUnit.MILLISECONDS) >= 350) {
-//            outtake.claw.target = IntakePositions.Outtake.Claw.open;
+//            outtake.claw.target = IntakePositions.OuttakeTest.Claw.open;
 //            liftIsActioned = false;
 //            liftWasSmashed = false;
 //        }
 //        if(liftWasSmashed && liftSmashTimer.time(TimeUnit.MILLISECONDS) >= 500) {
 //            intake.setPosition(Intake.IntakePositions.TRANSFER);
-//            outtake.setPosition(Outtake.IntakePositions.BASKET);
+//            outtake.setPosition(OuttakeTest.IntakePositions.BASKET);
 //            robot.lift.target = IntakePositions.Lift.clear;
 //            pendulIsActioned = true;
 //            pendulTimer.reset();

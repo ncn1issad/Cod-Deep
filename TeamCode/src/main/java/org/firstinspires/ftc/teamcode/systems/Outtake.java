@@ -30,9 +30,9 @@ public class Outtake {
         this.Claw = Claw;
         this.Rotation = Rotation;
 
-        pendul = new SingleServo(Pendul, Positions.outtakePendulInit, "Outtake pendul");
-        claw = new SingleServo(Claw, Positions.outtakeClawInit, "Outtake claw");
-        rotation = new SingleServo(Rotation, Positions.outtakeRotationInit, "Outtake rotation");
+        pendul = new SingleServo(Pendul, Positions.outtakePendulInit, "OuttakeTest pendul");
+        claw = new SingleServo(Claw, Positions.outtakeClawInit, "OuttakeTest claw");
+        rotation = new SingleServo(Rotation, Positions.outtakeRotationInit, "OuttakeTest rotation");
     }
 
     public void update(@NonNull FtcDashboard dashboard) {
