@@ -1,0 +1,35 @@
+package org.firstinspires.ftc.teamcode.opmodes.teleop.tests.intake;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.DeviceNames;
+import org.firstinspires.ftc.teamcode.systems.Positions;
+import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+
+@TeleOp(name = "IntakePendulTest", group = "C")
+public class PendulTest extends OpMode {
+    Servo servo;
+    private SingleServo pendul;
+    private FtcDashboard dashboard;
+
+    @Override
+    public void init() {
+        servo = hardwareMap.get(Servo.class, DeviceNames.IntakePendul);
+        pendul = new SingleServo(servo, Positions.intakePendulInit, "Intake pendul");
+        dashboard = FtcDashboard.getInstance();
+    }
+
+    @Override
+    public void loop() {
+        if (gamepad1.dpad_up) pendul.target += 0.01;
+        if (gamepad1.dpad_down) pendul.target -= 0.01;
+
+        pendul.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
+
+        pendul.update(dashboard);
+
+    }
+}

@@ -28,7 +28,7 @@ import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
 @Disabled
-@TeleOp(name = "Motor Directions", group = "Teleop Test")
+@TeleOp(name = "IntakeMotor Directions", group = "Teleop Test")
 public class MotorDirections extends OpMode {
     private Telemetry telemetryA;
 
@@ -88,14 +88,14 @@ public class MotorDirections extends OpMode {
         if(gamepad1.x)
             rightRear.setPower(1);
 
-        telemetryA.addLine("Press A to spin the left front motor at 100% power");
-        telemetryA.addLine("Press Y to spin the left rear motor at 100% power");
-        telemetryA.addLine("Press B to spin the right front motor at 100% power");
-        telemetryA.addLine("Press X to spin the right rear motor at 100% power");
-        telemetryA.addData("Left Front Motor Direction: ", leftFrontMotorDirection);
-        telemetryA.addData("Left Rear Motor Direction: ", leftRearMotorDirection);
-        telemetryA.addData("Right Front Motor Direction: ", rightFrontMotorDirection);
-        telemetryA.addData("Right Rear Motor Direction: ", rightRearMotorDirection);
+        telemetryA.addLine("Press A to spin the left front intakeMotor at 100% power");
+        telemetryA.addLine("Press Y to spin the left rear intakeMotor at 100% power");
+        telemetryA.addLine("Press B to spin the right front intakeMotor at 100% power");
+        telemetryA.addLine("Press X to spin the right rear intakeMotor at 100% power");
+        telemetryA.addData("Left Front IntakeMotor Direction: ", leftFrontMotorDirection);
+        telemetryA.addData("Left Rear IntakeMotor Direction: ", leftRearMotorDirection);
+        telemetryA.addData("Right Front IntakeMotor Direction: ", rightFrontMotorDirection);
+        telemetryA.addData("Right Rear IntakeMotor Direction: ", rightRearMotorDirection);
         telemetryA.update();
     }
 }

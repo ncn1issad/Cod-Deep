@@ -5,18 +5,16 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Claw;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Pendul;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Outtake.Rotation;
+import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
 
 public class Outtake {
     final Servo Claw;
     final Servo Rotation;
     final Servo Pendul;
 
-    public final Pendul pendul;
-    public final Claw claw;
-    public final Rotation rotation;
+    public SingleServo pendul;
+    public SingleServo claw;
+    public SingleServo rotation;
 
     public enum OuttakePositions {
         TRANSFER,
@@ -32,9 +30,9 @@ public class Outtake {
         this.Claw = Claw;
         this.Rotation = Rotation;
 
-        pendul = new Pendul(Pendul);
-        claw = new Claw(Claw);
-        rotation = new Rotation(Rotation);
+        pendul = new SingleServo(Pendul, Positions.outtakePendulInit, "Outtake pendul");
+        claw = new SingleServo(Claw, Positions.outtakeClawInit, "Outtake claw");
+        rotation = new SingleServo(Rotation, Positions.outtakeRotationInit, "Outtake rotation");
     }
 
     public void update(@NonNull FtcDashboard dashboard) {

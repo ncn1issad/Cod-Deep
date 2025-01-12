@@ -6,11 +6,9 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Extend;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Pendul;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Rotation;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Motor;
 import org.firstinspires.ftc.teamcode.utilities.ServoSmoothing;
+import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.subsystems.IntakeMotor;
 
 public class Intake {
     final Servo IntakeRotation;
@@ -18,10 +16,10 @@ public class Intake {
     final Servo ExtendMotor;
     final CRServo IntakeMotor;
 
-    public final Rotation rotation;
-    public final Motor motor;
-    public final Extend extend;
-    public final Pendul pendul;
+    public final SingleServo rotation;
+    public final IntakeMotor intakeMotor;
+    public final SingleServo extend;
+    public final SingleServo pendul;
 
     public final ServoSmoothing smoothing = new ServoSmoothing();
 
@@ -40,26 +38,26 @@ public class Intake {
         this.ExtendMotor = ExtendMotor;
         this.IntakePendul = IntakePendul;
 
-        rotation = new Rotation(IntakeRotation);
-        motor = new Motor(IntakeMotor);
-        extend = new Extend(ExtendMotor);
-        pendul = new Pendul(IntakePendul);
+        rotation = new SingleServo(IntakeRotation, Positions.intakeRotationInit, "Intake rotation");
+        intakeMotor = new IntakeMotor(IntakeMotor);
+        extend = new SingleServo(ExtendMotor, Positions.intakeExtendInit, "Intake extend");
+        pendul = new SingleServo(IntakePendul, Positions.intakePendulInit, "Intake pendul");
     }
 
     public void update(@NonNull FtcDashboard dashboard) {
         rotation.update(dashboard);
         extend.update(dashboard);
         pendul.update(dashboard);
-        motor.update(dashboard);
+        intakeMotor.update(dashboard);
     }
 
     public void runIntake (boolean gamepadButtonIn, boolean gamepadButtonOut){
         if (gamepadButtonIn)
-            motor.setPower(0.6);
+            intakeMotor.setPower(0.6);
         else if (gamepadButtonOut)
-            motor.setPower(-1.0);
+            intakeMotor.setPower(-1.0);
         else
-            motor.setPower(0.0);
+            intakeMotor.setPower(0.0);
     }
 
     public void setPosition(@NonNull IntakePositions value) {

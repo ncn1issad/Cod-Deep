@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.systems.Subsystems.Intake;
+package org.firstinspires.ftc.teamcode.systems.subsystems;
 
 import androidx.annotation.NonNull;
 
@@ -6,10 +6,10 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.CRServo;
 
-public class Motor {
+public class IntakeMotor {
     final CRServo Intake;
 
-    public Motor(CRServo Intake){
+    public IntakeMotor(CRServo Intake){
         this.Intake = Intake;
     }
 

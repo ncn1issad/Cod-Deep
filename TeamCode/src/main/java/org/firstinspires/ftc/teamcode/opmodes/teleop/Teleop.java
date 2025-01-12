@@ -10,8 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
 import org.firstinspires.ftc.teamcode.systems.Positions;
-import org.firstinspires.ftc.teamcode.systems.Subsystems.Intake.Extend;
-//import org.firstinspires.ftc.teamcode.systems.IntakePositions;
+import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,10 +54,10 @@ public class Teleop extends OpMode {
         robot.update(dashboard);
         // Movement of the robot
         robot.movement(Move);
-        // Intake Motor functions
+        // Intake IntakeMotor functions
         robot.intake.runIntake(Move.cross, Move.square);
         // Extend functions
-        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger) * Extend.ManualMultiplier;
+        robot.intake.extend.target += (Action.left_trigger - Action.right_trigger) * SingleServo.ManualMultiplier;
         // Lift functions
         robot.lift.setPower(Move.left_trigger - Move.right_trigger);
         // Claw functions

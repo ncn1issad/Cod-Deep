@@ -49,16 +49,16 @@ public class RobotHardware {
         LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.LLMotor);
         LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
 
-        Extend = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ExtendServo);
+        Extend = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeExtend);
 
-        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.PendulServo);
+        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
 
-        IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IPServo);
-        IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IRServo);
-        IntakeMotor = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IMCRServo);
+        IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakePendul);
+        IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeRotation);
+        IntakeMotor = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IntakeMotor);
 
         Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
-        ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawRotationServo);
+        ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakeRotation);
 
         for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
             motor.setDirection(DcMotorEx.Direction.REVERSE);

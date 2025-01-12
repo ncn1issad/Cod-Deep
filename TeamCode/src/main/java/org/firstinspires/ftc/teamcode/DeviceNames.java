@@ -10,11 +10,11 @@ public class DeviceNames {
     public static String BRMotor = "MotorBackRight";
     public static String LLMotor = "LiftLeft";
     public static String LRMotor = "LiftRight";
-    public static String ExtendServo = "Extend";
-    public static String PendulServo = "Pendul";
-    public static String IPServo = "IntakePendul";
-    public static String IRServo = "IntakeRotation";
-    public static String IMCRServo = "IntakeMotor";
+    public static String IntakeExtend = "Extend";
+    public static String OuttakePendul = "Pendul";
+    public static String IntakePendul = "IntakePendul";
+    public static String IntakeRotation = "IntakeRotation";
+    public static String IntakeMotor = "IntakeMotor";
     public static String ClawServo = "Claw";
-    public static String ClawRotationServo = "ClawRotate";
+    public static String OuttakeRotation = "ClawRotate";
 }
