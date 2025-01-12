@@ -12,8 +12,8 @@ public class Positions {
 
     // Intake Pendul
     public static double intakePendulDown = 0.43;
-    public static double intakePendulEntrance = 0.50;
-    public static double intakePendulUp = 0.84;
+    public static double intakePendulEntrance = 0.585;
+    public static double intakePendulUp = 0.94;
     public static double intakePendulInit = 0.9;
 
     // Intake Extend
@@ -29,7 +29,7 @@ public class Positions {
     public static double liftInit = 0;
 
     // Outtake Rotation
-    public static double outtakeRotationTransfer = 0.5;
+    public static double outtakeRotationTransfer = 0.67;
     public static double outtakeRotationOuttake = 0.177;
     public static double outtakeRotationBasket = 0.3;
     public static double outtakeRotationInit = outtakeRotationTransfer;
@@ -40,7 +40,7 @@ public class Positions {
     public static double outtakeClawInit = outtakeClawClosed;
 
     // Outtake Pendul
-    public static double outtakePendulTransfer = 0.93;
+    public static double outtakePendulTransfer = 0.7;
     public static double outtakePendulBasket = 0.49;
     public static double outtakePendulOuttake = 0.2;
     public static double outtakePendulInit = 0.69;

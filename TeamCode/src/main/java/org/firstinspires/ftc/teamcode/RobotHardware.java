@@ -60,7 +60,7 @@ public class RobotHardware {
         Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
         ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawRotationServo);
 
-        for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft, LiftRight}) {
+        for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
             motor.setDirection(DcMotorEx.Direction.REVERSE);
         }
         for (CRServo servo : new CRServo[] {IntakeMotor}) {
@@ -90,13 +90,13 @@ public class RobotHardware {
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y + x - rx) / denominator;
+        double backLeftPower = (y - x + rx) / denominator;
         double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y - x + rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;
 
         FrontLeft.setPower(frontLeftPower);
         BackLeft.setPower(backLeftPower);
         FrontRight.setPower(frontRightPower);
-        BackLeft.setPower(backRightPower);
+        BackRight.setPower(backRightPower);
     }
 }

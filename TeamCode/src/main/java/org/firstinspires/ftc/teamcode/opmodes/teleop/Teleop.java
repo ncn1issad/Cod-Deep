@@ -68,9 +68,11 @@ public class Teleop extends OpMode {
             outtake.claw.target = Positions.outtakeClawOpen;
         // Intake functions
         if(Action.dpad_down) intake.setPosition(Intake.IntakePositions.ENTRANCE);
-        if (intake.extend.target > 0.3 && intake.position != Intake.IntakePositions.TRANSFER)
-            intake.setPosition(Intake.IntakePositions.INTAKE);
-        else intake.setPosition(Intake.IntakePositions.ENTRANCE);
+        if(intake.position != Intake.IntakePositions.TRANSFER) {
+            if (intake.extend.target > 0.35)
+                intake.setPosition(Intake.IntakePositions.INTAKE);
+            else intake.setPosition(Intake.IntakePositions.ENTRANCE);
+        }
         // Transfer timing logic
         if (Action.dpad_right && !pendulIsActioned /*&& !liftIsActioned*/) {
             intake.setPosition(Intake.IntakePositions.TRANSFER);
@@ -79,7 +81,7 @@ public class Teleop extends OpMode {
             pendulIsActioned = true;
             pendulTimer.reset();
         }
-        if (pendulIsActioned && pendulTimer.time(TimeUnit.MILLISECONDS) >= 500) {
+        if (pendulIsActioned && pendulTimer.time(TimeUnit.MILLISECONDS) >= 650) {
             outtake.setPosition(Outtake.OuttakePositions.TRANSFER);
             //robot.lift.target = IntakePositions.Lift.down;
             pendulIsActioned = false;

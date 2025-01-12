@@ -28,10 +28,11 @@ public class Intake {
     public enum IntakePositions {
         INTAKE,
         ENTRANCE,
-        TRANSFER
+        TRANSFER,
+        INIT
     }
 
-    public IntakePositions position = IntakePositions.TRANSFER;
+    public IntakePositions position = IntakePositions.INIT;
 
     public Intake(Servo IntakeRotation, CRServo IntakeMotor, Servo ExtendMotor, Servo IntakePendul){
         this.IntakeRotation = IntakeRotation;
@@ -78,6 +79,12 @@ public class Intake {
                 rotation.target = Positions.intakeRotationPerpendicular;
                 extend.target = Positions.intakeExtendTransfer;
                 position = IntakePositions.TRANSFER;
+                break;
+            case INIT:
+                pendul.target = Positions.intakePendulInit;
+                rotation.target = Positions.intakeRotationInit;
+                extend.target = Positions.intakeExtendInit;
+                position = IntakePositions.INIT;
                 break;
         }
     }

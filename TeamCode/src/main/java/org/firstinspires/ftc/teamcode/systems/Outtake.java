@@ -21,10 +21,11 @@ public class Outtake {
     public enum OuttakePositions {
         TRANSFER,
         BASKET,
-        OUTTAKE
+        OUTTAKE,
+        INIT
     }
     /** @noinspection unused*/
-    public OuttakePositions position = OuttakePositions.TRANSFER;
+    public OuttakePositions position = OuttakePositions.INIT;
 
     public Outtake(Servo Claw, Servo Rotation, Servo Pendul) {
         this.Pendul = Pendul;
@@ -47,14 +48,23 @@ public class Outtake {
             case TRANSFER:
                 pendul.target = Positions.outtakePendulTransfer;
                 rotation.target = Positions.outtakeRotationTransfer;
+                position = OuttakePositions.TRANSFER;
                 break;
             case BASKET:
                 pendul.target = Positions.outtakeRotationBasket;
                 rotation.target = Positions.outtakeRotationBasket;
+                position = OuttakePositions.BASKET;
                 break;
             case OUTTAKE:
                 pendul.target = Positions.outtakePendulOuttake;
                 rotation.target = Positions.outtakeRotationOuttake;
+                position = OuttakePositions.OUTTAKE;
+                break;
+            case INIT:
+                pendul.target = Positions.outtakePendulInit;
+                rotation.target = Positions.outtakeRotationInit;
+                claw.target = Positions.outtakeClawInit;
+                position = OuttakePositions.INIT;
                 break;
         }
     }
