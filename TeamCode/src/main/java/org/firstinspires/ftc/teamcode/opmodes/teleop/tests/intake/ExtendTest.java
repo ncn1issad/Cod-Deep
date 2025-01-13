@@ -30,6 +30,8 @@ public class ExtendTest extends OpMode {
 
         extend.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
+        if (gamepad1.cross) extend.target = Positions.intakeExtendTransfer;
+
         extend.update(dashboard);
     }
 }

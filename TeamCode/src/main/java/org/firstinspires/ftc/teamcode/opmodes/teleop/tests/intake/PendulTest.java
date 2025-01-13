@@ -29,7 +29,10 @@ public class PendulTest extends OpMode {
 
         pendul.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
-        pendul.update(dashboard);
+        if (gamepad1.cross) pendul.target = Positions.intakePendulDown;
+        if (gamepad1.square) pendul.target = Positions.intakePendulEntrance;
+        if (gamepad1.triangle) pendul.target = Positions.intakePendulUp;
 
+        pendul.update(dashboard);
     }
 }

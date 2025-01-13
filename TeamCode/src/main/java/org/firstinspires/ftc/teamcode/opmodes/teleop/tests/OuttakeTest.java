@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
-import org.firstinspires.ftc.teamcode.systems.Positions;
 import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
 
 @TeleOp(name = "OuttakeTest", group = "B")
@@ -36,6 +35,10 @@ public class OuttakeTest extends OpMode {
         outtake.claw.target += gamepad2.left_stick_x * SingleServo.ManualMultiplier;
         outtake.pendul.target += gamepad1.right_stick_x * SingleServo.ManualMultiplier;
         outtake.rotation.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
+
+        if (gamepad1.dpad_down) outtake.setPosition(Outtake.OuttakePositions.TRANSFER);
+        if (gamepad1.dpad_left) outtake.setPosition(Outtake.OuttakePositions.BASKET);
+        if (gamepad1.dpad_up) outtake.setPosition(Outtake.OuttakePositions.TRANSFER);
 
         outtake.update(dashboard);
     }

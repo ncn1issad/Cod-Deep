@@ -29,6 +29,9 @@ public class ClawTest extends OpMode {
 
         claw.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
+        if (gamepad1.cross) claw.target = Positions.outtakeClawOpen;
+        if (gamepad1.square) claw.target = Positions.outtakeClawClosed;
+
         claw.update(dashboard);
 
     }

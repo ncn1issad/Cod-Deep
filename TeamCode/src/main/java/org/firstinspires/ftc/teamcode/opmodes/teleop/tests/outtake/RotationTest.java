@@ -29,6 +29,10 @@ public class RotationTest extends OpMode {
 
         rotation.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
+        if (gamepad1.cross) rotation.target = Positions.outtakeRotationTransfer;
+        if (gamepad1.square) rotation.target = Positions.outtakeRotationBasket;
+        if (gamepad1.triangle) rotation.target = Positions.outtakeRotationOuttake;
+
         rotation.update(dashboard);
 
     }

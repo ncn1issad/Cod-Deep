@@ -47,6 +47,12 @@ public class IntakeTest extends OpMode {
         intake.pendul.target += gamepad1.right_stick_x * SingleServo.ManualMultiplier;
         intake.rotation.target += gamepad2.left_stick_x * SingleServo.ManualMultiplier;
 
+        if (gamepad1.dpad_down) intake.setPosition(Intake.IntakePositions.INTAKE);
+        if (gamepad1.dpad_left) intake.setPosition(Intake.IntakePositions.ENTRANCE);
+        if (gamepad1.dpad_up) intake.setPosition(Intake.IntakePositions.TRANSFER);
+
+        intake.runIntake(gamepad1.cross, gamepad1.square);
+
         intake.update(dashboard);
     }
 }

@@ -29,8 +29,10 @@ public class RotationTest extends OpMode {
 
         rotation.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
-        rotation.update(dashboard);
+        if(gamepad1.cross) rotation.target = Positions.intakeRotationParallel;
+        if(gamepad1.square) rotation.target = Positions.intakeRotationPerpendicular;
 
+        rotation.update(dashboard);
     }
 }
 
