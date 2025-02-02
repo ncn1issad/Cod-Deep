@@ -2,14 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.*;
 
 import org.firstinspires.ftc.teamcode.systems.Outtake;
@@ -58,7 +55,7 @@ public class RobotHardware implements Action {
         } else if (actionGamepad.left_bumper || movementGamepad.left_bumper) {
             outtake.claw.open();
         }
-        outtake.update(actionGamepad);
+        outtake.updateTeleOp(actionGamepad);
         intake.runIntake(actionGamepad.cross, actionGamepad.square);
     }
 }

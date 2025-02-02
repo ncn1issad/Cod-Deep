@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.systems;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,10 +11,10 @@ import org.firstinspires.ftc.teamcode.systems.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Claw;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Pendulum;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Rotation;
-import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
-import org.firstinspires.ftc.teamcode.utilities.SystemFactory;
-import org.firstinspires.ftc.teamcode.utilities.SystemMechanism;
-import org.firstinspires.ftc.teamcode.utilities.SystemTeleOp;
+import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemFactory;
+import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemMechanism;
+import org.firstinspires.ftc.teamcode.systems.utilites.SystemTeleOp;
 import org.jetbrains.annotations.NotNull;
 
 public class Outtake implements SystemMechanism {
@@ -55,7 +54,7 @@ public class Outtake implements SystemMechanism {
     }
 
     @Override
-    public void update(@NotNull Gamepad gamepad) {
+    public void updateTeleOp(@NotNull Gamepad gamepad) {
         if (gamepad.dpad_right) {
             setPosition(State.Transfer);
         }
@@ -67,6 +66,9 @@ public class Outtake implements SystemMechanism {
         }
         else if (gamepad.square) {
             setPosition(State.Pickup);
+        }
+        else {
+            setPosition(getTargetPosition());
         }
     }
 

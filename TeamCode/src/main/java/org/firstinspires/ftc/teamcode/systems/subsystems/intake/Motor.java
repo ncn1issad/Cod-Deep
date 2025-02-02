@@ -31,6 +31,9 @@ public class Motor implements CancelableAction {
     @Override
     public void cancel() {
         isCancelled = true;
+        for (CRServo motor : Intake) {
+            motor.setPower(0);
+        }
     }
     @Override
     public boolean run(@NotNull TelemetryPacket telemetryPacket) {
@@ -45,7 +48,7 @@ public class Motor implements CancelableAction {
     }
 }
 @TeleOp(name = "Intake Motor Test", group = "C")
-class IntakeMotorTest extends OpMode {
+class MotorTest extends OpMode {
     private Motor motor;
     private final FtcDashboard dashboard = FtcDashboard.getInstance();
 

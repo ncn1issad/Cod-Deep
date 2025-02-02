@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.utilities;
+package org.firstinspires.ftc.teamcode.systems.utilites;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -6,6 +6,8 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemFactory;
+import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemMechanism;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
@@ -44,7 +46,7 @@ public abstract class SystemTeleOp extends OpMode {
         );
         follower.update();
         // Update the system mechanism
-        systemMechanism.update(gamepad2);
+        systemMechanism.updateTeleOp(gamepad2);
         TelemetryPacket packet = new TelemetryPacket();
         // Checks if the action is cancelled
         if (!systemMechanism.run(packet)) { requestOpModeStop(); }
