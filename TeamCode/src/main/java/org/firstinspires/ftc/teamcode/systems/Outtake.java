@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.systems;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.systems.subsystems.Lift;
@@ -11,13 +13,18 @@ import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Claw;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Pendulum;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Rotation;
 import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemFactory;
+import org.firstinspires.ftc.teamcode.utilities.SystemMechanism;
+import org.firstinspires.ftc.teamcode.utilities.SystemTeleOp;
 import org.jetbrains.annotations.NotNull;
 
-public class Outtake implements Action {
+public class Outtake implements SystemMechanism {
     public final Claw claw;
     public final Pendulum pendulum;
     public final Rotation rotation;
     public final Lift lift;
+
+    State currentState = State.Init;
 
     public Outtake(HardwareMap hardwareMap) {
         claw = new Claw(hardwareMap);
@@ -31,13 +38,39 @@ public class Outtake implements Action {
         return claw.run(packet) && pendulum.run(packet) && rotation.run(packet) && lift.run(packet);
     }
 
-    public void setPosition(@NotNull OPositions position) {
-        pendulum.setTargetPosition(position.getPendulum());
-        rotation.setTargetPosition(position.getRotation());
-        lift.setTargetPosition(position.getLift());
+    @Override
+    public void setPosition(Enum<?> position) {
+        if (position instanceof State) {
+            State state = (State) position;
+            pendulum.setTargetPosition(state.getPendulum());
+            rotation.setTargetPosition(state.getRotation());
+            lift.setTargetPosition(state.getLift());
+            currentState = state;
+        }
     }
 
-    public enum OPositions {
+    @Override
+    public Enum<?> getTargetPosition() {
+        return currentState;
+    }
+
+    @Override
+    public void update(@NotNull Gamepad gamepad) {
+        if (gamepad.dpad_right) {
+            setPosition(State.Transfer);
+        }
+        else if (gamepad.cross) {
+            setPosition(State.Basket);
+        }
+        else if (gamepad.dpad_up) {
+            setPosition(State.Bar);
+        }
+        else if (gamepad.square) {
+            setPosition(State.Pickup);
+        }
+    }
+
+    public enum State {
         Init(Positions.outtakePendulumInit, Positions.outtakeRotationInit, Positions.liftInit),
         Transfer(Positions.outtakePendulumTransfer, Positions.outtakeRotationTransfer, Positions.liftTransfer),
         Basket(Positions.outtakePendulumBasket, Positions.outtakeRotationBasket, Positions.liftBasket),
@@ -47,7 +80,7 @@ public class Outtake implements Action {
         private final double rotation;
         private final double lift;
 
-        OPositions(double pendulum, double rotation, double lift) {
+        State(double pendulum, double rotation, double lift) {
             this.pendulum = pendulum;
             this.rotation = rotation;
             this.lift = lift;
@@ -61,5 +94,19 @@ public class Outtake implements Action {
         public double getLift() {
             return lift;
         }
+    }
+}
+
+class OuttakeFactory implements SystemFactory {
+    @Override
+    public SystemMechanism systemFactory(HardwareMap hardwareMap) {
+        return new Outtake(hardwareMap);
+    }
+}
+
+@TeleOp (name = "Outtake TeleOp", group = "B")
+class OuttakeTeleOp extends SystemTeleOp {
+    public OuttakeTeleOp() {
+        super(new OuttakeFactory());
     }
 }

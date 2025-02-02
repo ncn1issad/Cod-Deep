@@ -51,4 +51,14 @@ public class RobotHardware implements Action {
         );
         follower.update();
     }
+
+    public void actions(@NonNull Gamepad actionGamepad, @NonNull Gamepad movementGamepad) {
+        if (actionGamepad.right_bumper || movementGamepad.right_bumper) {
+            outtake.claw.close();
+        } else if (actionGamepad.left_bumper || movementGamepad.left_bumper) {
+            outtake.claw.open();
+        }
+        outtake.update(actionGamepad);
+        intake.runIntake(actionGamepad.cross, actionGamepad.square);
+    }
 }

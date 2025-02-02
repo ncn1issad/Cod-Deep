@@ -34,7 +34,7 @@ public class Positions {
     public static double outtakeClawClosed = 0.69;
     public static double outtakeClawInit = outtakeClawClosed;
 
-    // OuttakeTest Pendul
+    // OuttakeTest Pendulum
     public static double outtakePendulumTransfer = 0.7;
     public static double outtakePendulumBasket = 0.49;
     public static double outtakePendulumBar = 0.2;

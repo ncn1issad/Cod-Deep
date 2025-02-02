@@ -39,26 +39,7 @@ public class Teleop extends OpMode {
         robot.run(packet);
         // Movement of the robot
         robot.movement(Move);
-        // Intake IntakeMotor functions
-        robot.intake.runIntake(Move.cross, Move.square);
-        // Claw functions
-        if (Action.right_bumper || Move.right_bumper) {
-            robot.outtake.claw.close();
-        } else if (Action.left_bumper || Move.left_bumper) {
-            robot.outtake.claw.open();
-        }
-        // Outtake functions
-        if (Action.dpad_right) {
-            robot.outtake.setPosition(Outtake.OPositions.Transfer);
-        }
-        else if (Action.cross) {
-            robot.outtake.setPosition(Outtake.OPositions.Basket);
-        }
-        else if (Action.dpad_up) {
-            robot.outtake.setPosition(Outtake.OPositions.Bar);
-        }
-        else if (Action.square) {
-            robot.outtake.setPosition(Outtake.OPositions.Pickup);
-        }
+        // Actions of the robot
+        robot.actions(Action, Move);
     }
 }

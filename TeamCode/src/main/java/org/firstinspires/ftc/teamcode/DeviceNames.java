@@ -13,11 +13,8 @@ public class DeviceNames {
     public static String LLMotor = "LiftLeft";
     public static String LRMotor = "LiftRight";
     // Servos
-    public static String Extend = "Extend";
     public static String OuttakePendulumLeft = "PendulumLeft";
     public static String OuttakePendulumRight = "PendulumRight";
-    public static String IntakePendulum = "IntakePendulum";
-    public static String IntakeRotation = "IntakeRotation";
     public static String IntakeMotorLeft = "IntakeLeft";
     public static String IntakeMotorRight = "IntakeRight";
     public static String ClawServo = "Claw";
