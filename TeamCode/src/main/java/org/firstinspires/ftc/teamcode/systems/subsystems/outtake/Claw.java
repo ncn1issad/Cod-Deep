@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.systems.utilites.ManualMechanismTeleOp;
 import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
 import org.firstinspires.ftc.teamcode.systems.utilites.ServoPositionMechanism;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionFactory;
+import org.jetbrains.annotations.NotNull;
 
 public class Claw extends ServoPositionMechanism {
     HardwareMap hardwareMap;
@@ -25,6 +26,31 @@ public class Claw extends ServoPositionMechanism {
         return new Servo[] {
             hardwareMap.get(Servo.class, DeviceNames.ClawServo)
         };
+    }
+
+    void setClawPosition(@NotNull CPositions position) {
+        setTargetPosition(position.getClaw());
+    }
+
+    public void open() {
+        setClawPosition(CPositions.Open);
+    }
+
+    public void close() {
+        setClawPosition(CPositions.Close);
+    }
+
+    public enum CPositions {
+        Open(Positions.outtakeClawOpen),
+        Close(Positions.outtakeClawClosed);
+        private final double claw;
+
+        CPositions(double claw) {
+            this.claw = claw;
+        }
+        public double getClaw() {
+            return claw;
+        }
     }
 }
 

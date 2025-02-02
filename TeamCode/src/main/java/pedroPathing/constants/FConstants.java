@@ -18,10 +18,10 @@ public class FConstants {
         FollowerConstants.rightFrontMotorName = DeviceNames.FRMotor;
         FollowerConstants.rightRearMotorName = DeviceNames.BRMotor;
 
-        FollowerConstants.leftFrontMotorDirection = RobotHardware.FrontLeft.getDirection();
-        FollowerConstants.leftRearMotorDirection = RobotHardware.BackLeft.getDirection();
-        FollowerConstants.rightFrontMotorDirection = RobotHardware.FrontRight.getDirection();
-        FollowerConstants.rightRearMotorDirection = RobotHardware.BackRight.getDirection();
+        FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
+        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;
+        FollowerConstants.rightFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
+        FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.FORWARD;
 
         FollowerConstants.mass = 13;
 

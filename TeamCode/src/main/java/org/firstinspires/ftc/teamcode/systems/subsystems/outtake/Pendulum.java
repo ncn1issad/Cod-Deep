@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPosition
 public class Pendulum extends ServoPositionMechanism {
     HardwareMap hardwareMap;
     public Pendulum(HardwareMap hardwareMap) {
-        super(Positions.outtakePendulInit);
+        super(Positions.outtakePendulumInit);
         this.hardwareMap = hardwareMap;
     }
     @Override

@@ -3,98 +3,52 @@ package org.firstinspires.ftc.teamcode;
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Pose;
+import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.*;
 
 import org.firstinspires.ftc.teamcode.systems.Outtake;
 import org.firstinspires.ftc.teamcode.systems.Intake;
-import org.firstinspires.ftc.teamcode.systems.Lift;
+import org.firstinspires.ftc.teamcode.systems.subsystems.Lift;
+import org.jetbrains.annotations.NotNull;
+import pedroPathing.constants.FConstants;
+import pedroPathing.constants.LConstants;
 
-public class RobotHardware {
-    public final OpMode myOpMode;
-
-    public static DcMotorEx FrontLeft;
-    public static DcMotorEx FrontRight;
-    public static DcMotorEx BackLeft;
-    public static DcMotorEx BackRight;
-
-    public DcMotorEx LiftLeft;
-    public DcMotorEx LiftRight;
-
-    public Servo Pendul;
-
-    public Servo IntakePendul;
-    public Servo IntakeRotation;
-    public Servo Extend;
-    public CRServo IntakeMotor;
-
-    public Servo Claw;
-    public Servo ClawRotation;
-
+public class RobotHardware implements Action {
     public Lift lift;
     public Intake intake;
     public Outtake outtake;
+    Follower follower;
+    public RobotHardware(HardwareMap hardwareMap) {
+        lift = new Lift(hardwareMap);
+        intake = new Intake(hardwareMap);
+        outtake = new Outtake(hardwareMap);
 
-    public RobotHardware(OpMode opmode) {myOpMode = opmode;}
-
-    public void init(){
-        FrontLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.FLMotor);
-        FrontRight = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.FRMotor);
-        BackLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.BLMotor);
-        BackRight = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.BRMotor);
-
-        LiftLeft = myOpMode.hardwareMap.get(DcMotorEx.class, DeviceNames.LLMotor);
-        LiftRight = myOpMode. hardwareMap.get(DcMotorEx.class, DeviceNames.LRMotor);
-
-        Extend = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeExtend);
-        IntakePendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakePendulum);
-        IntakeRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.IntakeRotation);
-        IntakeMotor = myOpMode.hardwareMap.get(CRServo.class, DeviceNames.IntakeMotor);
-
-        Pendul = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakePendulum);
-        Claw = myOpMode.hardwareMap.get(Servo.class, DeviceNames.ClawServo);
-        ClawRotation = myOpMode.hardwareMap.get(Servo.class, DeviceNames.OuttakeRotation);
-
-        for (DcMotorEx motor : new DcMotorEx[]{FrontLeft, BackLeft}) {
-            motor.setDirection(DcMotorEx.Direction.REVERSE);
-        }
-        for (CRServo servo : new CRServo[] {IntakeMotor}) {
-            servo.setDirection(CRServo.Direction.REVERSE);
-        }
-
-        for (Servo servo : new Servo[] {Extend}) {
-            servo.setDirection(Servo.Direction.REVERSE);
-        }
-
-        lift = new Lift(LiftLeft, LiftRight);
-        intake = new Intake(IntakeRotation, IntakeMotor, Extend, IntakePendul);
-        outtake = new Outtake(Claw, ClawRotation, Pendul);
+        Constants.setConstants(FConstants.class, LConstants.class);
+        follower = new Follower(hardwareMap);
+        follower.setStartingPose(new Pose(0, 0, 0));
+    }
+    @Override
+    public boolean run(@NotNull TelemetryPacket packet) {
+        return lift.run(packet) && intake.run(packet) && outtake.run(packet);
     }
 
-    public void update(@NonNull FtcDashboard dashboard) {
-        outtake.update(dashboard);
-        intake.update(dashboard);
-        lift.update(dashboard);
-        dashboard.updateConfig();
+    public void start() {
+        follower.startTeleopDrive();
     }
 
     public void movement(@NonNull Gamepad gamepad) {
-        double y = -gamepad.left_stick_y;
-        double x = gamepad.left_stick_x * 1.1;
-        double rx = gamepad.right_stick_x;
-
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y - x + rx) / denominator;
-        double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;
-
-        FrontLeft.setPower(frontLeftPower);
-        BackLeft.setPower(backLeftPower);
-        FrontRight.setPower(frontRightPower);
-        BackRight.setPower(backRightPower);
+        follower.setTeleOpMovementVectors(
+                -gamepad.left_stick_y,
+                -gamepad.left_stick_x,
+                -gamepad.right_stick_x,
+                true
+        );
+        follower.update();
     }
 }
