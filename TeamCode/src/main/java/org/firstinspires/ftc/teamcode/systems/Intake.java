@@ -6,9 +6,10 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
 import org.firstinspires.ftc.teamcode.utilities.ServoSmoothing;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
-import org.firstinspires.ftc.teamcode.systems.subsystems.IntakeMotor;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.subsystems.intake.Motor;
 
 public class Intake {
     final Servo IntakeRotation;
@@ -17,7 +18,7 @@ public class Intake {
     final CRServo IntakeMotor;
 
     public final SingleServo rotation;
-    public final IntakeMotor intakeMotor;
+    public final Motor motor;
     public final SingleServo extend;
     public final SingleServo pendul;
 
@@ -39,7 +40,7 @@ public class Intake {
         this.IntakePendul = IntakePendul;
 
         rotation = new SingleServo(IntakeRotation, Positions.intakeRotationInit, "Intake rotation");
-        intakeMotor = new IntakeMotor(IntakeMotor);
+        motor = new Motor(IntakeMotor);
         extend = new SingleServo(ExtendMotor, Positions.intakeExtendInit, "Intake extend");
         pendul = new SingleServo(IntakePendul, Positions.intakePendulInit, "Intake pendul");
     }
@@ -48,16 +49,16 @@ public class Intake {
         rotation.update(dashboard);
         extend.update(dashboard);
         pendul.update(dashboard);
-        intakeMotor.update(dashboard);
+        motor.update(dashboard);
     }
 
     public void runIntake (boolean gamepadButtonIn, boolean gamepadButtonOut){
         if (gamepadButtonIn)
-            intakeMotor.setPower(0.6);
+            motor.setPower(0.6);
         else if (gamepadButtonOut)
-            intakeMotor.setPower(-1.0);
+            motor.setPower(-1.0);
         else
-            intakeMotor.setPower(0.0);
+            motor.setPower(0.0);
     }
 
     public void setPosition(@NonNull IntakePositions value) {

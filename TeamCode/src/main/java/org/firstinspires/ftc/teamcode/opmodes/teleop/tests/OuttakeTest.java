@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
 
 @TeleOp(name = "OuttakeTest", group = "B")
 public class OuttakeTest extends OpMode {
@@ -22,7 +22,7 @@ public class OuttakeTest extends OpMode {
     @Override
     public void init() {
         Claw = hardwareMap.get(Servo.class, DeviceNames.ClawServo);
-        Pendul = hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
+        Pendul = hardwareMap.get(Servo.class, DeviceNames.OuttakePendulum);
         Rotation = hardwareMap.get(Servo.class, DeviceNames.IntakeRotation);
 
         outtake = new Outtake(Claw, Rotation, Pendul);
@@ -33,7 +33,7 @@ public class OuttakeTest extends OpMode {
     @Override
     public void loop() {
         outtake.claw.target += gamepad2.left_stick_x * SingleServo.ManualMultiplier;
-        outtake.pendul.target += gamepad1.right_stick_x * SingleServo.ManualMultiplier;
+        outtake.pendulum.target += gamepad1.right_stick_x * SingleServo.ManualMultiplier;
         outtake.rotation.target += gamepad1.left_stick_x * SingleServo.ManualMultiplier;
 
         if (gamepad1.dpad_down) outtake.setPosition(Outtake.OuttakePositions.TRANSFER);

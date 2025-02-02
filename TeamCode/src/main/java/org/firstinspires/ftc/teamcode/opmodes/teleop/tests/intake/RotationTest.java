@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.DeviceNames;
-import org.firstinspires.ftc.teamcode.systems.Positions;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
 
 @TeleOp(name = "IntakeRotationTest", group = "C")
 public class RotationTest extends OpMode {

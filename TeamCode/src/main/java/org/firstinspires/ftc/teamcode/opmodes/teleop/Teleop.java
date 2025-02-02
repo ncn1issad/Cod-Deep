@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
-import org.firstinspires.ftc.teamcode.systems.Positions;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
 
 import java.util.concurrent.TimeUnit;
 

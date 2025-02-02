@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.DeviceNames;
-import org.firstinspires.ftc.teamcode.systems.Positions;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
 
 @TeleOp(name = "OuttakePendulTest", group = "C")
 public class PendulTest extends OpMode {
@@ -17,7 +17,7 @@ public class PendulTest extends OpMode {
 
     @Override
     public void init() {
-        servo = hardwareMap.get(Servo.class, DeviceNames.OuttakePendul);
+        servo = hardwareMap.get(Servo.class, DeviceNames.OuttakePendulum);
         pendul = new SingleServo(servo, Positions.outtakePendulInit, "OuttakeTest pendul");
         dashboard = FtcDashboard.getInstance();
     }

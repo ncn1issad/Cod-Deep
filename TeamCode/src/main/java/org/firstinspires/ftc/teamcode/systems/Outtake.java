@@ -5,14 +5,15 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.Positions;
 
 public class Outtake {
     final Servo Claw;
     final Servo Rotation;
-    final Servo Pendul;
+    final Servo Pendulum;
 
-    public SingleServo pendul;
+    public SingleServo pendulum;
     public SingleServo claw;
     public SingleServo rotation;
 
@@ -25,18 +26,18 @@ public class Outtake {
     /** @noinspection unused*/
     public OuttakePositions position = OuttakePositions.INIT;
 
-    public Outtake(Servo Claw, Servo Rotation, Servo Pendul) {
-        this.Pendul = Pendul;
+    public Outtake(Servo Claw, Servo Rotation, Servo Pendulum) {
+        this.Pendulum = Pendulum;
         this.Claw = Claw;
         this.Rotation = Rotation;
 
-        pendul = new SingleServo(Pendul, Positions.outtakePendulInit, "OuttakeTest pendul");
+        pendulum = new SingleServo(Pendulum, Positions.outtakePendulInit, "OuttakeTest pendulum");
         claw = new SingleServo(Claw, Positions.outtakeClawInit, "OuttakeTest claw");
         rotation = new SingleServo(Rotation, Positions.outtakeRotationInit, "OuttakeTest rotation");
     }
 
     public void update(@NonNull FtcDashboard dashboard) {
-        pendul.update(dashboard);
+        pendulum.update(dashboard);
         claw.update(dashboard);
         rotation.update(dashboard);
     }
@@ -44,22 +45,22 @@ public class Outtake {
     public void setPosition(@NonNull OuttakePositions value) {
         switch (value) {
             case TRANSFER:
-                pendul.target = Positions.outtakePendulTransfer;
+                pendulum.target = Positions.outtakePendulTransfer;
                 rotation.target = Positions.outtakeRotationTransfer;
                 position = OuttakePositions.TRANSFER;
                 break;
             case BASKET:
-                pendul.target = Positions.outtakeRotationBasket;
+                pendulum.target = Positions.outtakeRotationBasket;
                 rotation.target = Positions.outtakeRotationBasket;
                 position = OuttakePositions.BASKET;
                 break;
             case OUTTAKE:
-                pendul.target = Positions.outtakePendulOuttake;
+                pendulum.target = Positions.outtakePendulOuttake;
                 rotation.target = Positions.outtakeRotationOuttake;
                 position = OuttakePositions.OUTTAKE;
                 break;
             case INIT:
-                pendul.target = Positions.outtakePendulInit;
+                pendulum.target = Positions.outtakePendulInit;
                 rotation.target = Positions.outtakeRotationInit;
                 claw.target = Positions.outtakeClawInit;
                 position = OuttakePositions.INIT;

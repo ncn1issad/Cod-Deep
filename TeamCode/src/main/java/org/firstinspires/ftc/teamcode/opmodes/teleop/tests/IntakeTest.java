@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.Intake;
-import org.firstinspires.ftc.teamcode.systems.subsystems.SingleServo;
+import org.firstinspires.ftc.teamcode.systems.utilites.SingleServo;
 
 @TeleOp(name = "IntakeTest", group = "B")
 public class IntakeTest extends OpMode {
@@ -24,7 +24,7 @@ public class IntakeTest extends OpMode {
     @Override
     public void init() {
         Extend = hardwareMap.get(Servo.class, DeviceNames.IntakeExtend);
-        Pendul = hardwareMap.get(Servo.class, DeviceNames.IntakePendul);
+        Pendul = hardwareMap.get(Servo.class, DeviceNames.IntakePendulum);
         Rotation = hardwareMap.get(Servo.class, DeviceNames.IntakeRotation);
         Motor = hardwareMap.get(CRServo.class, DeviceNames.IntakeMotor);
 
