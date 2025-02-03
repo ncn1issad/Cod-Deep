@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 
 /** @noinspection some fields may be unused*/
 @Config
-public class Positions {
+public class SystemPositions {
     // Intake Pendulum
     public static double intakePendulumDown = 0.43;
     public static double intakePendulumEntrance = 0.585;

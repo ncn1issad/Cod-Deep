@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.utilites.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemPositions;
 import org.firstinspires.ftc.teamcode.systems.utilites.ServoPositionMechanism;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionFactory;
 
 public class Rotation extends ServoPositionMechanism {
     HardwareMap hardwareMap;
     public Rotation(HardwareMap hardwareMap) {
-        super(Positions.outtakeRotationInit);
+        super(SystemPositions.outtakeRotationInit);
         this.hardwareMap = hardwareMap;
     }
     @Override

@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.utilites.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemPositions;
 import org.firstinspires.ftc.teamcode.systems.utilites.ServoPositionMechanism;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionFactory;
 
 public class Pendulum extends ServoPositionMechanism {
     HardwareMap hardwareMap;
     public Pendulum(HardwareMap hardwareMap) {
-        super(Positions.outtakePendulumInit);
+        super(SystemPositions.outtakePendulumInit);
         this.hardwareMap = hardwareMap;
     }
     @Override

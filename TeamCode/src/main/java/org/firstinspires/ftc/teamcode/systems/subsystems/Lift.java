@@ -9,14 +9,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.utilites.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemPositions;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionFactory;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionMechanism;
 import org.jetbrains.annotations.NotNull;
 
 public class Lift implements ManualPositionMechanism {
     DcMotorEx[] motors;
-    private int targetPosition = Positions.liftInit;
+    private int targetPosition = SystemPositions.liftInit;
     private boolean isCancelled = false;
 
     public Lift(@NotNull HardwareMap hardwareMap) {
@@ -28,7 +28,7 @@ public class Lift implements ManualPositionMechanism {
         for (DcMotorEx motor : motors) {
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setTargetPosition(Positions.liftInit);
+            motor.setTargetPosition(SystemPositions.liftInit);
             motor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
         motors[0].setDirection(DcMotorEx.Direction.REVERSE);

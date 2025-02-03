@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.DeviceNames;
 import org.firstinspires.ftc.teamcode.systems.utilites.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemPositions;
 import org.firstinspires.ftc.teamcode.systems.utilites.ServoPositionMechanism;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.ManualPositionFactory;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class Claw extends ServoPositionMechanism {
     HardwareMap hardwareMap;
     public Claw(HardwareMap hardwareMap) {
-        super(Positions.outtakeClawInit);
+        super(SystemPositions.outtakeClawInit);
         this.hardwareMap = hardwareMap;
 
         if (getServos().length > 0) {
@@ -41,8 +41,8 @@ public class Claw extends ServoPositionMechanism {
     }
 
     public enum CPositions {
-        Open(Positions.outtakeClawOpen),
-        Close(Positions.outtakeClawClosed);
+        Open(SystemPositions.outtakeClawOpen),
+        Close(SystemPositions.outtakeClawClosed);
         private final double claw;
 
         CPositions(double claw) {

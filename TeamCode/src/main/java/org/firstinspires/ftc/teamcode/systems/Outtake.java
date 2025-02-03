@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.systems.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Claw;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Pendulum;
 import org.firstinspires.ftc.teamcode.systems.subsystems.outtake.Rotation;
-import org.firstinspires.ftc.teamcode.utilities.Positions;
+import org.firstinspires.ftc.teamcode.utilities.SystemPositions;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemFactory;
 import org.firstinspires.ftc.teamcode.systems.utilites.interfaces.SystemMechanism;
 import org.firstinspires.ftc.teamcode.systems.utilites.SystemTeleOp;
@@ -73,11 +73,11 @@ public class Outtake implements SystemMechanism {
     }
 
     public enum State {
-        Init(Positions.outtakePendulumInit, Positions.outtakeRotationInit, Positions.liftInit),
-        Transfer(Positions.outtakePendulumTransfer, Positions.outtakeRotationTransfer, Positions.liftTransfer),
-        Basket(Positions.outtakePendulumBasket, Positions.outtakeRotationBasket, Positions.liftBasket),
-        Bar(Positions.outtakePendulumBar, Positions.outtakeRotationBar, Positions.liftBar),
-        Pickup(Positions.outtakePendulumPickup, Positions.outtakeRotationPickup, Positions.liftPickup);
+        Init(SystemPositions.outtakePendulumInit, SystemPositions.outtakeRotationInit, SystemPositions.liftInit),
+        Transfer(SystemPositions.outtakePendulumTransfer, SystemPositions.outtakeRotationTransfer, SystemPositions.liftTransfer),
+        Basket(SystemPositions.outtakePendulumBasket, SystemPositions.outtakeRotationBasket, SystemPositions.liftBasket),
+        Bar(SystemPositions.outtakePendulumBar, SystemPositions.outtakeRotationBar, SystemPositions.liftBar),
+        Pickup(SystemPositions.outtakePendulumPickup, SystemPositions.outtakeRotationPickup, SystemPositions.liftPickup);
         private final double pendulum;
         private final double rotation;
         private final double lift;
