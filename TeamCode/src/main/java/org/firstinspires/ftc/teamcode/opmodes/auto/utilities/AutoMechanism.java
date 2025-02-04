@@ -15,6 +15,11 @@ public abstract class AutoMechanism extends OpMode {
     protected Map<?, PathChain> pathChains;
     Timer pathTimer, actionTimer, opModeTimer;
     protected int pathState;
+    PoseMechanism[] poses;
+
+    protected AutoMechanism(PoseMechanism[] poses) {
+        this.poses = poses;
+    }
 
     public void setPathState(int pathState) {
         this.pathState = pathState;
@@ -28,9 +33,9 @@ public abstract class AutoMechanism extends OpMode {
         opModeTimer = new Timer();
 
         robot = new RobotHardware(hardwareMap);
-        pathCreatorFactory = new PathCreatorFactory(AutoPoses.values());
+        pathCreatorFactory = new PathCreatorFactory(poses);
         pathChains = pathCreatorFactory.createPaths(robot.follower);
-        robot.follower.setStartingPose(AutoPoses.startPose.getPose());
+        robot.follower.setStartingPose(poses[0].getPose());
     }
 
     @Override

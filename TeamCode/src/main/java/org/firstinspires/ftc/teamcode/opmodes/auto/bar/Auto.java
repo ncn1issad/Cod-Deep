@@ -4,6 +4,10 @@ import org.firstinspires.ftc.teamcode.opmodes.auto.utilities.AutoMechanism;
 import org.firstinspires.ftc.teamcode.systems.Outtake;
 
 public class Auto extends AutoMechanism {
+    public Auto() {
+        super(AutoPoses.values());
+    }
+
     @Override
     protected void update() {
          switch (pathState) {
