@@ -16,18 +16,15 @@ public enum AutoPoses implements PoseMechanism {
     }
 
     @Override
-    public Pose getPose(Enum<?> position) {
-        if (position instanceof AutoPoses) {
-            return ((AutoPoses) position).pose;
-        }
-        return null;
+    public Pose getPose() {
+        return pose;
     }
     @Override
-    public boolean isCurve(Enum<?> position) {
-        return position instanceof AutoPoses && ((AutoPoses) position).curve;
+    public boolean isCurve() {
+        return curve;
     }
     @Override
-    public boolean isControl(Enum<?> position) {
-        return position instanceof AutoPoses && ((AutoPoses) position).control;
+    public boolean isControl() {
+        return control;
     }
 }

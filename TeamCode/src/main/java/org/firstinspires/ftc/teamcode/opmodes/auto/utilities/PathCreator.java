@@ -18,17 +18,17 @@ public interface PathCreator extends PoseMechanismFactory {
         while (i < array.length) {
             PoseMechanism current = array[i];
             // Skip if current is a control point
-            if (current.isControl((Enum<?>) current)) {
+            if (current.isControl()) {
                 i++;
                 continue;
             }
             // Determine if current is a curve
-            boolean curve = current.isCurve((Enum<?>) current);
+            boolean curve = current.isCurve();
             // Gather all control points
             List<Pose> controlPoints = new ArrayList<>();
             int j = i + 1;
-            while (j < array.length && !array[j].isControl((Enum<?>) array[j])) {
-                controlPoints.add(array[j].getPose((Enum<?>) array[j]));
+            while (j < array.length && !array[j].isControl()) {
+                controlPoints.add(array[j].getPose());
                 j++;
             }
             // If we run out of points, break
@@ -37,8 +37,8 @@ public interface PathCreator extends PoseMechanismFactory {
             }
 
             PoseMechanism next = array[j];
-            Pose start = current.getPose((Enum<?>) current);
-            Pose end = next.getPose((Enum<?>) next);
+            Pose start = current.getPose();
+            Pose end = next.getPose();
 
             BezierCurve segment;
             if (curve && !controlPoints.isEmpty()) {

@@ -1,28 +1,22 @@
 package org.firstinspires.ftc.teamcode.opmodes.auto.bar;
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathCallback;
-import com.pedropathing.pathgen.PathChain;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.opmodes.auto.utilities.PathCreatorFactory;
+import org.firstinspires.ftc.teamcode.opmodes.auto.utilities.AutoMechanism;
+import org.firstinspires.ftc.teamcode.systems.Outtake;
 
-import java.util.Map;
-
-public class Auto extends LinearOpMode {
+public class Auto extends AutoMechanism {
     @Override
-    public void runOpMode() throws InterruptedException {
-        Follower follower = new Follower(hardwareMap);
-
-        PathCreatorFactory pathCreatorFactory = new PathCreatorFactory(AutoPoses.values());
-
-        Map<?, PathChain> paths = pathCreatorFactory.createPaths(follower);
-
-        waitForStart();
-
-        PathChain path = paths.get(AutoPoses.startPose);
-        if (path != null) {
-            follower.followPath(path);
-        }
+    protected void update() {
+         switch (pathState) {
+             case 0:
+                 robot.follower.followPath(pathChains.get(AutoPoses.startPose));
+                 robot.outtake.setPosition(Outtake.State.Pickup);
+                 setPathState(1);
+                 break;
+             case 1:
+                 if (!robot.follower.isBusy()) {
+                     setPathState(-1);
+                 }
+                 break;
+         }
     }
 }

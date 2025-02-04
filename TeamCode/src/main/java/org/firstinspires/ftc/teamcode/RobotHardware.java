@@ -20,7 +20,7 @@ public class RobotHardware implements Action {
     public Lift lift;
     public Intake intake;
     public Outtake outtake;
-    Follower follower;
+    public Follower follower;
     public RobotHardware(HardwareMap hardwareMap) {
         lift = new Lift(hardwareMap);
         intake = new Intake(hardwareMap);
