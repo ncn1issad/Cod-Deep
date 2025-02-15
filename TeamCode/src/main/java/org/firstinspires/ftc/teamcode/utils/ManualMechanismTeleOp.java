@@ -14,7 +14,7 @@ public abstract class ManualMechanismTeleOp extends OpMode {
     ManualPositionMechanism mechanism;
     Follower follower;
     FtcDashboard dashboard = FtcDashboard.getInstance();
-    ManualMechanismTeleOp(ManualPositionFactory factory) {
+    protected ManualMechanismTeleOp(ManualPositionFactory factory) {
         this.factory = factory;
     }
 
