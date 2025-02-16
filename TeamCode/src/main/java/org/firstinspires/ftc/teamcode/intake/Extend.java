@@ -10,29 +10,45 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
 import org.firstinspires.ftc.teamcode.utils.ServoPositionMechanism;
 
-import static org.firstinspires.ftc.teamcode.Positions.Extend.in;
-import static org.firstinspires.ftc.teamcode.Positions.Extend.out;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Extend.in;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Extend.out;
 
+/**
+ * Class representing the Extend mechanism of the robot.
+ * It extends the ServoPositionMechanism class to control the extension servos.
+ */
 public class Extend extends ServoPositionMechanism {
     private final HardwareMap hardwareMap;
+    /**
+     * @param hardwareMap the hardware map to get the servos from.
+     */
     public Extend(HardwareMap hardwareMap) {
         super(in);
         this.hardwareMap = hardwareMap;
     }
+    /**
+     * Gets the servos associated with the Extend mechanism.
+     * @return an array of servos.
+     */
     @Override
     protected Servo[] getServos() {
         return new Servo[]{hardwareMap.get(Servo.class, "Extend1"), hardwareMap.get(Servo.class, "Extend2")};
     }
 }
-
-@TeleOp(name = "Extend Test", group = "C")
+/**
+ * TeleOp class for testing the Extend mechanism manually.
+ */
+@TeleOp(name = "Extend Test", group = "C Intake")
 class ExtendTest extends ManualMechanismTeleOp {
     public ExtendTest() {
         super(Extend::new);
     }
 }
-
-@TeleOp(name = "Extend Positions Test", group = "D")
+/**
+ * TeleOp class for testing the positions of the Extend mechanism.
+ * @noinspection DuplicatedCode
+ */
+@TeleOp(name = "Extend Positions Test", group = "D Intake")
 @Config
 class ExtendPositions extends LinearOpMode {
     public static double current = 0.0;
