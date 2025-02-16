@@ -19,5 +19,15 @@ public class Positions {
             public static double pickup = 0.017;
             public static double transfer = 0.753;
         }
+        @Config
+        public static class Spin {
+            public static double middle = 0.525;
+        }
+        @Config
+        public static class Pendulum {
+            public static double pickupWait = 0.222;
+            public static double pickup = 0.1;
+            public static double transfer = 0.88;
+        }
     }
 }

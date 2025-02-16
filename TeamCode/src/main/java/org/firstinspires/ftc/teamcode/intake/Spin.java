@@ -10,66 +10,63 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
 import org.firstinspires.ftc.teamcode.utils.ServoPositionMechanism;
 
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.pickup;
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.transfer;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Spin.middle;
 
 /**
- * Class representing the vertical rotation of the intake claw.
+ * Class representing the horizontal rotation of the intake claw.
  * It extends the ServoPositionMechanism class to control the rotation servo.
  */
-public class Rotate extends ServoPositionMechanism {
+public class Spin extends ServoPositionMechanism {
     private final HardwareMap hardwareMap;
     /**
      * @param hardwareMap the hardware map to get the servo from.
      */
-    public Rotate(HardwareMap hardwareMap) {
-        super(transfer);
+    public Spin(HardwareMap hardwareMap) {
+        super(middle);
         this.hardwareMap = hardwareMap;
+        adjustMultiplier(0.005);
     }
     /**
-     * Gets the servo associated with the Rotate mechanism.
+     * Gets the servo associated with the Spin mechanism.
      * @return an array containing the rotation servo.
      */
     @Override
     protected Servo[] getServos() {
-        return new Servo[]{hardwareMap.get(Servo.class, "Intake Rotate")};
+        return new Servo[]{hardwareMap.get(Servo.class, "Spin")};
     }
 }
 
 /**
- * TeleOp class for testing the Rotate mechanism manually.
+ * TeleOp class for testing the Spin mechanism manually.
  */
-@TeleOp(name = "Rotate Test", group = "C Intake")
-class RotateTest extends ManualMechanismTeleOp {
-    public RotateTest() {
-        super(Rotate::new);
+@TeleOp(name = "Spin Test", group = "C Intake")
+class SpinTest extends ManualMechanismTeleOp {
+    public SpinTest() {
+        super(Spin::new);
     }
 }
 
 /**
- * TeleOp class for testing the Rotate mechanism positions.
+ * TeleOp class for testing the Spin mechanism positions.
  * @noinspection DuplicatedCode
-*/
-@TeleOp(name = "Rotate Positions Test", group = "D Intake")
+ */
+@TeleOp(name = "Spin Positions Test", group = "D Intake")
 @Config
-class RotatePositions extends LinearOpMode {
+class SpinPositions extends LinearOpMode {
     public static double current = 0.0;
     @Override
     public void runOpMode() {
-        Rotate rotate = new Rotate(hardwareMap);
-
+        Spin spin = new Spin(hardwareMap);
         waitForStart();
-
         while (opModeIsActive()) {
-            if (gamepad1.dpad_up) current = pickup;
-            else if (gamepad1.dpad_down) current = transfer;
-            else current += rotate.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
-            rotate.setTargetPosition(current);
+            if (gamepad1.dpad_left) current = middle;
+            else current += spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
+            spin.setTargetPosition(current);
 
             TelemetryPacket packet = new TelemetryPacket();
-            if (!rotate.run(packet)) requestOpModeStop();
+            if(!spin.run(packet)) requestOpModeStop();
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
-            telemetry.addData("Current Position", rotate.getTargetPosition());
+            telemetry.addData("Current Position", current);
             telemetry.update();
         }
     }

@@ -30,7 +30,7 @@ public class Claw extends ServoPositionMechanism {
      */
     @Override
     protected Servo[] getServos() {
-        return new Servo[]{hardwareMap.get(Servo.class, "Claw")};
+        return new Servo[]{hardwareMap.get(Servo.class, "Intake Claw")};
     }
     /**
      * Checks if the claw is closed.

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.utils;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Abstract class representing a servo position mechanism.
@@ -73,7 +74,7 @@ public abstract class ServoPositionMechanism implements ManualPositionMechanism 
      * @return true if the mechanism is running, false otherwise.
      */
     @Override
-    public boolean run(TelemetryPacket p) {
+    public boolean run(@NotNull TelemetryPacket p) {
         if (isCancelled) {
             isCancelled = false;
             return false;

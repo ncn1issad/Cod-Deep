@@ -10,19 +10,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
 import org.firstinspires.ftc.teamcode.utils.ServoPositionMechanism;
 
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.pickup;
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.transfer;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Pendulum.pickup;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Pendulum.pickupWait;
+import static org.firstinspires.ftc.teamcode.Positions.Intake.Pendulum.transfer;
 
 /**
- * Class representing the vertical rotation of the intake claw.
+ * Class representing the vertical rotation of the intake.
  * It extends the ServoPositionMechanism class to control the rotation servo.
  */
-public class Rotate extends ServoPositionMechanism {
+public class Pendulum extends ServoPositionMechanism {
     private final HardwareMap hardwareMap;
     /**
      * @param hardwareMap the hardware map to get the servo from.
      */
-    public Rotate(HardwareMap hardwareMap) {
+    public Pendulum(HardwareMap hardwareMap) {
         super(transfer);
         this.hardwareMap = hardwareMap;
     }
@@ -32,44 +33,43 @@ public class Rotate extends ServoPositionMechanism {
      */
     @Override
     protected Servo[] getServos() {
-        return new Servo[]{hardwareMap.get(Servo.class, "Intake Rotate")};
+        return new Servo[]{hardwareMap.get(Servo.class, "Intake Pendulum")};
     }
 }
 
 /**
- * TeleOp class for testing the Rotate mechanism manually.
+ * TeleOp class for testing the Pendulum mechanism manually.
  */
-@TeleOp(name = "Rotate Test", group = "C Intake")
-class RotateTest extends ManualMechanismTeleOp {
-    public RotateTest() {
-        super(Rotate::new);
+@TeleOp(name = "Pendulum Test", group = "C Intake")
+class PendulumTest extends ManualMechanismTeleOp {
+    public PendulumTest() {
+        super(Pendulum::new);
     }
 }
 
 /**
- * TeleOp class for testing the Rotate mechanism positions.
+ * TeleOp class for testing the Pendulum mechanism positions.
  * @noinspection DuplicatedCode
-*/
-@TeleOp(name = "Rotate Positions Test", group = "D Intake")
+ */
+@TeleOp(name = "Pendulum Positions Test", group = "D Intake")
 @Config
-class RotatePositions extends LinearOpMode {
+class PendulumPositions extends LinearOpMode {
     public static double current = 0.0;
     @Override
     public void runOpMode() {
-        Rotate rotate = new Rotate(hardwareMap);
-
+        Pendulum pendulum = new Pendulum(hardwareMap);
         waitForStart();
-
         while (opModeIsActive()) {
-            if (gamepad1.dpad_up) current = pickup;
-            else if (gamepad1.dpad_down) current = transfer;
-            else current += rotate.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
-            rotate.setTargetPosition(current);
+            if (gamepad1.dpad_right) current = pickupWait;
+            else if (gamepad1.dpad_down) current = pickup;
+            else if (gamepad1.dpad_up) current = transfer;
+            else current += pendulum.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
+            pendulum.setTargetPosition(current);
 
             TelemetryPacket packet = new TelemetryPacket();
-            if (!rotate.run(packet)) requestOpModeStop();
+            if(!pendulum.run(packet)) requestOpModeStop();
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
-            telemetry.addData("Current Position", rotate.getTargetPosition());
+            telemetry.addData("Current Position", current);
             telemetry.update();
         }
     }
