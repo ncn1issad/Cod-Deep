@@ -115,7 +115,10 @@ class IntakeTest extends LinearOpMode {
         Intake intake = new Intake(hardwareMap);
         Follower follower = new Follower(hardwareMap);
         FtcDashboard dash = FtcDashboard.getInstance();
+
         waitForStart();
+        follower.startTeleopDrive();
+
         while (opModeIsActive()) {
             follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, true);
             follower.update();
@@ -129,6 +132,42 @@ class IntakeTest extends LinearOpMode {
             intake.spin.setTargetPosition(
                     intake.spin.getTargetPosition() + intake.spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger)
             );
+
+            TelemetryPacket packet = new TelemetryPacket();
+            if(!intake.run(packet)) requestOpModeStop();
+            dash.sendTelemetryPacket(packet);
+        }
+    }
+}
+/**
+ * TeleOp mode for manually controlling the Intake mechanism.
+ * This class extends LinearOpMode and provides a manual teleop mode
+ * to control the Intake mechanism using gamepad inputs.
+ */
+@TeleOp(name = "Manual Intake Test", group = "C")
+class IntakeManual extends LinearOpMode {
+    @Override
+    public void runOpMode() {
+        Intake intake = new Intake(hardwareMap);
+        FtcDashboard dash = FtcDashboard.getInstance();
+        intake.setTargetPosition(IntakePositions.PICKUP);
+
+        waitForStart();
+        double rotate = intake.rotate.getTargetPosition();
+        double spin = intake.spin.getTargetPosition();
+        double pendulum = intake.pendulum.getTargetPosition();
+
+        while (opModeIsActive()) {
+            if (gamepad1.right_bumper) intake.setClaw(true);
+            else if (gamepad1.left_bumper) intake.setClaw(false);
+
+            rotate += intake.rotate.getMultiplier() * gamepad1.right_stick_y;
+            spin += intake.spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
+            pendulum += intake.pendulum.getMultiplier() * gamepad1.left_stick_y;
+
+            intake.rotate.setTargetPosition(rotate);
+            intake.spin.setTargetPosition(spin);
+            intake.pendulum.setTargetPosition(pendulum);
 
             TelemetryPacket packet = new TelemetryPacket();
             if(!intake.run(packet)) requestOpModeStop();

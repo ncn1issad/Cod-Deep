@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.intake;
+package org.firstinspires.ftc.teamcode.outtake;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,11 +8,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
 import org.firstinspires.ftc.teamcode.utils.ServoPositionMechanism;
 
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Claw.close;
-import static org.firstinspires.ftc.teamcode.Positions.Intake.Claw.open;
+import static org.firstinspires.ftc.teamcode.Positions.Outtake.Claw.close;
+import static org.firstinspires.ftc.teamcode.Positions.Outtake.Claw.open;
 
 /**
- * Class representing the Claw mechanism of the intake.
+ * Class representing the Claw mechanism of the outtake.
  * It extends the ServoPositionMechanism class to control the claw servo.
  */
 public class Claw extends ServoPositionMechanism {
@@ -23,6 +23,7 @@ public class Claw extends ServoPositionMechanism {
     public Claw (HardwareMap hardwareMap) {
         super(open);
         this.hardwareMap = hardwareMap;
+        getServos()[0].setDirection(Servo.Direction.REVERSE);
     }
     /**
      * Gets the servo associated with the Claw mechanism.
@@ -30,7 +31,7 @@ public class Claw extends ServoPositionMechanism {
      */
     @Override
     protected Servo[] getServos() {
-        return new Servo[]{hardwareMap.get(Servo.class, "Intake Claw")};
+        return new Servo[]{hardwareMap.get(Servo.class, "Outtake Claw")};
     }
     /**
      * Checks if the claw is closed.
@@ -50,7 +51,7 @@ public class Claw extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Claw mechanism manually.
  */
-@TeleOp(name = "Claw Test", group = "C Intake")
+@TeleOp(name = "Claw Test", group = "C Outtake")
 class ClawTest extends ManualMechanismTeleOp {
     public ClawTest() {
         super(Claw::new);
@@ -60,7 +61,7 @@ class ClawTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the positions of the Claw mechanism.
  * @noinspection DuplicatedCode
  */
-@TeleOp(name = "Claw Positions Test", group = "D Intake")
+@TeleOp(name = "Claw Positions Test", group = "D Outtake")
 class ClawPositions extends LinearOpMode {
     @Override
     public void runOpMode() {
