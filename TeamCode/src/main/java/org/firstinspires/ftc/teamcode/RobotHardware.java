@@ -11,7 +11,7 @@ import pedroPathing.constants.LConstants;
 public class RobotHardware implements CancelableAction {
     public Intake intake;
     public Outtake outtake;
-    RobotHardware(HardwareMap hardwareMap) {
+    public RobotHardware(HardwareMap hardwareMap) {
         Constants.setConstants(FConstants.class, LConstants.class);
         intake = new Intake(hardwareMap);
         outtake = new Outtake(hardwareMap);

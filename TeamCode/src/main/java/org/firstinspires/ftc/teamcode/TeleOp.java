@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -15,8 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "A")
+@Config
 public class TeleOp extends LinearOpMode {
-    RobotHardware robot;
+    public static boolean useIntake = true;
+    public static boolean useOuttake = true;
+    private RobotHardware robot;
     private boolean outtakeIsOpen = false;
     @Override
     public void runOpMode() {
@@ -29,8 +33,8 @@ public class TeleOp extends LinearOpMode {
         SinglePress intakePositionSet = new SinglePress(() -> gamepad1.cross);
 
         List<CancelableAction> actions = new ArrayList<>();
-            actions.add(robot.intake);
-            actions.add(robot.outtake);
+        if (useIntake) actions.add(robot.intake);
+        if (useOuttake) actions.add(robot.outtake);
 
         while (!isStarted()) {
             TelemetryPacket packet = new TelemetryPacket();
@@ -57,31 +61,34 @@ public class TeleOp extends LinearOpMode {
 
             applyPositions(gamepad2);
 
+            // Set the pendulum position to clear the bar if the outtake is set to the bar position
             if (!clawCache && robot.outtake.getTargetPosition() == OuttakePositions.BAR)
                 robot.outtake.pendulum.setTargetPosition(Positions.Outtake.Pendulum.clearBar);
+            // Make sure the claw position matches the outtake position
             if (!clawCache && outtakeIsOpen) {
                 clawCache = true;
                 outtakeIsOpen = false;
             }
 
+            // Update systems and telemetry
             TelemetryPacket packet = new TelemetryPacket();
             packet.put("Robot Pose", follower.getPose().getAsPedroCoordinates());
             actions.removeIf(action -> !action.run(packet));
             dashboard.sendTelemetryPacket(packet);
-
+            // Reset the robot's pose
             if (gamepad1.left_stick_button) follower.setPose(new Pose(0, 0, 0));
-
+            // Toggle the claw position
             robot.outtake.setClaw(clawCache);
             if (robot.intake.getTargetPosition() == IntakePositions.TRANSFER &&
                 robot.outtake.getTargetPosition() == OuttakePositions.TRANSFER)
                 robot.intake.setClaw(!clawCache);
-
+            // Pickup controls
             if (gamepad1.right_bumper) robot.intake.pickup();
             else if (gamepad1.left_bumper) {
                 robot.intake.setClaw(false);
                 robot.intake.spin.setTargetPosition(Positions.Intake.Spin.middle);
             }
-
+            // Intake controls
             robot.intake.spin.setTargetPosition(
                     robot.intake.spin.getTargetPosition() +
                     (gamepad1.right_trigger - gamepad1.left_trigger) *
@@ -94,7 +101,7 @@ public class TeleOp extends LinearOpMode {
                 robot.intake.setClaw(false);
                 robot.intake.spin.setTargetPosition(Positions.Intake.Spin.left);
             }
-
+            // Intake position set
             if (intakePositionSet.isPressed()) {
                 if (robot.intake.getTargetPosition() == IntakePositions.PICKUP)
                     robot.intake.setTargetPosition(IntakePositions.TRANSFER);
