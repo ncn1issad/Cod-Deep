@@ -39,7 +39,7 @@ public class Rotate extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Rotate mechanism manually.
  */
-@TeleOp(name = "Rotate Test", group = "C Intake")
+@TeleOp(name = "Intake Rotate Test", group = "C Intake")
 class RotateTest extends ManualMechanismTeleOp {
     public RotateTest() {
         super(Rotate::new);
@@ -50,7 +50,7 @@ class RotateTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the Rotate mechanism positions.
  * @noinspection DuplicatedCode
 */
-@TeleOp(name = "Rotate Positions Test", group = "D Intake")
+@TeleOp(name = "Intake Rotate Positions Test", group = "D Intake")
 @Config
 class RotatePositions extends LinearOpMode {
     public static double current = 0.0;

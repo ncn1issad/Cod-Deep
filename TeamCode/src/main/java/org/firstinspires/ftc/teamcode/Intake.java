@@ -120,7 +120,7 @@ class IntakeTest extends LinearOpMode {
         follower.startTeleopDrive();
 
         while (opModeIsActive()) {
-            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, true);
+            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, false);
             follower.update();
 
             if (gamepad1.dpad_down) intake.setTargetPosition(IntakePositions.PICKUP);

@@ -38,7 +38,7 @@ public class Extend extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Extend mechanism manually.
  */
-@TeleOp(name = "Extend Test", group = "C Intake")
+@TeleOp(name = "Intake Extend Test", group = "C Intake")
 class ExtendTest extends ManualMechanismTeleOp {
     public ExtendTest() {
         super(Extend::new);
@@ -48,7 +48,7 @@ class ExtendTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the positions of the Extend mechanism.
  * @noinspection DuplicatedCode
  */
-@TeleOp(name = "Extend Positions Test", group = "D Intake")
+@TeleOp(name = "Intake Extend Positions Test", group = "D Intake")
 @Config
 class ExtendPositions extends LinearOpMode {
     public static double current = 0.0;

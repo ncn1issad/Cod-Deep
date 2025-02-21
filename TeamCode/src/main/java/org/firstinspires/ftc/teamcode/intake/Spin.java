@@ -39,7 +39,7 @@ public class Spin extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Spin mechanism manually.
  */
-@TeleOp(name = "Spin Test", group = "C Intake")
+@TeleOp(name = "Intake Spin Test", group = "C Intake")
 class SpinTest extends ManualMechanismTeleOp {
     public SpinTest() {
         super(Spin::new);
@@ -50,7 +50,7 @@ class SpinTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the Spin mechanism positions.
  * @noinspection DuplicatedCode
  */
-@TeleOp(name = "Spin Positions Test", group = "D Intake")
+@TeleOp(name = "Intake Spin Positions Test", group = "D Intake")
 @Config
 class SpinPositions extends LinearOpMode {
     public static double current = 0.0;

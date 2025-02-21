@@ -51,7 +51,7 @@ public class Claw extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Claw mechanism manually.
  */
-@TeleOp(name = "Claw Test", group = "C Outtake")
+@TeleOp(name = "Outtake Claw Test", group = "C Outtake")
 class ClawTest extends ManualMechanismTeleOp {
     public ClawTest() {
         super(Claw::new);
@@ -61,7 +61,7 @@ class ClawTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the positions of the Claw mechanism.
  * @noinspection DuplicatedCode
  */
-@TeleOp(name = "Claw Positions Test", group = "D Outtake")
+@TeleOp(name = "Outtake Claw Positions Test", group = "D Outtake")
 class ClawPositions extends LinearOpMode {
     @Override
     public void runOpMode() {

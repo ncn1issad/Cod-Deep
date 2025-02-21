@@ -40,7 +40,7 @@ public class Pendulum extends ServoPositionMechanism {
 /**
  * TeleOp class for testing the Pendulum mechanism manually.
  */
-@TeleOp(name = "Pendulum Test", group = "C Intake")
+@TeleOp(name = "Intake Pendulum Test", group = "C Intake")
 class PendulumTest extends ManualMechanismTeleOp {
     public PendulumTest() {
         super(Pendulum::new);
@@ -51,7 +51,7 @@ class PendulumTest extends ManualMechanismTeleOp {
  * TeleOp class for testing the Pendulum mechanism positions.
  * @noinspection DuplicatedCode
  */
-@TeleOp(name = "Pendulum Positions Test", group = "D Intake")
+@TeleOp(name = "Intake Pendulum Positions Test", group = "D Intake")
 @Config
 class PendulumPositions extends LinearOpMode {
     public static double current = 0.0;

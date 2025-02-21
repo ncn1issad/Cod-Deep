@@ -95,7 +95,7 @@ class OuttakeTest extends LinearOpMode {
         follower.startTeleopDrive();
 
         while (opModeIsActive()) {
-            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, true);
+            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, false);
             follower.update();
 
             if (gamepad1.dpad_up) outtake.setTargetPosition(OuttakePositions.PICKUP);
