@@ -40,6 +40,8 @@ public class Positions {
         @Config("Intake Spin Positions")
         public static class Spin {
             public static double middle = 0.525;
+            public static double right = 0.785;
+            public static double left = 0.265;
         }
         /**
          * Class containing all the positions for the intake pendulum.
