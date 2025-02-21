@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.outtake.*;
 import org.firstinspires.ftc.teamcode.utils.CancelableAction;
+import org.firstinspires.ftc.teamcode.utils.Movement;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -80,36 +81,31 @@ public class Outtake implements CancelableAction {
 }
 /**
  * TeleOp mode for testing the Outtake mechanism.
- * This class extends LinearOpMode and provides a simple teleop mode
+ * This class extends Movement and provides a simple teleop mode
  * to test the functionality of the Outtake mechanism.
  */
 @TeleOp(name = "Outtake Test", group = "B")
-class OuttakeTest extends LinearOpMode {
+class OuttakeTest extends Movement {
+    private Outtake outtake;
+    private FtcDashboard dash;
     @Override
-    public void runOpMode() {
-        Outtake outtake = new Outtake(hardwareMap);
-        Follower follower = new Follower(hardwareMap);
-        FtcDashboard dash = FtcDashboard.getInstance();
+    public void systemInit() {
+        outtake = new Outtake(hardwareMap);
+        dash = FtcDashboard.getInstance();
+    }
+    @Override
+    public void systemLoop() {
+        if (gamepad1.dpad_up) outtake.setTargetPosition(OuttakePositions.PICKUP);
+        else if (gamepad1.dpad_down) outtake.setTargetPosition(OuttakePositions.TRANSFER);
+        else if (gamepad1.dpad_left) outtake.setTargetPosition(OuttakePositions.BAR);
+        else if (gamepad1.dpad_right) outtake.setTargetPosition(OuttakePositions.BASKET);
 
-        waitForStart();
-        follower.startTeleopDrive();
+        if (gamepad1.right_bumper) outtake.setClaw(true);
+        else if (gamepad1.left_bumper) outtake.setClaw(false);
 
-        while (opModeIsActive()) {
-            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, false);
-            follower.update();
-
-            if (gamepad1.dpad_up) outtake.setTargetPosition(OuttakePositions.PICKUP);
-            else if (gamepad1.dpad_down) outtake.setTargetPosition(OuttakePositions.TRANSFER);
-            else if (gamepad1.dpad_left) outtake.setTargetPosition(OuttakePositions.BAR);
-            else if (gamepad1.dpad_right) outtake.setTargetPosition(OuttakePositions.BASKET);
-
-            if (gamepad1.right_bumper) outtake.setClaw(true);
-            else if (gamepad1.left_bumper) outtake.setClaw(false);
-
-            TelemetryPacket packet = new TelemetryPacket();
-            if (!outtake.run(packet)) requestOpModeStop();
-            dash.sendTelemetryPacket(packet);
-        }
+        TelemetryPacket packet = new TelemetryPacket();
+        if (!outtake.run(packet)) requestOpModeStop();
+        dash.sendTelemetryPacket(packet);
     }
 }
 /**

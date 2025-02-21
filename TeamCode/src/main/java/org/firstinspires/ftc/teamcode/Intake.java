@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.pedropathing.follower.Follower;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.intake.*;
 import org.firstinspires.ftc.teamcode.utils.CancelableAction;
+import org.firstinspires.ftc.teamcode.utils.Movement;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -105,38 +105,34 @@ public class Intake implements CancelableAction {
 }
 /**
  * TeleOp mode for testing the Intake mechanism.
- * This class extends LinearOpMode and provides a simple teleop mode
+ * This class extends Movement and provides a simple teleop mode
  * to test the functionality of the Intake mechanism.
  */
 @TeleOp(name = "Intake Test", group = "B")
-class IntakeTest extends LinearOpMode {
+class IntakeTest extends Movement {
+    private Intake intake;
+    private FtcDashboard dash;
     @Override
-    public void runOpMode() {
-        Intake intake = new Intake(hardwareMap);
-        Follower follower = new Follower(hardwareMap);
-        FtcDashboard dash = FtcDashboard.getInstance();
+    public void systemInit() {
+        intake = new Intake(hardwareMap);
+        dash = FtcDashboard.getInstance();
+    }
 
-        waitForStart();
-        follower.startTeleopDrive();
+    @Override
+    public void systemLoop() {
+        if (gamepad1.dpad_down) intake.setTargetPosition(IntakePositions.PICKUP);
+        else if (gamepad1.dpad_up) intake.setTargetPosition(IntakePositions.TRANSFER);
 
-        while (opModeIsActive()) {
-            follower.setTeleOpMovementVectors(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, false);
-            follower.update();
+        if (gamepad1.right_bumper) intake.pickup();
+        if (gamepad1.left_bumper) intake.setClaw(false);
 
-            if (gamepad1.dpad_down) intake.setTargetPosition(IntakePositions.PICKUP);
-            else if (gamepad1.dpad_up) intake.setTargetPosition(IntakePositions.TRANSFER);
+        intake.spin.setTargetPosition(
+                intake.spin.getTargetPosition() + intake.spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger)
+        );
 
-            if (gamepad1.right_bumper) intake.pickup();
-            if (gamepad1.left_bumper) intake.setClaw(false);
-
-            intake.spin.setTargetPosition(
-                    intake.spin.getTargetPosition() + intake.spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger)
-            );
-
-            TelemetryPacket packet = new TelemetryPacket();
-            if(!intake.run(packet)) requestOpModeStop();
-            dash.sendTelemetryPacket(packet);
-        }
+        TelemetryPacket packet = new TelemetryPacket();
+        if(!intake.run(packet)) requestOpModeStop();
+        dash.sendTelemetryPacket(packet);
     }
 }
 /**
