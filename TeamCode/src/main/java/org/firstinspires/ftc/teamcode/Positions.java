@@ -81,7 +81,17 @@ public class Positions {
             public static double pickup = 0.834;
             public static double transfer = 0.208;
             public static double bar = 0.635;
+            public static double clearBar = 0.7;
             public static double basket = 0.58;
+        }
+        /**
+         * Class containing all the positions for the outtake lift.
+         */
+        @Config("Outtake Lift Positions")
+        public static class Lift {
+            public static double up = 2210.0;
+            public static double half = 180.0;
+            public static double down = 0.0;
         }
     }
 }

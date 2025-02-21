@@ -19,6 +19,7 @@ public class Outtake implements CancelableAction {
     public Claw claw;
     public Pendulum pendulum;
     public Rotate rotate;
+    public Lift lift;
     /**
      * Constructor for the Outtake class.
      * Initializes all the outtake components using the provided hardware map.
@@ -28,6 +29,7 @@ public class Outtake implements CancelableAction {
         claw = new Claw(hardwareMap);
         pendulum = new Pendulum(hardwareMap);
         rotate = new Rotate(hardwareMap);
+        lift = new Lift(hardwareMap);
     }
     /**
      * Cancels all outtake actions.
@@ -37,6 +39,7 @@ public class Outtake implements CancelableAction {
         claw.cancel();
         pendulum.cancel();
         rotate.cancel();
+        lift.cancel();
     }
     /**
      * Runs the outtake mechanism and updates the telemetry packet.
@@ -45,7 +48,7 @@ public class Outtake implements CancelableAction {
      */
     @Override
     public boolean run(@NotNull TelemetryPacket packet) {
-        return claw.run(packet) && pendulum.run(packet) && rotate.run(packet);
+        return claw.run(packet) && pendulum.run(packet) && rotate.run(packet) && lift.run(packet);
     }
     private OuttakePositions targetPosition;
     /**
@@ -56,6 +59,7 @@ public class Outtake implements CancelableAction {
         this.targetPosition = targetPosition;
         pendulum.setTargetPosition(targetPosition.getPendulum());
         rotate.setTargetPosition(targetPosition.getRotate());
+        lift.setTargetPosition(targetPosition.getLift());
     }
     /**
      * Gets the target position for the outtake mechanism.
@@ -103,6 +107,8 @@ class OuttakeTest extends Movement {
         if (gamepad1.right_bumper) outtake.setClaw(true);
         else if (gamepad1.left_bumper) outtake.setClaw(false);
 
+        if (gamepad1.options) outtake.cancel();
+
         TelemetryPacket packet = new TelemetryPacket();
         if (!outtake.run(packet)) requestOpModeStop();
         dash.sendTelemetryPacket(packet);
@@ -124,6 +130,7 @@ class OuttakeManual extends LinearOpMode {
         waitForStart();
         double rotate = outtake.rotate.getTargetPosition();
         double pendulum = outtake.pendulum.getTargetPosition();
+        double lift = outtake.lift.getTargetPosition();
 
         while (opModeIsActive()) {
             if (gamepad1.right_bumper) outtake.setClaw(true);
@@ -131,9 +138,11 @@ class OuttakeManual extends LinearOpMode {
 
             rotate += outtake.rotate.getMultiplier() * gamepad1.right_stick_y;
             pendulum += outtake.pendulum.getMultiplier() * gamepad1.left_stick_y;
+            lift += outtake.lift.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger);
 
             outtake.rotate.setTargetPosition(rotate);
             outtake.pendulum.setTargetPosition(pendulum);
+            outtake.lift.setTargetPosition(lift);
 
             TelemetryPacket packet = new TelemetryPacket();
             if (!outtake.run(packet)) requestOpModeStop();

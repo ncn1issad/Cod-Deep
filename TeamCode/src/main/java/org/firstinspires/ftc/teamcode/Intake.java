@@ -130,6 +130,8 @@ class IntakeTest extends Movement {
                 intake.spin.getTargetPosition() + intake.spin.getMultiplier() * (gamepad1.right_trigger - gamepad1.left_trigger)
         );
 
+        if (gamepad1.options) intake.cancel();
+
         TelemetryPacket packet = new TelemetryPacket();
         if(!intake.run(packet)) requestOpModeStop();
         dash.sendTelemetryPacket(packet);
