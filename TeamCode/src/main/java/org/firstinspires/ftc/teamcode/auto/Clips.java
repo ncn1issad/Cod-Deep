@@ -10,10 +10,16 @@ import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.Range;
+import kotlin.Pair;
 import org.firstinspires.ftc.teamcode.Positions;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.intake.IntakePositions;
 import org.firstinspires.ftc.teamcode.outtake.OuttakePositions;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Autonomous(name = "Clips", group = "A")
 public class Clips extends LinearOpMode {
@@ -22,13 +28,6 @@ public class Clips extends LinearOpMode {
             new Point(29.0, 41.2),
             new Point(29.0, 31.0),
             new Point(29.0, 21.0)
-    };
-    Point[] scorePoints = new Point[] {
-            new Point(41.75, 68.0),
-            new Point(41.75, 68.5),
-            new Point(41.75, 69.0),
-            new Point(41.75, 69.5),
-            new Point(41.75, 70.0)
     };
     double scoreAngle = Math.toRadians(180.0);
     Point scoreControl = new Point(16.0, 70.0);
@@ -45,6 +44,38 @@ public class Clips extends LinearOpMode {
     private void setState(int newState) {
         state = newState;
         pathTimer.resetTimer();
+    }
+
+    /**
+     * Returns an array of points that the robot will score at.
+     * @param size the number of points to score at
+     * @return an array of points that the robot will score at
+     */
+    @NotNull
+    private Point[] getScorePoints(int size) {
+        size = Range.clip(size, 1, 18);
+        Point[] points = new Point[size];
+        for (int i = 0; i < size; i++) {
+            points[i] = new Point(41.75, 68.0 + 0.5 * i);
+        }
+        return points;
+    }
+
+    @NotNull
+    private List<Pair<PathChain, PathChain>> getScorePaths(RobotHardware robot, int size) {
+        Point[] score = getScorePoints(size);
+        List<Pair<PathChain, PathChain>> paths = new ArrayList<>();
+        for (Point point : score) {
+            paths.add(new Pair<>(new PathBuilder().addBezierCurve(new Point(pickupSpecimen), specimenControl[0], point)
+                            .setLinearHeadingInterpolation(0.0, scoreAngle, 0.8)
+                            .addParametricCallback(0.4, () -> robot.outtake.setTargetPosition(OuttakePositions.BAR))
+                            .build(),
+                    new PathBuilder().addBezierCurve(point, specimenControl[1], new Point(pickupSpecimen))
+                            .setLinearHeadingInterpolation(scoreAngle, 0.0, 0.8)
+                            .addParametricCallback(0.5, () -> robot.outtake.setTargetPosition(OuttakePositions.PICKUP))
+                            .build()));
+        }
+        return paths;
     }
 
     @Override
@@ -68,17 +99,11 @@ public class Clips extends LinearOpMode {
         PathChain lastDrop = new PathBuilder().addBezierLine(samplePoints[2], lastDropPoint)
                 .setLinearHeadingInterpolation(sampleAngle, dropAngle)
                 .build();
-        PathChain firstScore = new PathBuilder().addBezierCurve(lastDropPoint, scoreControl, scorePoints[0])
+        PathChain firstScore = new PathBuilder().addBezierCurve(lastDropPoint, scoreControl, getScorePoints(1)[0])
                 .setLinearHeadingInterpolation(dropAngle, scoreAngle, 0.8)
                 .build();
-        PathChain pickup = new PathBuilder().addBezierCurve(scorePoints[0], specimenControl[0], specimenControl[1], new Point(pickupSpecimen))
-                .addParametricCallback(0.5, () -> robot.outtake.setTargetPosition(OuttakePositions.PICKUP))
-                .setLinearHeadingInterpolation(scoreAngle, 0.0, 0.8)
-                .build();
-        PathChain score = new PathBuilder().addBezierCurve(new Point(pickupSpecimen), scoreControl, scorePoints[1])
-                .setLinearHeadingInterpolation(0.0, scoreAngle, 0.8)
-                .addParametricCallback(0.4, () -> robot.outtake.setTargetPosition(OuttakePositions.BAR))
-                .build();
+
+        List<Pair<PathChain, PathChain>> scorePaths = getScorePaths(robot, 5);
         robot.intake.setTargetPosition(IntakePositions.TRANSFER);
 
         while (opModeInInit()) {
@@ -155,15 +180,15 @@ public class Clips extends LinearOpMode {
                         robot.outtake.setClaw(false);
                         robot.outtake.lift.setTargetPosition(Positions.Outtake.Lift.down);
                         robot.outtake.pendulum.setTargetPosition(Positions.Outtake.Pendulum.clearBar);
-                        follower.followPath(pickup);
+                        follower.followPath(scorePaths.get(0).getSecond());
                         setState(11);
                     }
                 case 11:
                     if (!follower.isBusy()) {
                         robot.intake.setClaw(true);
                         robot.outtake.setTargetPosition(OuttakePositions.BAR);
-                        follower.followPath(score);
-                        pickup.resetCallbacks();
+                        follower.followPath(scorePaths.get(1).getFirst());
+                        scorePaths.get(0).getSecond().resetCallbacks();
                         setState(12);
                     }
                 case 12:
@@ -171,16 +196,16 @@ public class Clips extends LinearOpMode {
                         robot.outtake.setClaw(false);
                         robot.outtake.lift.setTargetPosition(Positions.Outtake.Lift.down);
                         robot.outtake.pendulum.setTargetPosition(Positions.Outtake.Pendulum.clearBar);
-                        follower.followPath(pickup);
-                        score.resetCallbacks();
+                        follower.followPath(scorePaths.get(1).getSecond());
+                        scorePaths.get(1).getFirst().resetCallbacks();
                         setState(13);
                     }
                 case 13:
                     if (!follower.isBusy()) {
                         robot.intake.setClaw(true);
                         robot.outtake.setTargetPosition(OuttakePositions.BAR);
-                        follower.followPath(score);
-                        pickup.resetCallbacks();
+                        follower.followPath(scorePaths.get(2).getFirst());
+                        scorePaths.get(1).getSecond().resetCallbacks();
                         setState(14);
                     }
                 case 14:
@@ -188,16 +213,16 @@ public class Clips extends LinearOpMode {
                         robot.outtake.setClaw(false);
                         robot.outtake.lift.setTargetPosition(Positions.Outtake.Lift.down);
                         robot.outtake.pendulum.setTargetPosition(Positions.Outtake.Pendulum.clearBar);
-                        follower.followPath(pickup);
-                        score.resetCallbacks();
+                        follower.followPath(scorePaths.get(2).getSecond());
+                        scorePaths.get(2).getFirst().resetCallbacks();
                         setState(15);
                     }
                 case 15:
                     if (!follower.isBusy()) {
                         robot.intake.setClaw(true);
                         robot.outtake.setTargetPosition(OuttakePositions.BAR);
-                        follower.followPath(score);
-                        pickup.resetCallbacks();
+                        follower.followPath(scorePaths.get(3).getFirst());
+                        scorePaths.get(2).getSecond().resetCallbacks();
                         setState(16);
                     }
                 case 16:
@@ -205,15 +230,15 @@ public class Clips extends LinearOpMode {
                         robot.outtake.setClaw(false);
                         robot.outtake.lift.setTargetPosition(Positions.Outtake.Lift.down);
                         robot.outtake.pendulum.setTargetPosition(Positions.Outtake.Pendulum.clearBar);
-                        follower.followPath(pickup);
-                        score.resetCallbacks();
+                        follower.followPath(scorePaths.get(3).getSecond());
+                        scorePaths.get(3).getFirst().resetCallbacks();
                         setState(17);
                     }
                 case 17:
                     if (!follower.isBusy()) {
                         robot.intake.setClaw(true);
                         robot.outtake.setTargetPosition(OuttakePositions.BAR);
-                        follower.followPath(score);
+                        follower.followPath(scorePaths.get(4).getFirst());
                         setState(18);
                     }
                 case 18:
