@@ -61,6 +61,7 @@ public class Clips extends LinearOpMode {
         return points;
     }
 
+    /** @noinspection SameParameterValue*/
     @NotNull
     private List<Pair<PathChain, PathChain>> getScorePaths(RobotHardware robot, int size) {
         Point[] score = getScorePoints(size);

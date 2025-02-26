@@ -98,6 +98,7 @@ public class Intake implements CancelableAction {
     /**
      * Checks if the claw is closed.
      * @return true if the claw is closed, false otherwise.
+     * @noinspection unused
      */
     public boolean isClosed() {
         return claw.isClosed();

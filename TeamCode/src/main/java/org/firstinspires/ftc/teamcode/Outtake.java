@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -78,6 +77,7 @@ public class Outtake implements CancelableAction {
     /**
      * Checks if the claw is closed.
      * @return true if the claw is closed, false otherwise.
+     * @noinspection unused
      */
     public boolean isClosed() {
         return claw.isClosed();
