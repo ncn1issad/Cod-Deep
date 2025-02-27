@@ -103,6 +103,13 @@ public class Intake implements CancelableAction {
     public boolean isClosed() {
         return claw.isClosed();
     }
+    /**
+     * Switches the target position of the intake mechanism.
+     */
+    public void switchTarget() {
+        if (getTargetPosition() == IntakePositions.PICKUP) setTargetPosition(IntakePositions.TRANSFER);
+        else setTargetPosition(IntakePositions.PICKUP);
+    }
 }
 /**
  * TeleOp mode for testing the Intake mechanism.

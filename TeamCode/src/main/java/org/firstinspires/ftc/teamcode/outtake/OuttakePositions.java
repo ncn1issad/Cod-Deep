@@ -16,7 +16,7 @@ public enum OuttakePositions {
      * Position for transferring samples to the outtake.
      * Includes values for the lift, pendulum and rotate components.
      */
-    TRANSFER(Outtake.Pendulum.transfer, Outtake.Rotate.transfer, Outtake.Lift.down),
+    TRANSFER(Outtake.Pendulum.transfer, Outtake.Rotate.transfer, Outtake.Lift.transfer),
     /**
      * Position for rotating the outtake to the bar.
      * Includes values for the lift, pendulum and rotate components.
@@ -26,7 +26,12 @@ public enum OuttakePositions {
      * Position for rotating the outtake to the basket.
      * Includes values for the lift, pendulum and rotate components.
      */
-    BASKET(Outtake.Pendulum.basket, Outtake.Rotate.basket, Outtake.Lift.up);
+    BASKET(Outtake.Pendulum.basket, Outtake.Rotate.basket, Outtake.Lift.up),
+    /**
+     * Position for hanging the robot.
+     * Includes values for the lift, pendulum and rotate components.
+     */
+    HANG(Outtake.Pendulum.transfer, Outtake.Rotate.transfer, Outtake.Lift.up);
 
     private final double pendulum;
     private final double rotate;

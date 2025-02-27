@@ -91,8 +91,10 @@ public class Positions {
          */
         @Config("Outtake Lift Positions")
         public static class Lift {
-            public static double up = 2210.0;
-            public static double half = 180.0;
+            public static double up = 3200.0;
+            public static double hang = 1700.0;
+            public static double half = 650.0;
+            public static double transfer = 100.0;
             public static double down = 0.0;
         }
     }

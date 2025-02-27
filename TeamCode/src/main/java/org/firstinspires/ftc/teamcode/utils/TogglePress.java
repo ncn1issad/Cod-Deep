@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.utils;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.intake.Claw;
@@ -37,6 +38,7 @@ public class TogglePress {
  * TeleOp class for testing the TogglePress delegate.
  */
 @TeleOp(name = "Claw Toggle Press Test", group = "E")
+@Disabled
 class ClawTogglePressTest extends OpMode {
     Claw claw;
     private final TogglePress togglePress = new TogglePress(() -> gamepad1.a);
