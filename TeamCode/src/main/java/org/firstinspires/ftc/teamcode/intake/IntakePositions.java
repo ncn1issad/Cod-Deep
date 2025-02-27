@@ -11,7 +11,7 @@ public enum IntakePositions {
     * Position for picking up samples.
     * Includes values for extend, rotate, spin, and pendulum components.
     */
-    PICKUP(Intake.Extend.in, Intake.Rotate.pickup, Intake.Spin.middle, Intake.Pendulum.pickupWait),
+    PICKUP(Intake.Extend.in, Intake.Rotate.pickupWait, Intake.Spin.middle, Intake.Pendulum.pickupWait),
     /**
      * Position for transferring samples to outtake.
      * Includes values for extend, rotate, spin, and pendulum components.

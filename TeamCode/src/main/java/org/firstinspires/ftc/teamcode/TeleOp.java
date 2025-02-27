@@ -18,6 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TeleOp mode for the robot.
+ * <p>
+ * This mode allows the driver to control the robot using the gamepads.
+ */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "A")
 @Config
 public class TeleOp extends LinearOpMode {

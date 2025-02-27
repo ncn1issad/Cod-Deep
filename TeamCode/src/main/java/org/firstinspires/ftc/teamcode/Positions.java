@@ -31,8 +31,9 @@ public class Positions {
          */
         @Config("Intake Rotate Positions")
         public static class Rotate {
-            public static double pickup = 0.017;
-            public static double transfer = 0.753;
+            public static double pickupWait = 0.1;
+            public static double pickup = 0.05;
+            public static double transfer = 0.75;
         }
         /**
          * Class containing all the positions for the intake spin.
@@ -48,9 +49,9 @@ public class Positions {
          */
         @Config("Intake Pendulum Positions")
         public static class Pendulum {
-            public static double pickupWait = 0.222;
-            public static double pickup = 0.1;
-            public static double transfer = 0.88;
+            public static double pickupWait = 0.35;
+            public static double pickup = 0.18;
+            public static double transfer = 0.8;
         }
     }
     /**
@@ -70,9 +71,9 @@ public class Positions {
          */
         @Config("Outtake Rotate Positions")
         public static class Rotate {
-            public static double pickup = 0.57;
-            public static double transfer = 0.87;
-            public static double bar = 0.67;
+            public static double pickup = 0.61;
+            public static double transfer = 0.83;
+            public static double bar = 0.77;
             public static double basket = 0.27;
         }
         /**
@@ -81,8 +82,8 @@ public class Positions {
         @Config("Outtake Pendulum Positions")
         public static class Pendulum {
             public static double pickup = 0.834;
-            public static double transfer = 0.208;
-            public static double bar = 0.635;
+            public static double transfer = 0.19;
+            public static double bar = 0.71;
             public static double clearBar = 0.7;
             public static double basket = 0.58;
         }

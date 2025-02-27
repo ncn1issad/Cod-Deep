@@ -53,11 +53,15 @@ public class Intake implements CancelableAction {
      */
     @Override
     public boolean run(@NotNull TelemetryPacket packet) {
-        if (needsPickup) pendulum.setTargetPosition(Positions.Intake.Pendulum.pickup);
+        if (needsPickup) {
+            pendulum.setTargetPosition(Positions.Intake.Pendulum.pickup);
+            rotate.setTargetPosition(Positions.Intake.Rotate.pickup);
+        }
         if (needsPickup && pickupTimer.getElapsedTime() >= 0.1) claw.set(true);
         if (needsPickup && pickupTimer.getElapsedTime() >= 0.2) {
             needsPickup = false;
             pendulum.setTargetPosition(Positions.Intake.Pendulum.pickupWait);
+            rotate.setTargetPosition(Positions.Intake.Rotate.pickupWait);
         }
         return claw.run(packet) && extend.run(packet) && pendulum.run(packet) && rotate.run(packet) && spin.run(packet);
     }
