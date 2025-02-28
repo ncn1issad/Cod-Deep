@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.PIDFController;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.RobotLog;
 import org.firstinspires.ftc.teamcode.intake.IntakePositions;
@@ -25,7 +21,7 @@ import java.util.List;
  */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp", group = "A")
 @Config
-public class TeleOp extends LinearOpMode {
+public class TeleOp extends AsyncOpMode {
     /**
      * Flag to indicate whether the intake system should be used.
      */
@@ -34,91 +30,70 @@ public class TeleOp extends LinearOpMode {
      * Flag to indicate whether the outtake system should be used.
      */
     public static boolean useOuttake = true;
-    private RobotHardware robot;
-    private DelayedActions delayed;
     private boolean holdHeading = false;
+    private PIDFController headingPID;
+    private List<PressAction> pressActions;
     @Override
-    public void runOpMode() {
-        // Initialize the robot hardware and the follower
-        robot = new RobotHardware(hardwareMap);
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        Follower follower = new Follower(hardwareMap);
-        follower.setStartingPose(PositionStore.pose);
-        PIDFController headingPID = new PIDFController(FollowerConstants.headingPIDFCoefficients);
+    public void systemInit() {
+        headingPID = new PIDFController(FollowerConstants.headingPIDFCoefficients);
         headingPID.setTargetPosition(0.0);
-        // Initialize the actions
-        delayed = new DelayedActions();
-        List<CancelableAction> actions = new ArrayList<>();
         if (useIntake) actions.add(robot.intake);
         if (useOuttake) actions.add(robot.outtake);
-        List<PressAction> pressActions = getPressActions();
-        // Init loop
-        while (!isStarted()) {
-            TelemetryPacket packet = new TelemetryPacket();
-            actions.removeIf(action -> !action.run(packet));
-            dashboard.sendTelemetryPacket(packet);
-        }
-        // Start the teleop drive
-        dashboard.clearTelemetry();
+        pressActions = getPressActions();
+    }
+    @Override
+    public void systemStart() {
         follower.startTeleopDrive();
-        // Main loop
-        while (opModeIsActive()) {
-            // Pickup precision gear reduction
-            double powerMultiplier = robot.intake.getTargetPosition() == IntakePositions.PICKUP ? 0.37 : 1.0;
-            // Hold heading near the output bar
-            double headingDrive;
-            if (holdHeading) {
-                double modifiedHeading;
-                follower.setHeadingOffset(follower.getHeadingOffset() + gamepad1.left_stick_x * 0.025);
-                if (follower.getPose().getHeading() <= Math.PI)
-                    modifiedHeading = follower.getPose().getHeading();
-                else modifiedHeading = follower.getPose().getHeading() - 2 * Math.PI;
-                RobotLog.d("Modified PID heading: " + modifiedHeading);
+    }
+    @Override
+    public void systemLoop() {
+        // Pickup precision gear reduction
+        double powerMultiplier = robot.intake.getTargetPosition() == IntakePositions.PICKUP ? 0.37 : 1.0;
+        // Hold heading near the output bar
+        double headingDrive;
+        if (holdHeading) {
+            double modifiedHeading;
+            follower.setHeadingOffset(follower.getHeadingOffset() + gamepad1.left_stick_x * 0.025);
+            if (follower.getPose().getHeading() <= Math.PI)
+                modifiedHeading = follower.getPose().getHeading();
+            else modifiedHeading = follower.getPose().getHeading() - 2 * Math.PI;
+            RobotLog.d("Modified PID heading: " + modifiedHeading);
 
-                headingPID.updatePosition(modifiedHeading);
-                headingDrive = headingPID.runPIDF();
-            } else headingDrive = gamepad1.right_stick_x * powerMultiplier;
-            // Update the follower
-            follower.setTeleOpMovementVectors(
-                    -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x * powerMultiplier,
-                    headingDrive,
-                    false
-            );
-            follower.update();
-            follower.drawOnDashBoard();
-            // Run all actions
-            for (PressAction action : pressActions) action.run();
-            delayed.run();
-            applyPositions(gamepad2);
-
-            // Update systems and telemetry
-            TelemetryPacket packet = new TelemetryPacket();
-            packet.put("Robot Pose", follower.getPose().getAsPedroCoordinates());
-            actions.removeIf(action -> !action.run(packet));
-            dashboard.sendTelemetryPacket(packet);
-            // Reset the robot's pose
-            if (gamepad1.left_stick_button) follower.setPose(new Pose(0, 0, 0));
-            // Pickup controls
-            if (gamepad1.right_bumper) robot.intake.pickup();
-            else if (gamepad1.left_bumper) {
-                robot.intake.setClaw(false);
-                robot.intake.spin.setTargetPosition(Positions.Intake.Spin.middle);
-            }
-            // Intake controls
-            robot.intake.spin.setTargetPosition(
-                    robot.intake.spin.getTargetPosition() +
-                    (gamepad1.right_trigger - gamepad1.left_trigger) *
-                    robot.intake.spin.getMultiplier()
-            );
-            if (gamepad1.right_trigger > 0.8) {
-                robot.intake.setClaw(false);
-                robot.intake.spin.setTargetPosition(Positions.Intake.Spin.right);
-            } else if (gamepad1.left_trigger > 0.8) {
-                robot.intake.setClaw(false);
-                robot.intake.spin.setTargetPosition(Positions.Intake.Spin.left);
-            }
+            headingPID.updatePosition(modifiedHeading);
+            headingDrive = headingPID.runPIDF();
+        } else headingDrive = gamepad1.right_stick_x * powerMultiplier;
+        // Update the follower
+        follower.setTeleOpMovementVectors(
+                -gamepad1.left_stick_y,
+                -gamepad1.left_stick_x * powerMultiplier,
+                headingDrive,
+                false
+        );
+        // Run all actions
+        for (PressAction action : pressActions) action.run();
+        // Reset the robot's pose
+        if (gamepad1.left_stick_button) follower.setPose(new Pose(0, 0, 0));
+        // Pickup controls
+        if (gamepad1.right_bumper) robot.intake.pickup();
+        else if (gamepad1.left_bumper) {
+            robot.intake.setClaw(false);
+            robot.intake.spin.setTargetPosition(Positions.Intake.Spin.middle);
         }
+        // Intake controls
+        robot.intake.spin.setTargetPosition(
+                robot.intake.spin.getTargetPosition() +
+                        (gamepad1.right_trigger - gamepad1.left_trigger) *
+                                robot.intake.spin.getMultiplier()
+        );
+        if (gamepad1.right_trigger > 0.8) {
+            robot.intake.setClaw(false);
+            robot.intake.spin.setTargetPosition(Positions.Intake.Spin.right);
+        } else if (gamepad1.left_trigger > 0.8) {
+            robot.intake.setClaw(false);
+            robot.intake.spin.setTargetPosition(Positions.Intake.Spin.left);
+        }
+        // Rest of the system controls
+        applyPositions(gamepad2);
     }
 
     /**
@@ -149,7 +124,7 @@ public class TeleOp extends LinearOpMode {
      */
     private void finishTransfer() {
         robot.outtake.setClaw(true);
-        delayed.addDelayed(0.25, () -> robot.intake.setClaw(false));
+        addDelay(0.25, () -> robot.intake.setClaw(false));
     }
     /**
      * @return a list of press actions for the teleop mode
@@ -165,7 +140,7 @@ public class TeleOp extends LinearOpMode {
                 // Transfer from outtake to intake
                 if (robot.outtake.isClosed()) {
                     robot.intake.setClaw(true);
-                    delayed.addDelayed(0.25, () -> robot.outtake.setClaw(false));
+                    addDelay(0.25, () -> robot.outtake.setClaw(false));
                 // Transfer from intake to outtake
                 } else finishTransfer();
             // Claw controls for realising the specimen after clipping it to the bar
@@ -190,8 +165,8 @@ public class TeleOp extends LinearOpMode {
             if (inTransfer()) {
                 if (!robot.outtake.isClosed()) {
                     finishTransfer();
-                    delayed.addDelayed(0.3, () -> robot.outtake.setTargetPosition(OuttakePositions.BASKET));
-                } else delayed.addDelayed(0.3, () -> robot.outtake.setTargetPosition(OuttakePositions.BASKET));
+                    addDelay(0.3, () -> robot.outtake.setTargetPosition(OuttakePositions.BASKET));
+                } else addDelay(0.3, () -> robot.outtake.setTargetPosition(OuttakePositions.BASKET));
             } else robot.outtake.lift.setTargetPosition(Positions.Outtake.Lift.up);
         }));
         // Outtake controls for exiting bar
@@ -208,7 +183,7 @@ public class TeleOp extends LinearOpMode {
                 robot.outtake.setTargetPosition(OuttakePositions.TRANSFER);
             else {
                 robot.intake.setTargetPosition(IntakePositions.TRANSFER);
-                delayed.addDelayed(0.2, () -> robot.outtake.setTargetPosition(OuttakePositions.TRANSFER));
+                addDelay(0.2, () -> robot.outtake.setTargetPosition(OuttakePositions.TRANSFER));
             }
         }));
 
