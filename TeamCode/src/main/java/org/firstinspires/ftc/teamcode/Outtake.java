@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.outtake.*;
-import org.firstinspires.ftc.teamcode.utils.CancelableAction;
-import org.firstinspires.ftc.teamcode.utils.Movement;
+import org.firstinspires.ftc.teamcode.utils.systems.CancelableAction;
+import org.firstinspires.ftc.teamcode.utils.systems.Movement;
 import org.jetbrains.annotations.NotNull;
 
 /**

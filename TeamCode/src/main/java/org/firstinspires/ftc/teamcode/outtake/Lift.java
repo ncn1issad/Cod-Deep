@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utils.ManualPositionMechanism;
+import org.firstinspires.ftc.teamcode.utils.systems.ManualMechanismTeleOp;
+import org.firstinspires.ftc.teamcode.utils.systems.ManualPositionMechanism;
 import org.jetbrains.annotations.NotNull;
 
 import static org.firstinspires.ftc.teamcode.Positions.Outtake.Lift.*;

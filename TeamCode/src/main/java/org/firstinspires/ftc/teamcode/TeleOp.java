@@ -35,6 +35,7 @@ public class TeleOp extends AsyncOpMode {
     private List<PressAction> pressActions;
     @Override
     public void systemInit() {
+        follower.setStartingPose(PositionStore.pose);
         headingPID = new PIDFController(FollowerConstants.headingPIDFCoefficients);
         headingPID.setTargetPosition(0.0);
         if (useIntake) actions.add(robot.intake);

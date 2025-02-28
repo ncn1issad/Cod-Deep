@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.utils;
+package org.firstinspires.ftc.teamcode.utils.systems;
 
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 public abstract class Movement extends LinearOpMode {
     public abstract void systemInit();
@@ -25,5 +26,20 @@ public abstract class Movement extends LinearOpMode {
 
             systemLoop();
         }
+    }
+}
+
+@TeleOp(name = "Movement Test", group = "E")
+class MovementTest extends Movement {
+    @Override
+    public void systemInit() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+    }
+
+    @Override
+    public void systemLoop() {
+        telemetry.addData("Status", "Running");
+        telemetry.update();
     }
 }

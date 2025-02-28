@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -12,8 +12,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
 import kotlin.Pair;
-import org.firstinspires.ftc.teamcode.Positions;
-import org.firstinspires.ftc.teamcode.RobotHardware;
 import org.firstinspires.ftc.teamcode.intake.IntakePositions;
 import org.firstinspires.ftc.teamcode.outtake.OuttakePositions;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Autonomous(name = "Clips", group = "A")
-public class Clips extends LinearOpMode {
+class Auto extends LinearOpMode {
     Pose startPose = new Pose(9.0, 48.0, -Math.toRadians(90.0));
     Point[] samplePoints = new Point[] {
             new Point(29.0, 41.2),

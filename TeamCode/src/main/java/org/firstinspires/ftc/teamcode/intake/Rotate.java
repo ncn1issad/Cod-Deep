@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.utils.ManualMechanismTeleOp;
-import org.firstinspires.ftc.teamcode.utils.ServoPositionMechanism;
+import org.firstinspires.ftc.teamcode.utils.systems.ManualMechanismTeleOp;
+import org.firstinspires.ftc.teamcode.utils.systems.ServoPositionMechanism;
 
 import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.pickup;
 import static org.firstinspires.ftc.teamcode.Positions.Intake.Rotate.transfer;
