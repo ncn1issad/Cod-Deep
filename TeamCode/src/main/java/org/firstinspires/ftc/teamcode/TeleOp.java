@@ -68,7 +68,6 @@ public class TeleOp extends LinearOpMode {
             // Hold heading near the output bar
             double headingDrive;
             if (holdHeading) {
-                headingDrive = 0.0;
                 double modifiedHeading;
                 follower.setHeadingOffset(follower.getHeadingOffset() + gamepad1.left_stick_x * 0.025);
                 if (follower.getPose().getHeading() <= Math.PI)
@@ -77,7 +76,7 @@ public class TeleOp extends LinearOpMode {
                 RobotLog.d("Modified PID heading: " + modifiedHeading);
 
                 headingPID.updatePosition(modifiedHeading);
-                headingPID.runPIDF();
+                headingDrive = headingPID.runPIDF();
             } else headingDrive = gamepad1.right_stick_x * powerMultiplier;
             // Update the follower
             follower.setTeleOpMovementVectors(
@@ -205,7 +204,7 @@ public class TeleOp extends LinearOpMode {
         pressActions.add(new PressAction(() -> gamepad2.dpad_right, () -> {
             robot.outtake.setClaw(false);
             holdHeading = false;
-            if (robot.intake.getTargetPosition() != IntakePositions.TRANSFER)
+            if (robot.intake.getTargetPosition() == IntakePositions.TRANSFER)
                 robot.outtake.setTargetPosition(OuttakePositions.TRANSFER);
             else {
                 robot.intake.setTargetPosition(IntakePositions.TRANSFER);
