@@ -34,4 +34,12 @@ public class DelayedActions {
             return false;
         });
     }
+    /**
+     * Clears all actions.
+     * @see #addDelayed(double, Runnable)
+     * @noinspection UnusedDeclaration
+     */
+    public void clear() {
+        actions.clear();
+    }
 }

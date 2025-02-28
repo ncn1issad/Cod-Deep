@@ -5,6 +5,8 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.RobotHardware;
+import org.firstinspires.ftc.teamcode.intake.IntakePositions;
+import org.firstinspires.ftc.teamcode.outtake.OuttakePositions;
 import org.firstinspires.ftc.teamcode.utils.systems.CancelableAction;
 
 import java.util.ArrayList;
@@ -80,5 +82,22 @@ public abstract class AsyncOpMode extends LinearOpMode {
             follower.drawOnDashBoard();
             systemLoop();
         }
+    }
+
+    protected void transfer(boolean auto) {
+        robot.outtake.setClaw(false);
+        if (robot.intake.getTargetPosition() == IntakePositions.PICKUP) {
+            robot.intake.setTargetPosition(IntakePositions.TRANSFER);
+            addDelay(0.2, () -> robot.outtake.setTargetPosition(OuttakePositions.TRANSFER));
+        } else robot.outtake.setTargetPosition(OuttakePositions.TRANSFER);
+        if (auto) addDelay(0.5, () -> {
+            if (robot.outtake.isClosed()) {
+                robot.intake.setClaw(true);
+                addDelay(0.1, () -> robot.outtake.setClaw(false));
+            } else {
+                robot.outtake.setClaw(true);
+                addDelay(0.1, () -> robot.intake.setClaw(false));
+            }
+        });
     }
 }
