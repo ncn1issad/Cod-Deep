@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.outtake;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -106,6 +107,7 @@ public class Lift implements ManualPositionMechanism {
  * TeleOp class for testing the Lift mechanism manually.
  */
 @TeleOp(name = "Lift Test", group = "C Outtake")
+@Disabled
 class LiftTest extends ManualMechanismTeleOp {
     public LiftTest() {
         super(Lift::new);
@@ -118,6 +120,7 @@ class LiftTest extends ManualMechanismTeleOp {
  */
 @TeleOp(name = "Lift Positions Test", group = "D Outtake")
 @Config
+@Disabled
 class LiftPositions extends LinearOpMode {
     public static double current = 0.0;
     @Override

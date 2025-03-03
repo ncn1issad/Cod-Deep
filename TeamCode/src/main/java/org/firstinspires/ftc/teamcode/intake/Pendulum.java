@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.intake;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -41,6 +42,7 @@ public class Pendulum extends ServoPositionMechanism {
  * TeleOp class for testing the Pendulum mechanism manually.
  */
 @TeleOp(name = "Intake Pendulum Test", group = "C Intake")
+@Disabled
 class PendulumTest extends ManualMechanismTeleOp {
     public PendulumTest() {
         super(Pendulum::new);
@@ -53,6 +55,7 @@ class PendulumTest extends ManualMechanismTeleOp {
  */
 @TeleOp(name = "Intake Pendulum Positions Test", group = "D Intake")
 @Config
+@Disabled
 class PendulumPositions extends LinearOpMode {
     public static double current = 0.0;
     @Override

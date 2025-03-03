@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.outtake;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -52,6 +53,7 @@ public class Claw extends ServoPositionMechanism {
  * TeleOp class for testing the Claw mechanism manually.
  */
 @TeleOp(name = "Outtake Claw Test", group = "C Outtake")
+@Disabled
 class ClawTest extends ManualMechanismTeleOp {
     public ClawTest() {
         super(Claw::new);
@@ -62,6 +64,7 @@ class ClawTest extends ManualMechanismTeleOp {
  * @noinspection DuplicatedCode
  */
 @TeleOp(name = "Outtake Claw Positions Test", group = "D Outtake")
+@Disabled
 class ClawPositions extends LinearOpMode {
     @Override
     public void runOpMode() {

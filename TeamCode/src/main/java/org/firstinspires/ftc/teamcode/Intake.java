@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -121,6 +122,7 @@ public class Intake implements CancelableAction {
  * to test the functionality of the Intake mechanism.
  */
 @TeleOp(name = "Intake Test", group = "B")
+@Disabled
 class IntakeTest extends Movement {
     private Intake intake;
     private FtcDashboard dash;
@@ -155,6 +157,7 @@ class IntakeTest extends Movement {
  * to control the Intake mechanism using gamepad inputs.
  */
 @TeleOp(name = "Manual Intake Test", group = "C")
+@Disabled
 class IntakeManual extends LinearOpMode {
     @Override
     public void runOpMode() {

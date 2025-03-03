@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.utils.systems;
 
 import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -30,6 +31,7 @@ public abstract class Movement extends LinearOpMode {
 }
 
 @TeleOp(name = "Movement Test", group = "E")
+@Disabled
 class MovementTest extends Movement {
     @Override
     public void systemInit() {

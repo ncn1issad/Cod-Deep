@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.intake;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -51,6 +52,7 @@ public class Claw extends ServoPositionMechanism {
  * TeleOp class for testing the Claw mechanism manually.
  */
 @TeleOp(name = "Intake Claw Test", group = "C Intake")
+@Disabled
 class ClawTest extends ManualMechanismTeleOp {
     public ClawTest() {
         super(Claw::new);
@@ -61,6 +63,7 @@ class ClawTest extends ManualMechanismTeleOp {
  * @noinspection DuplicatedCode
  */
 @TeleOp(name = "Intake Claw Positions Test", group = "D Intake")
+@Disabled
 class ClawPositions extends LinearOpMode {
     @Override
     public void runOpMode() {

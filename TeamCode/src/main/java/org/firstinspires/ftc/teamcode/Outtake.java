@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -89,6 +90,7 @@ public class Outtake implements CancelableAction {
  * to test the functionality of the Outtake mechanism.
  */
 @TeleOp(name = "Outtake Test", group = "B")
+@Disabled
 class OuttakeTest extends Movement {
     private Outtake outtake;
     private FtcDashboard dash;
@@ -120,6 +122,7 @@ class OuttakeTest extends Movement {
  * to control the Outtake mechanism using gamepad inputs.
  */
 @TeleOp(name = "Manual Outtake Test", group = "C")
+@Disabled
 class OuttakeManual extends LinearOpMode {
     @Override
     public void runOpMode() {

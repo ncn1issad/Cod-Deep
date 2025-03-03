@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.intake;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -39,6 +40,7 @@ public class Extend extends ServoPositionMechanism {
  * TeleOp class for testing the Extend mechanism manually.
  */
 @TeleOp(name = "Intake Extend Test", group = "C Intake")
+@Disabled
 class ExtendTest extends ManualMechanismTeleOp {
     public ExtendTest() {
         super(Extend::new);
@@ -50,6 +52,7 @@ class ExtendTest extends ManualMechanismTeleOp {
  */
 @TeleOp(name = "Intake Extend Positions Test", group = "D Intake")
 @Config
+@Disabled
 class ExtendPositions extends LinearOpMode {
     public static double current = 0.0;
     @Override

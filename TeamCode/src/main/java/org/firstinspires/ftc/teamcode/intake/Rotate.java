@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.intake;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -40,6 +41,7 @@ public class Rotate extends ServoPositionMechanism {
  * TeleOp class for testing the Rotate mechanism manually.
  */
 @TeleOp(name = "Intake Rotate Test", group = "C Intake")
+@Disabled
 class RotateTest extends ManualMechanismTeleOp {
     public RotateTest() {
         super(Rotate::new);
@@ -52,6 +54,7 @@ class RotateTest extends ManualMechanismTeleOp {
 */
 @TeleOp(name = "Intake Rotate Positions Test", group = "D Intake")
 @Config
+@Disabled
 class RotatePositions extends LinearOpMode {
     public static double current = 0.0;
     @Override
