@@ -28,4 +28,10 @@ object Lift : Subsystem() {
 
     val toLow: Command
         get() = RunToPosition(motor, 0.0, controller, this)
+
+    val toHigh: Command
+        get() = RunToPosition(motor, 1000.0, controller, this)
+
+    val toMiddle: Command
+        get() = RunToPosition(motor, 500.0, controller, this)
 }
