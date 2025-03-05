@@ -8,7 +8,7 @@ class PressAction(
     /**
      * The action to run when the button is pressed.
      */
-    private val action: () -> Runnable
+    private val action: () -> Unit
 ) {
     // The last state of the button
     private var lastState = false
@@ -18,7 +18,7 @@ class PressAction(
     fun run() {
         val state = button()
         if (state && !lastState) {
-            action().run()
+            action()
         }
         lastState = state
     }

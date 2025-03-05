@@ -1,4 +1,6 @@
 package org.firstinspires.ftc
 
-class RobotHardware {
+import com.qualcomm.robotcore.hardware.HardwareMap
+
+class RobotHardware(val hardwareMap: HardwareMap) {
 }
