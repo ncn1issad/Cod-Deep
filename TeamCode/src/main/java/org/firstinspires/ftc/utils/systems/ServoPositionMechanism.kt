@@ -3,7 +3,7 @@ package org.firstinspires.ftc.utils.systems
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket
 import com.qualcomm.robotcore.hardware.Servo
 
-abstract class ServoPositionMechanism(private val initialPosition: Double) : ManualPositionMechanism {
+abstract class ServoPositionMechanism(initialPosition: Double) : ManualPositionMechanism {
     private var isCancelled = false
     /**
      * The servos that make up this mechanism

@@ -1,9 +1,20 @@
 package org.firstinspires.ftc.utils.systems
 
+import com.acmerobotics.dashboard.FtcDashboard
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket
 import com.pedropathing.follower.Follower
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import org.firstinspires.ftc.utils.PressAction
 
-abstract class Movement : LinearOpMode() {
+abstract class Movement: LinearOpMode() {
+    /**
+     * The system or subsystem to be run.
+     */
+    abstract val system: CancelableAction
+    /**
+     * The list of actions to be done when a button is pressed.
+     */
+    val actions = mutableListOf<PressAction>()
     /**
      * Initializes the system or subsystem along with
      * any hardware devices not related to the movement of the robot.
@@ -26,6 +37,10 @@ abstract class Movement : LinearOpMode() {
          * Pedro Pathing`s follower
          */
         val follower = Follower(hardwareMap)
+        /**
+         * The FTC Dashboard
+         */
+        val dashboard = FtcDashboard.getInstance()
         // Initialize the system or subsystem
         systemInit()
         // Wait for the start button to be pressed
@@ -45,6 +60,11 @@ abstract class Movement : LinearOpMode() {
             // Updates the follower
             follower.update()
             // Run the system or subsystem
+            val packet = TelemetryPacket()
+            system.run(packet)
+            actions.forEach(PressAction::run)
+            dashboard.sendTelemetryPacket(packet)
+            dashboard.telemetry.update()
             systemLoop()
         }
     }

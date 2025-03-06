@@ -9,5 +9,5 @@ interface CancelableAction : Action {
      * Implements RoadRunner's [Action] interface.
      * @see Action.run()
      */
-    fun cancel();
+    fun cancel()
 }
