@@ -19,11 +19,15 @@ abstract class AsyncOpMode : LinearOpMode() {
     /**
      * Creates a list with the system or subsystem
      */
-    protected val actions: MutableList<CancelableAction> = mutableListOf()
+    private val actions: MutableList<CancelableAction> = mutableListOf()
     /**
      * Creates the container for the delayed
      */
     private val delayed = DelayedActions()
+    /**
+     * Creates the container for the checks
+     */
+    private val checks = CheckActions()
     /**
      * A wrapper function for addDelay in [DelayedActions]
      * @see DelayedActions.addDelay
@@ -32,6 +36,15 @@ abstract class AsyncOpMode : LinearOpMode() {
      */
     protected fun delay(time: Long, action: () -> Unit) {
         delayed.addDelay(time, action)
+    }
+    /**
+     * A wrapper function for addCheck in [CheckActions]
+     * @see CheckActions.addCheck
+     * @param check the lambda check that determines if the action should be run.
+     * @param action the action to run.
+     */
+    protected fun check(check: () -> Boolean, action: () -> Unit) {
+        checks.addCheck(check, action)
     }
     /**
      * Init of the opMode
@@ -72,6 +85,7 @@ abstract class AsyncOpMode : LinearOpMode() {
             val packet = TelemetryPacket()
             actions.removeAll { !it.run(packet) }
             delayed.run()
+            checks.run()
             // Updates the follower and dashboard
             packet.put("Robot Pose", follower.pose.asPedroCoordinates)
             dashboard.telemetry.update()

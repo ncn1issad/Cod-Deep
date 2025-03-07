@@ -26,7 +26,7 @@ class DelayedActions() {
     }
     /**
      * Clears all actions.
-     * @see #addDelayed(double, Runnable)
+     * @see addDelay
      * @noinspection UnusedDeclaration
      */
     fun clear() {
