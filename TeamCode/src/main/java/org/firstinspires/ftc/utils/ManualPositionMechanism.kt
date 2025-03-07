@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.utils.systems
+package org.firstinspires.ftc.utils
 
 /**
  * A mechanism that can be manually adjusted to a target position.

@@ -8,10 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo
 import org.firstinspires.ftc.intake.Extend.Companion.`in`
 import org.firstinspires.ftc.intake.Extend.Companion.out
 import org.firstinspires.ftc.utils.PressAction
-import org.firstinspires.ftc.utils.systems.CancelableAction
-import org.firstinspires.ftc.utils.systems.ManualMechanismTeleOp
-import org.firstinspires.ftc.utils.systems.Movement
-import org.firstinspires.ftc.utils.systems.ServoPositionMechanism
+import org.firstinspires.ftc.utils.ManualMechanismTeleOp
+import org.firstinspires.ftc.utils.Movement
+import org.firstinspires.ftc.utils.ServoPositionMechanism
 
 /**
  * The Extend mechanism of the intake system.

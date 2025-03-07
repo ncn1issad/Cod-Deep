@@ -6,10 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
 import org.firstinspires.ftc.utils.PressAction
-import org.firstinspires.ftc.utils.systems.CancelableAction
-import org.firstinspires.ftc.utils.systems.ManualMechanismTeleOp
-import org.firstinspires.ftc.utils.systems.Movement
-import org.firstinspires.ftc.utils.systems.ServoPositionMechanism
+import org.firstinspires.ftc.utils.ManualMechanismTeleOp
+import org.firstinspires.ftc.utils.Movement
+import org.firstinspires.ftc.utils.ServoPositionMechanism
 
 /**
  * The Claw mechanism of the intake system.
@@ -44,6 +43,12 @@ class Claw(hardwareMap: HardwareMap) : ServoPositionMechanism(close) {
         set(value) {
             targetPosition = if (value) close else open
         }
+    /**
+     * Switches the state of the claw.
+     */
+    fun switch() {
+        isClose = !isClose
+    }
 }
 /**
  * TeleOp class for testing the Claw mechanism manually.

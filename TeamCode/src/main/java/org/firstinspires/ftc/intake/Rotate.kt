@@ -5,60 +5,60 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
-import org.firstinspires.ftc.intake.Pendulum.Companion.pickup
-import org.firstinspires.ftc.intake.Pendulum.Companion.pickupWait
-import org.firstinspires.ftc.intake.Pendulum.Companion.transfer
+import org.firstinspires.ftc.intake.Rotate.Companion.pickup
+import org.firstinspires.ftc.intake.Rotate.Companion.pickupWait
+import org.firstinspires.ftc.intake.Rotate.Companion.transfer
 import org.firstinspires.ftc.utils.PressAction
 import org.firstinspires.ftc.utils.ManualMechanismTeleOp
 import org.firstinspires.ftc.utils.Movement
 import org.firstinspires.ftc.utils.ServoPositionMechanism
 
 @Config
-class Pendulum(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
+class Rotate(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
     companion object {
         /**
-         * The position of the intake pendulum when it is outside of the submersible.
+         * The position of the intake rotation when it is outside of the submersible.
          */
         @JvmField
         @Volatile
         var pickupWait = 0.1
         /**
-         * The position of the intake pendulum when it is inside of the submersible.
+         * The position of the intake rotation when it is inside of the submersible.
          */
         @JvmField
         @Volatile
         var pickup = 0.05
         /**
-         * The position of the intake pendulum when it is in the transfer position.
+         * The position of the intake rotation when it is in the transfer position.
          */
         @JvmField
         @Volatile
         var transfer = 0.75
     }
     /**
-     * Gets the servo associated with the Pendulum mechanism.
+     * Gets the servo associated with the Rotate mechanism.
      */
-    override val servos: Array<Servo> = arrayOf(hardwareMap.servo["Intake Pendulum"])
+    override val servos: Array<Servo> = arrayOf(hardwareMap.servo["Intake Rotate"])
 }
 /**
- * TeleOp class for testing the Pendulum mechanism manually.
+ * TeleOp class for testing the Rotate mechanism manually.
  */
-@TeleOp(name = "Intake Pendulum Test", group = "C")
+@TeleOp(name = "Intake Rotate Test", group = "C")
 @Disabled
-private class PendulumTest : ManualMechanismTeleOp(::Pendulum)
+private class RotateTest : ManualMechanismTeleOp(::Rotate)
 /**
- * TeleOp class for testing the positions of the Pendulum mechanism.
+ * TeleOp class for testing the positions of the Rotate mechanism.
  */
-@TeleOp(name = "Intake Pendulum Position Test", group = "D")
+@TeleOp(name = "Intake Rotate Position Test", group = "D")
 @Disabled
-private class PendulumPositions : Movement() {
+private class RotatePositions : Movement() {
     /**
-     * The Pendulum mechanism to be tested.
+     * The Rotate mechanism to be tested.
      */
-    override lateinit var system: Pendulum
+    override lateinit var system: Rotate
 
     override fun systemInit() {
-        system = Pendulum(hardwareMap)
+        system = Rotate(hardwareMap)
 
         actions.add(PressAction(gamepad1::dpad_right) { system.targetPosition = pickupWait })
         actions.add(PressAction(gamepad1::dpad_down) { system.targetPosition = pickup })

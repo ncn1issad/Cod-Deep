@@ -5,7 +5,6 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket
 import com.pedropathing.follower.Follower
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.RobotHardware
-import org.firstinspires.ftc.utils.systems.CancelableAction
 
 abstract class AsyncOpMode : LinearOpMode() {
     /**
