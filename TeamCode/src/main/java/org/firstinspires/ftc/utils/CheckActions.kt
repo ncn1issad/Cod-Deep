@@ -3,7 +3,7 @@ package org.firstinspires.ftc.utils
 /**
  * A class for running actions after a condition is met.
  */
-class CheckActions() {
+class CheckActions {
     private val checks: MutableList<Pair<() -> Boolean, () -> Unit>> = mutableListOf()
     /**
      * Adds an action to be run after a delay.
