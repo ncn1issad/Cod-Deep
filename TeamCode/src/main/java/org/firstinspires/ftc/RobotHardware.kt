@@ -6,12 +6,13 @@ import org.firstinspires.ftc.utils.CancelableAction
 
 class RobotHardware(
     hardwareMap: HardwareMap,
-    val intake: Intake = Intake(hardwareMap)
+    val intake: Intake = Intake(hardwareMap),
+    val outtake: Outtake = Outtake(hardwareMap)
 ) : CancelableAction {
     /**
      * The list of robot components
      */
-    private val components: MutableList<CancelableAction> = mutableListOf(intake)
+    private val components: MutableList<CancelableAction> = mutableListOf(intake, outtake)
     /**
      * Cancels all robot actions.
      */
@@ -23,7 +24,8 @@ class RobotHardware(
      * @param p the telemetry packet to update.
      * @return true if all components are running, false otherwise.
      */
-    override fun run(p: TelemetryPacket): Boolean {
-        return intake.run(p)
+    override fun run(p: TelemetryPacket): Boolean = components.all { it.run(p) }
+    fun transfer() {
+        // TODO: Implement transfer method
     }
 }
