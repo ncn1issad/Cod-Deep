@@ -65,7 +65,7 @@ class Intake (
                 }
             }
         }
-        return claw.run(p) && extend.run(p) && pendulum.run(p) && rotate.run(p) && spin.run(p)
+        return components.all { it.run(p) }
     }
     /**
      * The target position for the intake mechanism.

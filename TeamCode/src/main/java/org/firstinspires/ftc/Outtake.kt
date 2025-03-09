@@ -92,15 +92,6 @@ enum class OuttakePositions (
         Lift.up,
         Pendulum.basket,
         Rotate.basket
-    ),
-    /**
-     * Position for hanging the robot.
-     * Includes values for the lift, pendulum and rotate components.
-     */
-    HANG(
-        Lift.hang,
-        Pendulum.transfer,
-        Rotate.transfer
     )
 }
 /**
