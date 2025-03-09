@@ -31,7 +31,7 @@ class RobotHardware(
      * @return true if all components are running, false otherwise.
      */
     override fun run(p: TelemetryPacket): Boolean {
-        if (finishTransfer && inTransferPosition && !inTransfer) {
+        if (finishTransfer && inTransferPosition) {
             if (toOuttake) {
                 when (transferTimer.elapsedTimeSeconds) {
                     in 0.0..0.075 -> { outtake.claw.isClose = true }
@@ -83,8 +83,8 @@ class RobotHardware(
                 }
             }
         }
-    private val inTransferPosition: Boolean
-        get() = intake.targetPosition == IntakePositions.TRANSFER && outtake.targetPosition == OuttakePositions.TRANSFER
+    val inTransferPosition: Boolean
+        get() = intake.targetPosition == IntakePositions.TRANSFER && outtake.targetPosition == OuttakePositions.TRANSFER && !inTransfer
     /**
      * Flag indicating if the sample is in the robots intake.
      */
@@ -95,9 +95,11 @@ class RobotHardware(
      */
     var finishTransfer = false
         set(value) {
-            toOuttake
-            transferTimer.resetTimer()
-            field = value
+            if (value && !field) {
+                toOuttake
+                transferTimer.resetTimer()
+                field = true
+            }
         }
     /**
      * Timer for the transfer mode.

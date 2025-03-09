@@ -18,7 +18,7 @@ abstract class AsyncOpMode : LinearOpMode() {
     /**
      * Creates a list with the system or subsystem
      */
-    private val actions: MutableList<CancelableAction> = mutableListOf()
+    val actions: MutableList<CancelableAction> = mutableListOf()
     /**
      * Creates the container for the delayed
      */
@@ -33,7 +33,7 @@ abstract class AsyncOpMode : LinearOpMode() {
      * @param time the delay in seconds.
      * @param action the action to run.
      */
-    protected fun delay(time: Long, action: () -> Unit) {
+    protected fun delay(time: Double, action: () -> Unit) {
         delayed.addDelay(time, action)
     }
     /**
