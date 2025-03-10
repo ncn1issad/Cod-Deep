@@ -11,7 +11,7 @@ class DelayedActions {
      * @param action the action to run.
      */
     fun addDelay(delay: Double, action: () -> Unit) {
-        actions.add(Pair(delay + System.currentTimeMillis(), action))
+        actions.add(Pair(delay * 1000 + System.currentTimeMillis(), action))
     }
     /**
      * Runs all actions that have passed their delay.

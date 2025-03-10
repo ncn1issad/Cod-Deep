@@ -42,7 +42,7 @@ abstract class AsyncOpMode : LinearOpMode() {
      * @param check the lambda check that determines if the action should be run.
      * @param action the action to run.
      */
-    protected fun check(check: () -> Boolean, action: () -> Unit) {
+    protected fun addCheck(check: () -> Boolean, action: () -> Unit) {
         checks.addCheck(check, action)
     }
     /**
