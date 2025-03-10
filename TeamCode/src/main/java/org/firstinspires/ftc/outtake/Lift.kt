@@ -78,7 +78,7 @@ class Lift(
      */
     override var targetPosition: Double = 0.0
         set(value) {
-            field = value.coerceIn(0.0..3200.0)
+            field = value.coerceIn(0.0..3200.0) - lastKnown
         }
     /**
      * The multiplier that the mechanism gets manually adjusted by.
@@ -88,7 +88,7 @@ class Lift(
      * The current position of the lift.
      */
     val measuredPosition: Double
-        get() = motors.map { it.currentPosition }.average()
+        get() = motors.map { it.currentPosition }.average() + lastKnown
     /**
      * The cancel function of the mechanism.
      * Also sets the power of the motors to 0 and stores the last known position of the lift for future use.
@@ -132,7 +132,7 @@ private class ResetLift : LinearOpMode() {
             it.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
             it.power = resetPower
         }
-        delays.addDelay(3) {
+        delays.addDelay(3.0) {
             lift.motors.forEach {
                 it.power = 0.0
                 it.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
