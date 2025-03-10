@@ -118,7 +118,7 @@ class Lift(
  */
 @Autonomous(name = "Reset Lift", group = "C")
 @Config
-private class ResetLift : LinearOpMode() {
+class ResetLift : LinearOpMode() {
     companion object {
         /**
          * The power at which the lift is reset.
@@ -151,13 +151,13 @@ private class ResetLift : LinearOpMode() {
  */
 @TeleOp(name = "Lift Test", group = "C")
 @Disabled
-private class LiftTest : ManualMechanismTeleOp(::Lift)
+class LiftTest : ManualMechanismTeleOp(::Lift)
 /**
  * TeleOp class for testing the positions of the Lift mechanism.
  */
 @TeleOp(name = "Lift Position Test", group = "D")
 @Disabled
-private class LiftPositions : Movement() {
+class LiftPositions : Movement() {
     /**
      * The Lift mechanism to be tested.
      */

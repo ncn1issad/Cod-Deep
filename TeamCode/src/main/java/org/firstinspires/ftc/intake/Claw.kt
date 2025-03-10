@@ -55,13 +55,13 @@ class Claw(hardwareMap: HardwareMap) : ServoPositionMechanism(close) {
  */
 @TeleOp(name = "Intake Claw Test", group = "C")
 @Disabled
-private class ClawTest : ManualMechanismTeleOp(::Claw)
+class ClawTest : ManualMechanismTeleOp(::Claw)
 /**
  * TeleOp class for testing the positions of the Claw mechanism.
  */
 @TeleOp(name = "Intake Claw Position Test", group = "D")
 @Disabled
-private class ClawPositions : Movement() {
+class ClawPositions : Movement() {
     /**
      * The Claw mechanism to be tested.
      */

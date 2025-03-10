@@ -52,13 +52,13 @@ class Pendulum(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
  */
 @TeleOp(name = "Outtake Pendulum Test", group = "C")
 @Disabled
-private class PendulumTest : ManualMechanismTeleOp(::Pendulum)
+class PendulumTest : ManualMechanismTeleOp(::Pendulum)
 /**
  * TeleOp class for testing the positions of the Pendulum mechanism.
  */
 @TeleOp(name = "Outtake Pendulum Position Test", group = "D")
 @Disabled
-private class PendulumPositions : Movement() {
+class PendulumPositions : Movement() {
     /**
      * The Pendulum mechanism to be tested.
      */

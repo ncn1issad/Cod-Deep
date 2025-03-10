@@ -101,7 +101,7 @@ enum class OuttakePositions (
  */
 @TeleOp(name = "Outtake Test", group = "B")
 @Disabled
-private class OuttakeTest : Movement() {
+class OuttakeTest : Movement() {
     /**
      * The Outtake mechanism to be tested.
      */

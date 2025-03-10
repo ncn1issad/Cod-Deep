@@ -43,14 +43,14 @@ class Extend(hardwareMap: HardwareMap) : ServoPositionMechanism(`in`) {
  */
 @TeleOp(name = "Extend Test", group = "C")
 @Disabled
-private class ExtendTest : ManualMechanismTeleOp(::Extend)
+class ExtendTest : ManualMechanismTeleOp(::Extend)
 
 /**
  * TeleOp class for testing the positions of the Extend mechanism.
  */
 @TeleOp(name = "Extend Position Test", group = "D")
 @Disabled
-private class ExtendPositions : Movement() {
+class ExtendPositions : Movement() {
     /**
      * The Extend mechanism to be tested.
      */

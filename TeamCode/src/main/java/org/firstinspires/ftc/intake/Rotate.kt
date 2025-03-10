@@ -45,13 +45,13 @@ class Rotate(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
  */
 @TeleOp(name = "Intake Rotate Test", group = "C")
 @Disabled
-private class RotateTest : ManualMechanismTeleOp(::Rotate)
+class RotateTest : ManualMechanismTeleOp(::Rotate)
 /**
  * TeleOp class for testing the positions of the Rotate mechanism.
  */
 @TeleOp(name = "Intake Rotate Position Test", group = "D")
 @Disabled
-private class RotatePositions : Movement() {
+class RotatePositions : Movement() {
     /**
      * The Rotate mechanism to be tested.
      */

@@ -17,7 +17,7 @@ class PositionStore {
  * Autonomous class for resetting the stored position.
  */
 @Autonomous(name = "Position Store Reset", group = "B")
-private class ResetPositionStore : LinearOpMode() {
+class ResetPositionStore : LinearOpMode() {
     override fun runOpMode() {
         PositionStore.pose = Pose(0.0, 0.0, 0.0)
         this.requestOpModeStop()

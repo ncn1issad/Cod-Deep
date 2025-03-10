@@ -131,7 +131,7 @@ enum class IntakePositions (
  */
 @TeleOp(name = "Intake Test", group = "B")
 @Disabled
-private class IntakeTest : Movement() {
+class IntakeTest : Movement() {
     /**
      * The Intake mechanism to be tested.
      */

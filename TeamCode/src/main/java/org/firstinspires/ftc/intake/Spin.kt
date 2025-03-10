@@ -45,13 +45,13 @@ class Spin(hardwareMap: HardwareMap) : ServoPositionMechanism(middle) {
  */
 @TeleOp(name = "Intake Spin Test", group = "C")
 @Disabled
-private class SpinTest : ManualMechanismTeleOp(::Spin)
+class SpinTest : ManualMechanismTeleOp(::Spin)
 /**
  * TeleOp class for testing the positions of the Spin mechanism.
  */
 @TeleOp(name = "Intake Spin Position Test", group = "D")
 @Disabled
-private class SpinPositions : Movement() {
+class SpinPositions : Movement() {
     /**
      * The Spin mechanism to be tested.
      */
