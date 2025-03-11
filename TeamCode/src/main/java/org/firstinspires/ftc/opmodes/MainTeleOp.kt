@@ -200,7 +200,7 @@ open class MainTeleOp : AsyncOpMode() {
             // Sets the robot to the pickup position
             PressAction(gamepad2::dpad_down) {
                 robot.outtake.targetPosition = OuttakePositions.PICKUP
-                robot.intake.targetPosition = IntakePositions.PICKUP
+                robot.intake.targetPosition = IntakePositions.SPECIMEN_PICKUP
             },
             // Sets the outtake to the basket position
             PressAction(gamepad2::dpad_up) { robot.outtake.targetPosition = OuttakePositions.BASKET },

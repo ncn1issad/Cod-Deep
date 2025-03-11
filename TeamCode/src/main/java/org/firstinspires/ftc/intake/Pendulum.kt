@@ -21,19 +21,25 @@ class Pendulum(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
          */
         @JvmField
         @Volatile
-        var pickupWait = 0.1
+        var pickupWait = 0.25
         /**
          * The position of the intake pendulum when it is inside of the submersible.
          */
         @JvmField
         @Volatile
-        var pickup = 0.05
+        var pickup = 0.08
         /**
          * The position of the intake pendulum when it is in the transfer position.
          */
         @JvmField
         @Volatile
-        var transfer = 0.75
+        var transfer = 0.63
+        /**
+         * The position of the intake pendulum when it is in the wall pickup position.
+         */
+        @JvmField
+        @Volatile
+        var wallPickup = 1.0
     }
     /**
      * Gets the servo associated with the Pendulum mechanism.

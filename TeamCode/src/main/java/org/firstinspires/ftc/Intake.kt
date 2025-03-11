@@ -123,7 +123,18 @@ enum class IntakePositions (
         Pendulum.transfer,
         Rotate.transfer,
         Spin.middle
-    )
+    ),
+    /**
+     * Position for picking up specimens from the wall using the outtake.
+     * The intake needs to be tucked in to make space.
+     * Includes values for extend, rotate, spin, and pendulum components.
+     */
+    SPECIMEN_PICKUP(
+        Extend.`in`,
+        Pendulum.wallPickup,
+        Rotate.wallPickup,
+        Spin.middle
+    ),
 }
 /**
  * TeleOp mode for manually controlling the Intake mechanism.

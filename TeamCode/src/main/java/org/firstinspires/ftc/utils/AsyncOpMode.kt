@@ -93,12 +93,4 @@ abstract class AsyncOpMode : LinearOpMode() {
             systemLoop()
         }
     }
-
-    /**
-     * Adds timed transfer logic to the opMode.
-     * Only use in auto.
-     */
-    protected fun transfer() {
-        //TODO: Do after rest of the systems are done
-    }
 }

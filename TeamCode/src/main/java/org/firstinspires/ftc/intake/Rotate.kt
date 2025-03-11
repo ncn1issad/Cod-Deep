@@ -34,6 +34,12 @@ class Rotate(hardwareMap: HardwareMap) : ServoPositionMechanism(transfer) {
         @JvmField
         @Volatile
         var transfer = 0.75
+        /**
+         * The position of the intake rotation when it is in the wall pickup position.
+         */
+        @JvmField
+        @Volatile
+        var wallPickup = 1.0
     }
     /**
      * Gets the servo associated with the Rotate mechanism.
