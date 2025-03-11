@@ -3,6 +3,7 @@ package org.firstinspires.ftc.intake
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import com.qualcomm.robotcore.hardware.AnalogInput
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
 import org.firstinspires.ftc.utils.PressAction
@@ -36,6 +37,10 @@ class Claw(hardwareMap: HardwareMap) : ServoPositionMechanism(close) {
      */
     override val servos : Array<Servo> = arrayOf(hardwareMap.servo["Intake Claw"])
     /**
+     * The sensor associated with the Claw mechanism.
+     */
+    private val sensor: AnalogInput = hardwareMap.analogInput["Input Sensor"]
+    /**
      * The current state of the claw.
      */
     var isClose: Boolean
@@ -49,6 +54,12 @@ class Claw(hardwareMap: HardwareMap) : ServoPositionMechanism(close) {
     fun switch() {
         isClose = !isClose
     }
+    /**
+     * Checks if the claw is holding a sample.
+     * Must be checked after the claw close delay
+     */
+    val isHoldingSample: Boolean
+        get() = sensor.voltage >= 1.270
 }
 /**
  * TeleOp class for testing the Claw mechanism manually.

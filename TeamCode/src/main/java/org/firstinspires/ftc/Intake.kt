@@ -22,7 +22,8 @@ class Intake (
     val extend: Extend = Extend(hardwareMap),
     val pendulum: Pendulum = Pendulum(hardwareMap),
     val rotate: Rotate = Rotate(hardwareMap),
-    val spin: Spin = Spin(hardwareMap)
+    val spin: Spin = Spin(hardwareMap),
+    val sensor: Sensor = Sensor(hardwareMap)
 ) : CancelableAction {
     /**
      * The list of intake components.
